@@ -17,21 +17,22 @@ HISTFILESIZE=5000
 . /opt/homebrew/opt/asdf/libexec/asdf.sh
 
 PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
+
+# `thefuck` : correcting incorrect prompts. 
 eval $(thefuck --alias f)
 
 export EDITOR='nvim'
 
-# eval "$(starship init bash)"
-
 # bun completions
 [ -s "/Users/rahuldesar/.bun/_bun" ] && source "/Users/rahuldesar/.bun/_bun"
 
-# bun
-export PATH="$PATH:$HOME/scripts"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
 export PATH="$HOME/Library/Python/3.9/bin:$PATH"
+
 export PATH=$HOME/.local/bin:$PATH
+export PATH="$PATH:$HOME/scripts"
 
 
 autoload -U +X bashcompinit && bashcompinit
@@ -44,9 +45,12 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
-#
+
+
 export GOPATH="$HOME/go"
 export PATH="$GOPATH/bin:$PATH"
+export PATH="/opt/homebrew/opt/sqlite/bin:$PATH"
+
+
 
 eval "$(starship init zsh)"
-export PATH="/opt/homebrew/opt/sqlite/bin:$PATH"
