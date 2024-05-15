@@ -1,0 +1,48 @@
+# Git Aliases
+
+# Initialize a Git repository and make the initial commit
+alias ginit='git init && git add . && git commit -m "Initial commit"'
+
+# Quickly check the Git status
+alias gs='git status'
+
+# Commit changes with a short message
+alias gc='git commit -m'
+
+# Add all files to staging
+alias ga='git add .'
+
+# List Git branches
+alias gb='git branch --sort=committerdate -a'
+
+# Switch to a different Git branch
+alias gco='git checkout'
+
+# Create a new Git branch and switch to it
+alias gcb='git checkout -b'
+
+# View a colorful and graphical Git log
+alias gla="git log --graph --pretty=format:'%C(brightmagenta)%h%Creset -%C(auto)%d%Creset %s ->%Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all"
+
+# Show a concise summary of Git repository history
+alias gl="git log --graph --pretty=format:'%C(brightmagenta)%h%Creset -%C(auto)%d%Creset %s ->%Cgreen(%cr) %C(bold blue)<%an>%Creset'"
+# alias ghist='git log --pretty=format:"%h %ad | %s%d [%an]" --graph --date=short'
+
+# Quickly add all changes and commit with a message
+alias gac='git add . && git commit -m'
+
+# Push the current branch to the remote repository
+alias gp='git push origin HEAD'
+
+# Amend the previous Git commit with new changes
+alias gamend='git commit --amend'
+
+# Show a summarized view of Git branch information
+alias gba='git branch --sort=committerdate -vv'
+# alias gbranch='git branch -vv'
+
+# View a detailed Git blame annotation for a file
+alias gblame='git blame -b --show-stats'
+
+# View git ref log as graph
+alias gr='git log --oneline --abbrev-commit --graph --decorate=short --color --reflog'

@@ -1,0 +1,33 @@
+~/.config/nvim/..
+  .git
+  ★ _backup
+  ✗  after
+  ✗ ★ lua/rahul_config
+    ★ plugins
+       ★ base.lua
+       ★ bufferline.lua
+       ★ colorizer.lua
+       ★ dap.lua
+       ★ dashboard.lua
+       ★ fidget.lua
+       ★ git.lua
+       ★ harpoon.lua
+       ★ indent-blankline.lua
+       ★ markdown-preview.lua
+       ★ navbuddy.lua
+       ★ notify.lua
+       ★ nvim-tree.lua
+       ★ telescope.lua
+       ★ toggle-term.lua
+       ★ treesitter.lua
+       ★ trouble.lua
+       ★ which-key.lua
+       ★ zen-mode.lua
+     ✗ init.lua
+     ✗ lazyVim.lua
+     remap.lua
+     set.lua
+   .luacheckrc
+   ★ .luarc.json
+   init.lua
+   ✗ lazy-lock.json

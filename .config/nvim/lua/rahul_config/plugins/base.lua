@@ -1,0 +1,188 @@
+return {
+	--  ========= LSP and  all the good stuff =============
+	{
+		"mbbill/undotree",
+		config = function()
+			vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
+		end,
+	},
+
+	{ "tpope/vim-rhubarb" },
+
+	-- TEST:  testing mini
+	-- { "tpope/vim-surround" },
+
+	{ "folke/neodev.nvim", opts = {} },
+
+	{
+		"nvim-treesitter/nvim-treesitter",
+		opts = {
+			ensure_installed = {
+				"html",
+				"javascript",
+				"json",
+				"lua",
+				"markdown",
+				"markdown_inline",
+				"python",
+				"query",
+				"regex",
+				"tsx",
+				"typescript",
+				"vim",
+				"yaml",
+			},
+		},
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter-textobjects",
+		},
+		config = function()
+			pcall(require("nvim-treesitter.install").update({ with_sync = true }))
+		end,
+	},
+
+	{
+		"VonHeikemen/lsp-zero.nvim",
+		branch = "v1.x",
+		dependencies = {
+			-- Lsp
+			{ "neovim/nvim-lspconfig" },
+			{ "williamboman/mason.nvim" },
+			{ "williamboman/mason-lspconfig.nvim" },
+			{
+				"WhoIsSethDaniel/mason-tool-installer.nvim",
+
+				config = function()
+					require("mason-tool-installer").setup({
+						ensure_installed = {
+							-- "tailwindcss-language-server",
+							"js-debug-adapter",
+							"codelldb",
+							"eslint-lsp",
+							"lua-language-server",
+							"gopls",
+							"rust-analyzer",
+							"stylua",
+							"vim-language-server",
+							"editorconfig-checker",
+							{ "golangci-lint", version = "v1.47.0" },
+							{ "bash-language-server", auto_update = true },
+							"json-to-struct",
+							"shellcheck",
+							"shfmt",
+							"vint",
+						},
+						start_delay = 2000,
+					})
+				end,
+			},
+
+			-- Autocompletion
+			{
+				"hrsh7th/nvim-cmp",
+				event = "InsertEnter",
+			},
+			{ "hrsh7th/cmp-nvim-lsp" },
+			{ "hrsh7th/cmp-buffer" },
+			{ "hrsh7th/cmp-path" },
+			{ "saadparwaiz1/cmp_luasnip" },
+			{ "hrsh7th/cmp-nvim-lua" },
+
+			-- Snippets
+			{ "L3MON4D3/LuaSnip" },
+			{ "rafamadriz/friendly-snippets" },
+		},
+	},
+
+	{
+		"windwp/nvim-ts-autotag",
+		ft = {
+			"javascript",
+			"javascriptreact",
+			"typescript",
+			"typescriptreact",
+			"html",
+		},
+		config = function()
+			require("nvim-ts-autotag").setup()
+		end,
+	},
+
+	{ "numToStr/Comment.nvim", opts = {}, lazy = false },
+
+	-- ======== Quality of Life ==========
+
+	{ "christoomey/vim-tmux-navigator", lazy = false },
+	{ "sindrets/diffview.nvim" },
+	{ "numToStr/Comment.nvim" },
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		main = "ibl",
+		opts = {},
+		config = function()
+			require("ibl").overwrite({
+				exclude = { filetypes = { "dashboard" } },
+			})
+		end,
+	},
+
+	-- TODO: Testing - maybe I'll remove this.
+	-- {
+	--   "windwp/nvim-autopairs",
+	--   config = function()
+	--     require("nvim-autopairs").setup({})
+	--   end,
+	-- },
+	--
+
+	-- ========== Themes and Visuals ===========
+
+	{
+		"catppuccin/nvim",
+		name = "catppuccin",
+	},
+
+	{ "norcalli/nvim-colorizer.lua" },
+
+	{
+		"nvim-lualine/lualine.nvim",
+		opts = {
+			options = {
+				icons_enabled = true,
+				theme = "auto",
+				component_separators = "|",
+				section_separators = "",
+			},
+		},
+	},
+
+	{
+		"tpope/vim-fugitive",
+		config = function()
+			-- vim.keymap.set("n", "<leader>gs", vim.cmd.Git, { desc = "[G]it [S]how" });
+
+			vim.keymap.set("n", "<leader>gs", function()
+				vim.cmd("vertical leftabove Git")
+			end, { desc = "[G]it [S]how" })
+		end,
+	},
+
+	{
+		"glepnir/dashboard-nvim",
+		event = "VimEnter",
+		dependencies = { { "nvim-tree/nvim-web-devicons" } },
+	},
+
+	{ "folke/todo-comments.nvim", opts = { signs = false } },
+	-- ========== Debugger ===========
+	{ "wuelnerdotexe/vim-astro" },
+
+	-- TODO: maybe later
+	-- {
+	--   "glacambre/firenvim",
+	--   build = function()
+	--     vim.fn["firenvim#install"](0)
+	--   end,
+	-- },
+	--
+}

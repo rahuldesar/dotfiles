@@ -1,0 +1,26 @@
+# alias sh='shopify'                       # Shortcut for 'shopify' command
+# alias shv='shopify version'               # Display Shopify CLI version
+# alias shap='shopify app'                  # Manage your apps
+# alias shd='shopify theme deploy'          # Deploy a theme
+# alias shcc='shopify theme configure'      # Configure theme settings
+# alias shu='shopify theme upload'          # Upload a theme file
+# alias shld='shopify theme list --all'     # List all available themes
+# alias shldp='shopify theme list --published'  # List published themes only
+# alias shldu='shopify theme list --unpublished'  # List unpublished themes only
+# alias shtl='shopify theme storelogs'      # View theme deployment logs
+# alias shcu='shopify theme close'          # Close an open theme
+# alias shot='shopify open'                 # Open the Shopify admin
+# alias shwd='shopify theme watch'          # Watch for local theme file changes
+# alias shbp='shopify theme serve'          # Serve a local theme
+
+
+
+alias shlist='shopify theme list --all'     # List all available themes
+alias shl='shopify theme storelogs'      # View theme deployment logs
+alias shlog='shopify theme storelogs'      # View theme deployment logs
+alias shopen='shopify theme open'                 # Open the Shopify admin
+alias shtd='shopify theme dev'                 # Open the Shopify development server
+alias shinfo='shopify theme info'                 # Open Shopify theme information
+alias shpull='shopify theme pull -d'                 # Pull development server
+alias shlogout='shopify auth logout'                 # Logout from shopify  
+

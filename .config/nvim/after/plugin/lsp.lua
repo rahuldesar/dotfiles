@@ -1,0 +1,182 @@
+local lsp = require("lsp-zero").preset({
+	name = "minimal",
+	set_lsp_keymaps = false,
+	manage_nvim_cmp = false,
+	suggest_lsp_servers = true,
+})
+
+local kind_icons = {
+	Text = "",
+	Method = "󰆧",
+	Function = "󰊕",
+	Constructor = "",
+	Field = "󰇽",
+	Variable = "󰂡",
+	Class = "󰠱",
+	Interface = "",
+	Module = "",
+	Property = "󰜢",
+	Unit = "",
+	Value = "󰎠",
+	Enum = "",
+	Keyword = "󰌋",
+	Snippet = "",
+	Color = "󰏘",
+	File = "󰈙",
+	Reference = "",
+	Folder = "󰉋",
+	EnumMember = "",
+	Constant = "󰏿",
+	Struct = "",
+	Event = "",
+	Operator = "󰆕",
+	TypeParameter = "󰅲",
+}
+
+local luasnip = require("luasnip")
+luasnip.config.setup({})
+require("luasnip.loaders.from_vscode").lazy_load()
+--load snippets from path/of/your/nvim/config/my-cool-snippets
+require("luasnip.loaders.from_snipmate").lazy_load({ paths = { "/Users/rahuldesar/.config/nvim-snippets/snippets/" } })
+
+local cmp = require("cmp")
+cmp.setup({
+	snippet = {
+		expand = function(args)
+			luasnip.lsp_expand(args.body)
+		end,
+	},
+	completion = { completeopt = "menu,menuone,noinsert" },
+	---@diagnostic disable-next-line: missing-fields
+	formatting = {
+		format = function(entry, vim_item)
+			-- Kind icons
+			vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind) -- This concatenates the icons with the name of the item kind
+			-- Source
+			vim_item.menu = ({
+				buffer = "[Buffer]",
+				nvim_lsp = "[LSP]",
+				luasnip = "[LuaSnip]",
+				nvim_lua = "[Lua]",
+				latex_symbols = "[LaTeX]",
+			})[entry.source.name]
+			return vim_item
+		end,
+	},
+
+	mapping = cmp.mapping.preset.insert({
+		["<C-y>"] = cmp.mapping.confirm({ select = true }),
+		["<C-Space>"] = cmp.mapping.complete({}),
+
+		["<C-n>"] = cmp.mapping.select_next_item(),
+		["<C-p>"] = cmp.mapping.select_prev_item(),
+
+		["<C-l>"] = cmp.mapping(function()
+			if luasnip.expand_or_locally_jumpable() then
+				luasnip.expand_or_jump()
+			end
+		end, { "i", "s" }),
+		["<C-h>"] = cmp.mapping(function()
+			if luasnip.locally_jumpable(-1) then
+				luasnip.jump(-1)
+			end
+		end, { "i", "s" }),
+
+		["<C-d>"] = cmp.mapping.scroll_docs(4),
+		["<C-u>"] = cmp.mapping.scroll_docs(-4),
+	}),
+	sources = {
+		{ name = "nvim_lsp" },
+		{ name = "luasnip" },
+		{ name = "path" },
+	},
+})
+
+cmp.setup.filetype({ "sql" }, {
+	sources = {
+		{ name = "vim-dadbod-completion" },
+		{ name = "buffer" },
+	},
+})
+
+lsp.on_attach(function(client, bufnr)
+	local opts = { buffer = bufnr, remap = false }
+
+	vim.keymap.set("", "[d", function()
+		vim.diagnostic.goto_next()
+	end, opts)
+	vim.keymap.set("n", "]d", function()
+		vim.diagnostic.goto_prev()
+	end, opts)
+
+	vim.keymap.set("n", "<leader>vd", require("telescope.builtin").diagnostics, opts)
+
+	-- vim.keymap.set("n", "gd", function()
+	-- 	vim.lsp.buf.definition()
+	-- end, { desc = "[G]o to [D]efinition" })
+
+	-- vim.keymap.set("n", "gd", require("telescope.builtin").lsp_definitions, { desc = "[G]o to [D]efinition" })
+	vim.keymap.set("n", "<leader>gd", require("telescope.builtin").lsp_definitions, { desc = "[G]o to [D]efinition" })
+	vim.keymap.set("n", "<leader>gD", function()
+		-- TODO: use telescope for this too
+		vim.cmd("vsplit | lua vim.lsp.buf.definition()")
+	end, { desc = "[G]o to [D]efinition in vertical split", noremap = true })
+
+	vim.keymap.set("n", "<leader>gr", require("telescope.builtin").lsp_references, { desc = "[G]o to [R]eferences" })
+
+	-- vim.keymap.set("n", "<leader>gr", function()
+	-- 	vim.lsp.buf.references()
+	-- end, { desc = "[G]o to [R]eferences" })
+	vim.keymap.set("n", "<leader>vrr", function()
+		vim.lsp.buf.references()
+	end, opts)
+	vim.keymap.set("i", "<C-hh>", function()
+		vim.lsp.buf.signature_help()
+	end, opts)
+
+	vim.keymap.set("n", "gI", require("telescope.builtin").lsp_implementations, { desc = "[G]o to [I]mplementations" })
+	vim.keymap.set(
+		"n",
+		"<leader>gI",
+		require("telescope.builtin").lsp_implementations,
+		{ desc = "[G]o to [I]mplementations" }
+	)
+
+	-- vim.keymap.set("n", "<leader>vws", function()
+	-- 	vim.lsp.buf.workspace_symbol()
+	-- end, opts)
+
+	vim.keymap.set("n", "<leader>ca", function()
+		vim.lsp.buf.code_action()
+	end, { desc = "[C]ode [A]ction" })
+
+	-- buf_nnoremap { "<space>ca", vim.lsp.buf.code_action }
+	--  telescope_mapper("gr", "lsp_references", nil, true)
+	-- telescope_mapper("gI", "lsp_implementations", nil, true)
+	-- telescope_mapper("<space>wd", "lsp_document_symbols", { ignore_filename = true }, true)
+	-- telescope_mapper("<space>ww", "lsp_dynamic_workspace_symbols", { ignore_filename = true }, true)
+
+	vim.keymap.set("n", "<leader>ra", function()
+		vim.lsp.buf.rename()
+	end, opts)
+
+	vim.keymap.set("n", "<leader>gh", "<cmd>lua vim.lsp.buf.hover()<CR>", { noremap = true, silent = true })
+	vim.keymap.set("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", { noremap = true, silent = true })
+
+	vim.keymap.set("n", "<C-\\>", ":vsp<CR>", { noremap = true, silent = true, desc = "Split Vertical" })
+end)
+
+lsp.set_sign_icons({
+	-- error = '',
+	-- warn = '',
+	-- hint = '',
+	-- info = ''
+	error = "✘",
+	warn = "▲",
+	hint = "⚑",
+	info = "»",
+})
+
+-- lsp.nvim_workspace()
+
+lsp.setup()
