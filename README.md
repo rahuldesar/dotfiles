@@ -17,5 +17,5 @@ This repo is for testing out dotfile manager, [yadm](https://github.com/TheLoceh
   - Also tmuxinator (testing)
 - nvim configs (personal and other testing ones)
 - Snippets for nvim, custom and pulled from different sources. (I will link different sources later)
-- custom cheatsheets (use [cheat](https://github.com/cheat/cheat) to use it from CLI)
-  
+- Custom cheatsheets (use [cheat](https://github.com/cheat/cheat) to use it from CLI)
+- Custom scripts   
