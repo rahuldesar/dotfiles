@@ -161,7 +161,7 @@ lsp.on_attach(function(client, bufnr)
 	end, opts)
 
 	vim.keymap.set("n", "<leader>gh", "<cmd>lua vim.lsp.buf.hover()<CR>", { noremap = true, silent = true })
-	vim.keymap.set("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", { noremap = true, silent = true })
+	-- vim.keymap.set("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", { noremap = true, silent = true })
 
 	vim.keymap.set("n", "<C-\\>", ":vsp<CR>", { noremap = true, silent = true, desc = "Split Vertical" })
 end)

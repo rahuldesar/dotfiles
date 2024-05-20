@@ -1,5 +1,6 @@
 return {
 	"theprimeagen/harpoon",
+
 	config = function()
 		local mark = require("harpoon.mark")
 		local ui = require("harpoon.ui")
@@ -9,12 +10,9 @@ return {
 		set("n", "<C-e>", ui.toggle_quick_menu)
 
 		for i = 1, 5 do
-			set("n",
-				string.format("<space>%s", i),
-				function()
-					require("harpoon.ui").nav_file(i)
-				end
-			)
+			set("n", string.format("<space>%s", i), function()
+				require("harpoon.ui").nav_file(i)
+			end)
 		end
 	end,
 }

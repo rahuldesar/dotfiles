@@ -102,6 +102,7 @@ return {
 			"typescript",
 			"typescriptreact",
 			"html",
+			"astro",
 		},
 		config = function()
 			require("nvim-ts-autotag").setup()
@@ -141,9 +142,6 @@ return {
 		"catppuccin/nvim",
 		name = "catppuccin",
 	},
-
-	{ "norcalli/nvim-colorizer.lua" },
-
 	{
 		"nvim-lualine/lualine.nvim",
 		opts = {
@@ -172,12 +170,13 @@ return {
 		event = "VimEnter",
 		dependencies = { { "nvim-tree/nvim-web-devicons" } },
 	},
-
-	{ "folke/todo-comments.nvim", opts = { signs = false } },
-	-- ========== Debugger ===========
+	--
+	--
 	{ "wuelnerdotexe/vim-astro" },
+	-- ========== Debugger ===========
 
 	-- TODO: maybe later
+	-- INFO: nvim in chrome
 	-- {
 	--   "glacambre/firenvim",
 	--   build = function()

@@ -12,6 +12,8 @@ return {
 		},
 		{ "nvim-telescope/telescope-ui-select.nvim" },
 		{ "nvim-tree/nvim-web-devicons" },
+		{ "nvim-telescope/telescope-smart-history.nvim" },
+		{ "kkharji/sqlite.lua" },
 	},
 
 	config = function()

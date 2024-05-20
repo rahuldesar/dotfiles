@@ -1,13 +1,5 @@
 vim.g.mapleader = " "
 
---  See `:help vim.highlight.on_yank()`
-vim.api.nvim_create_autocmd("TextYankPost", {
-	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
-	callback = function()
-		vim.highlight.on_yank()
-	end,
-})
-
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({

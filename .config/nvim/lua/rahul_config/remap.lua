@@ -95,6 +95,47 @@ map("n", "<C-l>", "<cmd> TmuxNavigateRight<CR>")
 --
 --
 -- TODO: make this for rust filetype only
-map("n", "<leader>pr", ":!cargo run<CR>", { desc = "Play Rust - cargo run" })
+-- map("n", "<leader>pr", ":!cargo run<CR>", { desc = "Play Rust - cargo run" })
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "rust" },
+	callback = function(ev)
+		map("n", "<leader>pr", ":!cargo run<CR>", { desc = "Play Rust - cargo run" })
+	end,
+})
 
 map("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Escape Escape exits terminal mode" })
+
+--  See `:help vim.highlight.on_yank()`
+vim.api.nvim_create_autocmd("TextYankPost", {
+	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+	callback = function()
+		vim.highlight.on_yank()
+	end,
+})
+
+-- local group = vim.api.nvim_create_augroup("js_autostart", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "javascript" },
+	callback = function(ev)
+		map("n", "<leader>pr", "<cmd>!node %<CR>", { silent = true })
+		map("n", "<leader>js", "<cmd>!node %<CR>", { silent = true })
+	end,
+	-- group = group,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "typescript" },
+	callback = function(ev)
+		-- TODO: change from bun to something better
+		map("n", "<leader>js", "<cmd>!bun %<CR>", { silent = true })
+		map("n", "<leader>pr", "<cmd>!bun %<CR>", { silent = true })
+	end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "markdown" },
+	callback = function(ev)
+		-- TODO: change from bun to something better
+		map("n", "<leader>pr", "<cmd>MarkdownPreviewToggle<CR>", { silent = true })
+	end,
+})
