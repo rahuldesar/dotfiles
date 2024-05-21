@@ -64,7 +64,7 @@ return {
 				type = "server",
 				port = "${port}",
 				executable = {
-					-- USED MASON TO INSTALL THIS
+					-- RAHUL: USED MASON TO INSTALL THIS
 					command = "/Users/rahuldesar/.local/share/nvim/mason/packages/codelldb/codelldb",
 					args = { "--port", "${port}" },
 				},
