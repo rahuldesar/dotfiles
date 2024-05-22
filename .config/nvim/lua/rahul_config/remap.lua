@@ -10,9 +10,12 @@ map("n", "<leader>so", ":source ~/.config/nvim/init.lua", {})
 --
 --map("n", "<leader>b", vim.cmd.Ex)
 
-map("n", "<leader><Tab>", ":bnext<CR>", { noremap = true, silent = true })
-map("n", "<leader><S-Tab>", ":bprevious<CR>", { noremap = true, silent = true })
-map("n", "<leader>x", ":bd<CR>", { noremap = true, silent = true })
+map("n", "<leader><Tab>", ":bnext<CR>", { desc = "Next Buffer", noremap = true, silent = true })
+map("n", "<leader><S-Tab>", ":bprevious<CR>", { desc = "Previous Buffer", noremap = true, silent = true })
+map("n", "]b", ":bnext<CR>", { desc = "Next Buffer", noremap = true, silent = true })
+map("n", "[b", ":bprevious<CR>", { desc = "Previous Buffer", noremap = true, silent = true })
+
+map("n", "<leader>x", ":bd!<CR>", { noremap = true, silent = true })
 
 --vim.api.nvim_set_keymap('', '<C-w>', ':q<CR>', {noremap = true})
 

@@ -1,13 +1,14 @@
 ---@diagnostic disable: missing-fields
 return {
 	"akinsho/bufferline.nvim",
-	version = "v3.*",
+	version = "*",
 	dependencies = "nvim-tree/nvim-web-devicons",
 	config = function()
+		vim.opt.termguicolors = true
 		require("bufferline").setup({
 			options = {
 				themable = true,
-				separator_style = "slope",
+				separator_style = "slant",
 				buffer_close_icon = "",
 				modified_icon = "●",
 				close_icon = "",
