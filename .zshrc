@@ -50,6 +50,9 @@ esac
 export GOPATH="$HOME/go"
 export PATH="$GOPATH/bin:$PATH"
 export PATH="/opt/homebrew/opt/sqlite/bin:$PATH"
+export DENO_INSTALL="/Users/rahuldesar/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
+
 
 
 
