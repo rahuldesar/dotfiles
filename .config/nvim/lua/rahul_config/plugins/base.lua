@@ -47,16 +47,18 @@ return {
 		dependencies = {
 			-- Lsp
 			{ "neovim/nvim-lspconfig" },
+			{ "marilari88/twoslash-queries.nvim" },
 			{ "williamboman/mason.nvim" },
 			{ "williamboman/mason-lspconfig.nvim" },
 			{
 				"WhoIsSethDaniel/mason-tool-installer.nvim",
-
 				config = function()
 					require("mason-tool-installer").setup({
 						ensure_installed = {
 							-- "tailwindcss-language-server",
-							"js-debug-adapter",
+							-- "js-debug-adapter",
+							"typescript-language-server",
+							"svelte-language-server",
 							"codelldb",
 							"eslint-lsp",
 							"lua-language-server",
@@ -91,6 +93,16 @@ return {
 			-- Snippets
 			{ "L3MON4D3/LuaSnip" },
 			{ "rafamadriz/friendly-snippets" },
+		},
+	},
+
+	{
+		"evanleck/vim-svelte",
+		branch = "main",
+
+		dependencies = {
+			"othree/html5.vim",
+			"pangloss/vim-javascript",
 		},
 	},
 
@@ -138,10 +150,18 @@ return {
 
 	-- ========== Themes and Visuals ===========
 
-	{
-		"catppuccin/nvim",
-		name = "catppuccin",
-	},
+	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+	{ "folke/tokyonight.nvim" },
+	{ "rebelot/kanagawa.nvim" },
+	{ "EdenEast/nightfox.nvim" },
+	{ "rose-pine/neovim" },
+	{ "navarasu/onedark.nvim" },
+	{ "sainnhe/gruvbox-material" },
+	{ "shaunsingh/nord.nvim" },
+	{ "olimorris/onedarkpro.nvim" },
+	{ "navarasu/onedark.nvim" },
+	{ "navarasu/onedark.nvim" },
+
 	{
 		"nvim-lualine/lualine.nvim",
 		opts = {
@@ -173,6 +193,7 @@ return {
 	--
 	--
 	{ "wuelnerdotexe/vim-astro" },
+
 	-- ========== Debugger ===========
 
 	-- TODO: maybe later

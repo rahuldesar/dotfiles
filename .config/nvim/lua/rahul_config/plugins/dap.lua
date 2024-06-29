@@ -42,7 +42,7 @@ return {
 				"<leader>lp",
 				":lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>"
 			)
-			set("n", "<leader>dt", ":lua require'dapui'.toggle()<CR>", { desc = "DAP UI toggle" })
+			set("n", "<leader>dT", ":lua require'dapui'.toggle()<CR>", { desc = "DAP UI toggle" })
 			-- vim.keymap.set("n", "<leader>dr", ":lua require'dap'.repl.open()<CR>")
 			-- vim.keymap.set("n", "<leader>dt", ":lua require'dap-go'.debug_test()<CR>")
 
@@ -53,10 +53,12 @@ return {
 				executable = {
 					command = "node",
 					-- 💀 Make sure to update this path to point to your installation
+
 					args = {
-						"/home/rahul/.local/share/nvim/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js",
+						os.getenv("HOME")
+							.. "/.local/share/nvim/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js",
 						"${port}",
-					},
+					}, -- TODO adjust
 				},
 			}
 
