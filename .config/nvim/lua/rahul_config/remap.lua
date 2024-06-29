@@ -97,8 +97,7 @@ map("n", "<C-l>", "<cmd> TmuxNavigateRight<CR>")
 --
 --
 --
--- TODO: make this for rust filetype only
--- map("n", "<leader>pr", ":!cargo run<CR>", { desc = "Play Rust - cargo run" })
+-- INFO: filetype specific keybindings
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "rust" },
 	callback = function(ev)
@@ -120,7 +119,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "javascript" },
 	callback = function(ev)
-		map("n", "<leader>pr", "<cmd>!node %<CR>", { silent = true })
+		map("n", "<leader>pr", "<cmd>!node %<CR>", { silent = true }) -- NOTE: Used to using `pr` to run stuff (muscle memory from rust)
 		map("n", "<leader>js", "<cmd>!node %<CR>", { silent = true })
 	end,
 	-- group = group,
@@ -130,15 +129,15 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "typescript" },
 	callback = function(ev)
 		-- TODO: change from bun to something better
-		map("n", "<leader>js", "<cmd>!bun %<CR>", { silent = true })
 		map("n", "<leader>pr", "<cmd>!bun %<CR>", { silent = true })
+		map("n", "<leader>js", "<cmd>!bun %<CR>", { silent = true })
 	end,
 })
 
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "markdown" },
-	callback = function(ev)
-		-- TODO: change from bun to something better
-		map("n", "<leader>pr", "<cmd>MarkdownPreviewToggle<CR>", { silent = true })
-	end,
-})
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = { "markdown" },
+--   callback = function(ev)
+--     -- TODO: change from bun to something better
+--     map("n", "<leader>pr", "<cmd>MarkdownPreviewToggle<CR>", { silent = true })
+--   end,
+-- })

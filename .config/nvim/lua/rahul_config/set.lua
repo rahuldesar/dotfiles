@@ -17,8 +17,9 @@ vim.opt.showmode = true
 --vim.opt.background = 'dark'
 
 -- Set the default color scheme
-vim.cmd("colorscheme catppuccin")
-vim.cmd("highlight LineNr guifg=#a8a29e")
+-- vim.cmd("highlight LineNr guifg=#a8a29e")
+-- vim.cmd.colorscheme("catppuccin-mocha")
+-- vim.cmd("colorscheme catppuccin")
 
 -- Configure status line
 --vim.g.lightline = { colorscheme = 'onedark' }
@@ -93,13 +94,13 @@ vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.scrolloff = 5
 
 -- Set fold method and expression
-vim.cmd("set foldmethod=expr")
-vim.cmd("set foldexpr=nvim_treesitter#foldexpr()")
-vim.cmd("set nofoldenable") -- Disable folding at startup
+-- vim.cmd("set foldmethod=expr")
+-- vim.cmd("set foldexpr=nvim_treesitter#foldexpr()")
+-- vim.cmd("set nofoldenable") -- Disable folding at startup
 
--- vim.cmd('set foldmethod=indent')
--- vim.cmd('set foldnestmax=10')
--- vim.cmd('set nofoldenable') -- Disable folding at startup
+vim.cmd("set foldmethod=indent")
+vim.cmd("set foldnestmax=10")
+vim.cmd("set nofoldenable") -- Disable folding at startup
 -- vim.cmd('set foldlevel=2')
 -- set foldmethod=indent
 -- set foldnestmax=10
