@@ -48,15 +48,16 @@ cmp.setup({
 	},
 	completion = { completeopt = "menu,menuone,noinsert" },
 	---@diagnostic disable-next-line: missing-fields
+
 	formatting = {
 		format = function(entry, vim_item)
 			-- Kind icons
 			vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind) -- This concatenates the icons with the name of the item kind
 			-- Source
 			vim_item.menu = ({
+				luasnip = "[LuaSnip]",
 				buffer = "[Buffer]",
 				nvim_lsp = "[LSP]",
-				luasnip = "[LuaSnip]",
 				nvim_lua = "[Lua]",
 				latex_symbols = "[LaTeX]",
 			})[entry.source.name]
@@ -86,8 +87,8 @@ cmp.setup({
 		["<C-u>"] = cmp.mapping.scroll_docs(-4),
 	}),
 	sources = {
-		{ name = "nvim_lsp" },
 		{ name = "luasnip" },
+		{ name = "nvim_lsp" },
 		{ name = "path" },
 	},
 })
@@ -164,7 +165,19 @@ lsp.on_attach(function(client, bufnr)
 	-- vim.keymap.set("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", { noremap = true, silent = true })
 
 	vim.keymap.set("n", "<C-\\>", ":vsp<CR>", { noremap = true, silent = true, desc = "Split Vertical" })
+
+	-- TODO: make this work only on ts files
+	require("twoslash-queries").attach(client, bufnr)
+	vim.keymap.set("n", "<leader>ct", "<cmd>TwoslashQueriesEnable<CR>", {})
+	vim.keymap.set("n", "<leader>wt", "<cmd>TwoslashQueriesInspect<CR>", {})
+	vim.keymap.set("n", "<leader>dt", "<cmd>TwoslashQueriesRemove<CR>", {})
 end)
+
+-- require("lspconfig").tsserver.setup({
+-- 	on_attach = function(client, bufnr)
+-- require("twoslash-queries").attach(client, bufnr)
+-- 	end,
+-- })
 
 lsp.set_sign_icons({
 	-- error = '',
@@ -178,5 +191,6 @@ lsp.set_sign_icons({
 })
 
 -- lsp.nvim_workspace()
+--
 
 lsp.setup()
