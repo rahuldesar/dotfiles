@@ -73,6 +73,17 @@ return {
 
 		require("telescope").setup({
 			defaults = {
+				prompt_prefix = "❯ ",
+
+				file_ignore_patterns = {
+					"node_modules/.*",
+					"%.env",
+					"yarn.lock",
+					"package%-lock.json",
+					"lazy%-lock.json",
+					".git/.*",
+					".svelte%-kit",
+				},
 				layout_config = {
 					horizontal = {
 						prompt_position = "top",
@@ -99,7 +110,11 @@ return {
 				current_buffer_fuzzy_find = {
 					theme = "ivy",
 				},
+				find_files = {
+					hidden = true,
+				},
 			},
+
 			extensions = {
 				["ui-select"] = {
 					require("telescope.themes").get_dropdown(),
