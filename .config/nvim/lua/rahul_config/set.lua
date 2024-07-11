@@ -7,7 +7,7 @@ vim.opt.compatible = false
 --vim.cmd('filetype indent on')
 
 -- Cursor line highlighting
--- vim.opt.cursorline = true
+vim.opt.cursorline = true
 -- vim.api.nvim_set_keymap("n", "<Leader>h", ":vert h<Space>", { noremap = true })
 
 -- Show current mode on the last line
@@ -106,3 +106,4 @@ vim.cmd("set nofoldenable") -- Disable folding at startup
 -- set foldnestmax=10
 -- set nofoldenable
 -- set foldlevel=2
+

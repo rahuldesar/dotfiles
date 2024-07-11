@@ -121,13 +121,13 @@ return {
 		end,
 	},
 
-	{ "numToStr/Comment.nvim", opts = {}, lazy = false },
+	-- { "numToStr/Comment.nvim", opts = {}, lazy = false },
 
 	-- ======== Quality of Life ==========
 
 	{ "christoomey/vim-tmux-navigator", lazy = false },
 	{ "sindrets/diffview.nvim" },
-	{ "numToStr/Comment.nvim" },
+	-- { "numToStr/Comment.nvim" },
 	{
 		"lukas-reineke/indent-blankline.nvim",
 		main = "ibl",

@@ -25,7 +25,8 @@ return {
 		local function format_buffer()
 			require("conform").format({
 				bufnr = vim.api.nvim_get_current_buf(),
-				timeout_ms = 500,
+				async = true,
+				timeout_ms = 2000,
 				lsp_fallback = true,
 			})
 		end

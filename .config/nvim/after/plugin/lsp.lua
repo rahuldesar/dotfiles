@@ -102,6 +102,7 @@ cmp.setup.filetype({ "sql" }, {
 
 lsp.on_attach(function(client, bufnr)
 	local opts = { buffer = bufnr, remap = false }
+	vim.diagnostic.config({ virtual_text = { severity = vim.diagnostic.severity.ERROR } })
 
 	vim.keymap.set("", "[d", function()
 		vim.diagnostic.goto_prev()
