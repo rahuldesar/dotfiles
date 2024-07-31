@@ -7,13 +7,12 @@ return {
 			markdown = { "markdownlint" },
 			lua = { "luacheck" },
 			sh = { "shellcheck" },
-			html = { "htmllint" },
 			yaml = { "yamllint" },
-			javascript = { "eslint", "eslint_d" },
-			javascriptreact = { "eslint", "eslint_d" },
-			typescript = { "eslint", "eslint_d" },
-			typescriptreact = { "eslint", "eslint_d" },
-			astro = { "eslint", "eslint_d" },
+			-- javascript = { "eslint", "eslint_d" },
+			-- javascriptreact = { "eslint", "eslint_d" },
+			-- typescript = { "eslint", "eslint_d" },
+			-- typescriptreact = { "eslint", "eslint_d" },
+			-- astro = { "eslint", "eslint_d" },
 			-- svelte = { "eslint", "eslint_d" },
 		}
 

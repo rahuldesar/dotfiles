@@ -2,6 +2,9 @@ return {
 	"stevearc/conform.nvim",
 	event = "VeryLazy",
 
+	-- INFO: @RAHUL incase default config for formatter needs to be changed
+	-- https://github.com/lukas-reineke/lsp-format.nvim#how-do-i-use-format-options
+
 	config = function()
 		require("conform").setup({
 			formatters_by_ft = {
@@ -16,16 +19,8 @@ return {
 				html = { { "prettier", "prettierd" } },
 				yaml = { { "yamllint" } },
 				sh = { { "shfmt" } },
-
-				-- Conform will run multiple formatters sequentially
-				-- python = { "isort", "black" },
-				-- Use a sub-list to run only the first available formatter
+				sql = { { "sqlfmt" } },
 			},
-			-- format_on_save = {
-			-- 	-- These options will be passed to conform.format()
-			-- timeout_ms = 500,
-			-- lsp_fallback = true,
-			-- },
 		})
 
 		local function format_buffer()
