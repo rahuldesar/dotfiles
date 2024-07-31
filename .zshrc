@@ -63,11 +63,11 @@ setopt hist_save_no_dups
 setopt hist_find_no_dups
 
 
-alias sherlock="python3 /Users/rahuldesar/Developer/Personal/test-apps/sherlock/sherlock"
 
 PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
 
 alias ls="ls --color"
+alias ft="yazi"
 
 alias fzfind='fzf -m --preview="bat --color=always {}"'
 alias nvfind='nvim $(fzf -m --preview="bat --color=always {}")'
@@ -107,9 +107,14 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 export DENO_INSTALL="/Users/rahuldesar/.deno"
 export ANDROID_HOME="/Users/rahuldesar/Library/Android/sdk"
 
+alias kubectl=kubecolor
+# make completion work with kubecolor
+compdef kubecolor=kubectl
+
 eval "$(fzf --zsh)"
 eval "$(starship init zsh)"
 bindkey -v
+
 
 # Keybindings
 bindkey '^y' autosuggest-accept
@@ -119,3 +124,9 @@ bindkey '^[w' kill-region
 
 
 PATH=~/.console-ninja/.bin:$PATH
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/rahuldesar/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/rahuldesar/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/rahuldesar/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/rahuldesar/google-cloud-sdk/completion.zsh.inc'; fi

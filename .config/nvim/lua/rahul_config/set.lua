@@ -7,7 +7,7 @@ vim.opt.compatible = false
 --vim.cmd('filetype indent on')
 
 -- Cursor line highlighting
-vim.opt.cursorline = true
+vim.opt.cursorline = false
 -- vim.api.nvim_set_keymap("n", "<Leader>h", ":vert h<Space>", { noremap = true })
 
 -- Show current mode on the last line
