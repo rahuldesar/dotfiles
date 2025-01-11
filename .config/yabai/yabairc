@@ -34,14 +34,18 @@ yabai -m config active_window_opacity       1.0
 yabai -m config normal_window_opacity       0.90
 
 # disable specific apps
-yabai -m rule --add app="^System Settings$" manage=off
-yabai -m rule --add app="^Calculator$" manage=off
-# yabai -m rule --add app="^Karabiner-Elements$" manage=off
-yabai -m rule --add app="^QuickTime Player$" manage=off
-yabai -m rule --add app="^IINA$" manage=off
-yabai -m rule --add app="^kitty$" space=1
-yabai -m rule --add app="^Discord$" space=4
-yabai -m rule --add app="^Slack$" space=4
+# yabai -m rule --add app="^System Settings$" manage=off
+# yabai -m rule --add app="^Calculator$" manage=off
+# # yabai -m rule --add app="^Karabiner-Elements$" manage=off
+# yabai -m rule --add app="^QuickTime Player$" manage=off
+# yabai -m rule --add app="^IINA$" manage=off
+# yabai -m rule --add app="^Finder$" manage=off
+
+yabai -m rule --add app!="^(Safari|Google Chrome|kitty|Kitty|Terminal|Obsidian|ForkLift|Discord|Slack)$" manage=off 
+# INFO:  ==== This is broken after Sonoma update ===========
+# yabai -m rule --add app="^kitty$" space=1
+# yabai -m rule --add app="^Discord$" space=4
+# yabai -m rule --add app="^Slack$" space=4
 
 
 yabai -m signal --add event=mission_control_exit action='echo "refresh" | nc -U /tmp/yabai-indicator.socket'

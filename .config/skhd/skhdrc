@@ -172,6 +172,7 @@ shift + alt - l : yabai -m window --swap east
 shift + alt - p : yabai -m display --focus prev;
 shift + alt - n : yabai -m display --focus next;
 
+# INFO: ========== This is broken after sonoma update =========== 
 # move window to space #
 shift + alt - 1 : yabai -m window --space 1;
 shift + alt - 2 : yabai -m window --space 2;
@@ -181,13 +182,14 @@ shift + alt - 5 : yabai -m window --space 5;
 shift + alt - 6 : yabai -m window --space 6;
 shift + alt - 7 : yabai -m window --space 7;
 
+
 # -- Starting/Stopping/Restarting Yabai --
 
 # stop/start/restart yabai
-ctrl + alt - q : brew services stop yabai
-ctrl + alt - s : brew services start yabai
-ctrl + alt - r : brew services restart yabai
-
+# ctrl + alt - q : brew services stop yabai
+# ctrl + alt - s : brew services start yabai
+# ctrl + alt - r : brew services restart yabai
+#
 # increase window size
 ctrl + alt - h : yabai -m window --resize left:-40:0
 ctrl + alt - j : yabai -m window --resize bottom:0:40

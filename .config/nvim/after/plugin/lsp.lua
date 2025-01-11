@@ -35,6 +35,7 @@ local kind_icons = {
 
 local luasnip = require("luasnip")
 luasnip.config.setup({})
+
 require("luasnip.loaders.from_vscode").lazy_load()
 --load snippets from path/of/your/nvim/config/my-cool-snippets
 require("luasnip.loaders.from_snipmate").lazy_load({ paths = { "/Users/rahuldesar/.config/nvim-snippets/snippets/" } })
@@ -72,6 +73,7 @@ cmp.setup({
 		["<C-n>"] = cmp.mapping.select_next_item(),
 		["<C-p>"] = cmp.mapping.select_prev_item(),
 
+		-- for snippets
 		["<C-l>"] = cmp.mapping(function()
 			if luasnip.expand_or_locally_jumpable() then
 				luasnip.expand_or_jump()

@@ -45,6 +45,7 @@ tmux source-file ~/.config/tmux/tmux.conf >/dev/null 2>&1
 . /opt/homebrew/opt/asdf/libexec/asdf.sh
 
 export EDITOR='nvim'
+export HOMEBREW_NO_AUTO_UPDATE=1
 
 # Custom aliases 
 for file in ~/.config/aliases/*; do
@@ -101,8 +102,13 @@ export PATH="$PATH:$HOME/scripts"
 export PATH="$GOPATH/bin:$PATH"
 export PATH="/opt/homebrew/opt/sqlite/bin:$PATH"
 export PATH="$DENO_INSTALL/bin:$PATH"
+export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH=/Users/Shared/DBngin/mysql/8.0.33/bin:$PATH
+
+export LDFLAGS="-L/opt/homebrew/opt/postgresql@17/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/postgresql@17/include"
 
 export DENO_INSTALL="/Users/rahuldesar/.deno"
 export ANDROID_HOME="/Users/rahuldesar/Library/Android/sdk"
@@ -124,6 +130,7 @@ bindkey '^[w' kill-region
 
 
 PATH=~/.console-ninja/.bin:$PATH
+complete -C '/usr/local/bin/aws_completer' aws
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/rahuldesar/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/rahuldesar/google-cloud-sdk/path.zsh.inc'; fi

@@ -39,6 +39,7 @@ return {
 		map("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
 		map("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
 		map("n", "<leader>st", builtin.treesitter, { desc = "[S]earch [T]reesitter" })
+		map("n", "<leader>sq", builtin.quickfix, { desc = "[S]earch [Q]uickfix" })
 		map("n", "<leader>sS", builtin.lsp_document_symbols, { desc = "Symbols" })
 
 		map("n", "<leader>sm", builtin.keymaps, { desc = "[S]earch key[m]aps" })

@@ -20,6 +20,7 @@ return {
 				yaml = { { "yamllint" } },
 				sh = { { "shfmt" } },
 				sql = { { "sqlfmt" } },
+				python = { { "black" } },
 			},
 		})
 

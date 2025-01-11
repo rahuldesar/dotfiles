@@ -39,6 +39,8 @@ map("n", "Q", "<nop>")
 map("n", "<C-z>", "<nop>")
 map("n", "<C-f>", "<cmd>!tmux neww tmux-sessionizer<CR>")
 
+map("n", "<leader>ee", "oif err != nil {<CR>}<Esc>Oreturn err<Esc>")
+
 -- NOTE: Replaced by conform
 -- map("n", "<leader>;", vim.lsp.buf.format, { desc = "[F]ormat" })
 
@@ -55,8 +57,8 @@ end
 
 map("n", "<leader>qt", toggle_quickfix, { desc = "Toggle Quickfix Window" })
 
-map("n", "[q", "<cmd>cnext<CR>zz", { desc = "Quick fix, Up" })
-map("n", "]q", "<cmd>cprev<CR>zz", { desc = "Quick fix, Down" })
+map("n", "[q", "<cmd>cnext<CR>zz", { desc = "Quickfix, Up" })
+map("n", "]q", "<cmd>cprev<CR>zz", { desc = "Quickfix, Down" })
 map("n", "<leader>k", "<cmd>lnext<CR>zz")
 map("n", "<leader>j", "<cmd>lprev<CR>zz")
 

@@ -5,7 +5,7 @@ return {
 
 		dependencies = {
 			{ "mxsdev/nvim-dap-vscode-js" },
-			-- { "leoluz/nvim-dap-go" },
+			{ "leoluz/nvim-dap-go" },
 			{ "rcarriga/nvim-dap-ui" },
 			{ "theHamsta/nvim-dap-virtual-text" },
 			{ "nvim-telescope/telescope-dap.nvim" },
@@ -15,13 +15,17 @@ return {
 			local dap = require("dap")
 			local dapui = require("dapui")
 
-			set("n", "<F9>", ":lua require'dap'.toggle_breakpoint()<CR>")
-			set("n", "<S-F9>", ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>")
-			set("n", "<F10>", ":lua require'dap'.step_over()<CR>")
-			set("n", "<F11>", ":lua require'dap'.step_into()<CR>")
-			set("n", "<S-F11>", ":lua require'dap'.step_out()<CR>")
-			set("n", "<F5>", ":lua require'dap'.continue()<CR>")
-			set("n", "<F12>", ":lua require'dap'.close()<CR>")
+			vim.fn.sign_define("DapBreakpoint", { text = "🔴", texthl = "", linehl = "", numhl = "" })
+			vim.fn.sign_define("DapBreakpointRejected", { text = "🟡", texthl = "", linehl = "", numhl = "" })
+			vim.fn.sign_define("DapStopped", { text = "💚", texthl = "", linehl = "", numhl = "" })
+
+			-- set("n", "<F9>", ":lua require'dap'.toggle_breakpoint()<CR>")
+			-- set("n", "<S-F9>", ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>")
+			-- set("n", "<F10>", ":lua require'dap'.step_over()<CR>")
+			-- set("n", "<F11>", ":lua require'dap'.step_into()<CR>")
+			-- set("n", "<S-F11>", ":lua require'dap'.step_out()<CR>")
+			-- set("n", "<F5>", ":lua require'dap'.continue()<CR>")
+			-- set("n", "<F12>", ":lua require'dap'.close()<CR>")
 
 			set("n", "<leader>db", ":lua require'dap'.toggle_breakpoint()<CR>", { desc = "Toggle Breakpoint" })
 			set(
@@ -33,7 +37,7 @@ return {
 			set("n", "<leader>dn", ":lua require'dap'.step_over()<CR>", { desc = "Step Over" })
 			set("n", "<leader>dN", ":lua require'dap'.step_into()<CR>", { desc = "Step Into" })
 			set("n", "<leader>do", ":lua require'dap'.step_out()<CR>", { desc = "Step out" })
-			set("n", "<leader>ds", ":lua require'dap'.start()<CR>", { desc = "DAP start" })
+			-- set("n", "<leader>ds", ":lua require'dap'.start()<CR>", { desc = "DAP start" })
 			set("n", "<leader>dc", ":lua require'dap'.continue()<CR>", { desc = "DAP continue" })
 			set("n", "<leader>dS", ":lua require'dap'.close()<CR>", { desc = "DAP Stop" })
 
@@ -45,6 +49,14 @@ return {
 			set("n", "<leader>dT", ":lua require'dapui'.toggle()<CR>", { desc = "DAP UI toggle" })
 			-- vim.keymap.set("n", "<leader>dr", ":lua require'dap'.repl.open()<CR>")
 			-- vim.keymap.set("n", "<leader>dt", ":lua require'dap-go'.debug_test()<CR>")
+			--
+			--
+			-- vim.keymap.set("n", "<F2>", dap.step_into)
+			-- vim.keymap.set("n", "<F3>", dap.step_over)
+			-- vim.keymap.set("n", "<F4>", dap.step_out)
+			-- vim.keymap.set("n", "<F5>", dap.step_back)
+			vim.keymap.set("n", "<leader>B", dap.toggle_breakpoint)
+			vim.keymap.set("n", "<leader>dr", dap.restart, { desc = "DAP Restart." })
 
 			dap.adapters["pwa-node"] = {
 				type = "server",
@@ -145,6 +157,30 @@ return {
 			--   }
 			-- }
 			--
+			--
+			--
+			require("dap-go").setup({
+				dap_configurations = {
+					{
+						type = "go",
+						name = "Attach remote",
+						mode = "remote",
+						request = "attach",
+					},
+				},
+				delve = {
+					path = "dlv",
+					initialize_timeout_sec = 20,
+					port = "${port}",
+					args = {},
+					build_flags = {},
+					detached = vim.fn.has("win32") == 0,
+					cwd = nil,
+				},
+				tests = {
+					verbose = false,
+				},
+			})
 
 			require("nvim-dap-virtual-text").setup()
 			require("dapui").setup()
