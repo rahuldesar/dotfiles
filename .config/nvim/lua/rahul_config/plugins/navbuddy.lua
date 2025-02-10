@@ -43,5 +43,6 @@ return {
 	config = function()
 		vim.keymap.set("n", "<leader>sb", ":Navbuddy<CR>", { noremap = true, silent = true, desc = "Show Breadcrumps" })
 	end,
+
 	-- your lsp config or other stuff
 }

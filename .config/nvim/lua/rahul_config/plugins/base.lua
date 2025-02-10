@@ -128,13 +128,42 @@ return {
 	{ "christoomey/vim-tmux-navigator", lazy = false },
 	{ "sindrets/diffview.nvim" },
 	-- { "numToStr/Comment.nvim" },
+
+	-- hlchunk seems better
+	-- {
+	-- 	"lukas-reineke/indent-blankline.nvim",
+	-- 	main = "ibl",
+	-- 	opts = {},
+	-- 	config = function()
+	-- 		require("ibl").overwrite({
+	-- 			exclude = { filetypes = { "dashboard" } },
+	-- 		})
+	-- 	end,
+	-- },
+
 	{
-		"lukas-reineke/indent-blankline.nvim",
-		main = "ibl",
-		opts = {},
+		"shellRaining/hlchunk.nvim",
+		event = { "BufReadPre", "BufNewFile" },
 		config = function()
-			require("ibl").overwrite({
-				exclude = { filetypes = { "dashboard" } },
+			require("hlchunk").setup({
+				chunk = {
+					enable = true,
+					style = {
+						{ fg = "#806d9c" },
+						{ fg = "#c21f30" },
+					},
+					chars = {
+						horizontal_line = "─",
+						vertical_line = "│",
+						left_top = "╭",
+						left_bottom = "╰",
+						right_arrow = "─",
+					},
+					delay = 0,
+				},
+				indent = {
+					enable = true,
+				},
 			})
 		end,
 	},
@@ -151,7 +180,8 @@ return {
 	-- ========== Themes and Visuals ===========
 
 	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-	{ "folke/tokyonight.nvim" },
+	{ "scottmckendry/cyberdream.nvim" },
+	{ "folke/tokyonight.nvim", name = "kanagawa" },
 	{ "rebelot/kanagawa.nvim" },
 	{ "EdenEast/nightfox.nvim" },
 	{ "rose-pine/neovim" },
@@ -159,20 +189,21 @@ return {
 	{ "sainnhe/gruvbox-material" },
 	{ "shaunsingh/nord.nvim" },
 	{ "olimorris/onedarkpro.nvim" },
-	{ "navarasu/onedark.nvim" },
-	{ "navarasu/onedark.nvim" },
+	{ "sainnhe/sonokai" },
+	{ "Mofiqul/dracula.nvim" },
+	{ "nyoom-engineering/oxocarbon.nvim" },
 
-	{
-		"nvim-lualine/lualine.nvim",
-		opts = {
-			options = {
-				icons_enabled = true,
-				theme = "auto",
-				component_separators = "|",
-				section_separators = "",
-			},
-		},
-	},
+	-- {
+	-- 	"nvim-lualine/lualine.nvim",
+	-- 	opts = {
+	-- 		options = {
+	-- 			icons_enabled = true,
+	-- 			theme = "auto",
+	-- 			component_separators = "|",
+	-- 			section_separators = "",
+	-- 		},
+	-- 	},
+	-- },
 
 	{
 		"tpope/vim-fugitive",

@@ -6,7 +6,7 @@ map("n", "<leader>b", vim.cmd.NvimTreeFindFileToggle, { desc = "Toggle File Expl
 map("n", "<C-b>", vim.cmd.NvimTreeFindFileToggle, { desc = "Toggle File Explorer" })
 map("n", "<leader>\\", "Nop", { noremap = true, silent = true, desc = "Split Vertical" })
 map("n", "<leader>\\", ":vsp<CR>", { noremap = true, silent = true, desc = "Split Vertical" })
-map("n", "<leader>so", ":source ~/.config/nvim/init.lua", {})
+map("n", "<leader>so", ":source $MYVIMRC<CR>", { silent = true, desc = "Reload nvim config" })
 --
 --map("n", "<leader>b", vim.cmd.Ex)
 
@@ -57,8 +57,8 @@ end
 
 map("n", "<leader>qt", toggle_quickfix, { desc = "Toggle Quickfix Window" })
 
-map("n", "[q", "<cmd>cnext<CR>zz", { desc = "Quickfix, Up" })
-map("n", "]q", "<cmd>cprev<CR>zz", { desc = "Quickfix, Down" })
+map("n", "]q", "<cmd>cnext<CR>zz", { desc = "Quickfix, Up" })
+map("n", "[q", "<cmd>cprev<CR>zz", { desc = "Quickfix, Down" })
 map("n", "<leader>k", "<cmd>lnext<CR>zz")
 map("n", "<leader>j", "<cmd>lprev<CR>zz")
 
@@ -135,6 +135,61 @@ vim.api.nvim_create_autocmd("FileType", {
 		map("n", "<leader>js", "<cmd>!bun %<CR>", { silent = true })
 	end,
 })
+
+-- Restore cursor to file position in previous editing session
+vim.api.nvim_create_autocmd("BufReadPost", {
+	callback = function(args)
+		local mark = vim.api.nvim_buf_get_mark(args.buf, '"')
+		local line_count = vim.api.nvim_buf_line_count(args.buf)
+		if mark[1] > 0 and mark[1] <= line_count then
+			vim.cmd('normal! g`"zz')
+		end
+	end,
+})
+
+-- INFO: Love this but it messes up with plugins like navbuddy
+--
+-- vim.cmd("highlight default DimInactiveWindows guifg=#666666")
+--
+-- -- When leaving a window, set all highlight groups to a "dimmed" hl_group
+-- vim.api.nvim_create_autocmd({ "WinLeave" }, {
+-- 	callback = function()
+-- 		local highlights = {}
+-- 		for hl, _ in pairs(vim.api.nvim_get_hl(0, {})) do
+-- 			table.insert(highlights, hl .. ":DimInactiveWindows")
+-- 		end
+-- 		vim.wo.winhighlight = table.concat(highlights, ",")
+-- 	end,
+-- })
+--
+-- -- When entering a window, restore all highlight groups to original
+-- vim.api.nvim_create_autocmd({ "WinEnter" }, {
+-- 	callback = function()
+-- 		vim.wo.winhighlight = ""
+-- 	end,
+-- })
+
+vim.api.nvim_create_autocmd({ "VimResized" }, {
+	group = vim.api.nvim_create_augroup("EqualizeSplits", {}),
+	callback = function()
+		local current_tab = vim.api.nvim_get_current_tabpage()
+		vim.cmd("tabdo wincmd =")
+		vim.api.nvim_set_current_tabpage(current_tab)
+	end,
+	desc = "Resize splits with terminal window",
+})
+
+-- vim.api.nvim_create_autocmd("CmdlineEnter", {
+-- 	group = vim.api.nvim_create_augroup("gmr_cmdheight_1_on_cmdlineenter", { clear = true }),
+-- 	desc = "Don't hide the status line when typing a command",
+-- 	command = ":set cmdheight=2",
+-- })
+--
+-- vim.api.nvim_create_autocmd("CmdlineLeave", {
+-- 	group = vim.api.nvim_create_augroup("gmr_cmdheight_0_on_cmdlineleave", { clear = true }),
+-- 	desc = "Hide cmdline when not typing a command",
+-- 	command = ":set cmdheight=1",
+-- })
 
 -- vim.api.nvim_create_autocmd("FileType", {
 --   pattern = { "markdown" },

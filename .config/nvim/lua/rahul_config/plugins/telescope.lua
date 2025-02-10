@@ -14,6 +14,14 @@ return {
 		{ "nvim-tree/nvim-web-devicons" },
 		{ "nvim-telescope/telescope-smart-history.nvim" },
 		{ "kkharji/sqlite.lua" },
+		{
+			"nvim-telescope/telescope-frecency.nvim",
+			-- install the latest stable version
+			version = "*",
+			config = function()
+				require("telescope").load_extension("frecency")
+			end,
+		},
 	},
 
 	config = function()
@@ -32,6 +40,7 @@ return {
 		map("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
 		map("n", "<leader>sc", builtin.colorscheme, { desc = "[S]witch [C]olorscheme" })
 		map("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
+		map("n", "<leader>sl", "<cmd>Telescope frecency<CR>", { desc = "[S]earch Recente" })
 		map("n", "<leader>ss", builtin.builtin, { desc = "[S]earch [S]elect Telescope" })
 		-- Might have to change this binding
 		map("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
@@ -40,10 +49,19 @@ return {
 		map("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
 		map("n", "<leader>st", builtin.treesitter, { desc = "[S]earch [T]reesitter" })
 		map("n", "<leader>sq", builtin.quickfix, { desc = "[S]earch [Q]uickfix" })
-		map("n", "<leader>sS", builtin.lsp_document_symbols, { desc = "Symbols" })
+		map("n", "<leader>sS", builtin.lsp_document_symbols, { desc = "[S]earch Document [S]ymbols" })
+
+		-- Enhanced Symbol Navigation
+		map("n", "<leader>sw", builtin.lsp_workspace_symbols, { desc = "[S]earch [W]orkspace Symbols" })
+		map("n", "<leader>lsi", builtin.lsp_incoming_calls, { desc = "[S]earch [I]ncoming Calls" })
+		map("n", "<leader>lso", builtin.lsp_outgoing_calls, { desc = "[S]earch [O]utgoing Calls" })
+		map("n", "<leader>lsr", builtin.lsp_references, { desc = "[S]earch [R]eferences" })
+		map("n", "<leader>lsd", builtin.lsp_definitions, { desc = "[S]earch [D]efinitions" })
+		map("n", "<leader>lst", builtin.lsp_type_definitions, { desc = "[S]earch [T]ype Definitions" })
+		map("n", "<leader>lsi", builtin.lsp_implementations, { desc = "[S]earch [I]mplementations" })
 
 		map("n", "<leader>sm", builtin.keymaps, { desc = "[S]earch key[m]aps" })
-		map("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
+		-- map("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
 		map("n", "<leader>sv", builtin.vim_options, { desc = "[S]earch [V]im Options" })
 
 		map("n", "<leader>sG", builtin.git_files, { desc = "[S]earch [G]it Files" })
@@ -84,6 +102,7 @@ return {
 					"lazy%-lock.json",
 					".git/.*",
 					".svelte%-kit",
+					"Session.vim",
 				},
 				layout_config = {
 					horizontal = {

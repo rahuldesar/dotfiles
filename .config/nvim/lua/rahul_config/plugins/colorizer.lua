@@ -1,12 +1,8 @@
 return {
 
-	-- "norcalli/nvim-colorizer.lua",
-	-- event = "VeryLazy",
-	-- opts = { { "*" } },
-	-- {
-	-- 	"norcalli/nvim-terminal.lua",
-	-- 	config = function()
-	-- 		require("terminal").setup()
-	-- 	end,
-	-- },
+	"norcalli/nvim-colorizer.lua",
+	event = "BufEnter",
+	config = function()
+		require("colorizer").setup()
+	end,
 }

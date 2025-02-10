@@ -20,6 +20,7 @@ zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
+zinit light reegnz/jq-zsh-plugin
 
 
 zinit snippet OMZP::command-not-found
@@ -126,11 +127,14 @@ bindkey -v
 bindkey '^y' autosuggest-accept
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
+bindkey '^j' jq-repl
 bindkey '^[w' kill-region
 
 
 PATH=~/.console-ninja/.bin:$PATH
 complete -C '/usr/local/bin/aws_completer' aws
+
+cheat() { curl "https://cheat.sh/$1"}
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/rahuldesar/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/rahuldesar/google-cloud-sdk/path.zsh.inc'; fi
