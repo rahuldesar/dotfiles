@@ -6,7 +6,7 @@ return {
 	config = function()
 		require("bufferline").setup({
 			options = {
-				themable = true,
+				themable = false,
 				separator_style = "slant",
 				buffer_close_icon = "",
 				modified_icon = "●",
