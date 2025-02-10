@@ -33,6 +33,8 @@ local kind_icons = {
 	TypeParameter = "󰅲",
 }
 
+
+
 local luasnip = require("luasnip")
 luasnip.config.setup({})
 
