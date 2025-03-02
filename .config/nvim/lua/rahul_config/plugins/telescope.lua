@@ -4,6 +4,22 @@ return {
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		{
+			"jmacadie/telescope-hierarchy.nvim",
+			keys = {
+				{ -- lazy style key map
+					-- Choose your own keys, this works for me
+					"<leader>si",
+					"<cmd>Telescope hierarchy incoming_calls<cr>",
+					desc = "LSP: [S]earch [I]ncoming Calls",
+				},
+				{
+					"<leader>so",
+					"<cmd>Telescope hierarchy outgoing_calls<cr>",
+					desc = "LSP: [S]earch [O]utgoing Calls",
+				},
+			},
+		},
+		{
 			"nvim-telescope/telescope-fzf-native.nvim",
 			build = "make",
 			cond = function()
@@ -41,9 +57,9 @@ return {
 		map("n", "<leader>sc", builtin.colorscheme, { desc = "[S]witch [C]olorscheme" })
 		map("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
 		map("n", "<leader>sl", "<cmd>Telescope frecency<CR>", { desc = "[S]earch Recente" })
-		map("n", "<leader>ss", builtin.builtin, { desc = "[S]earch [S]elect Telescope" })
+		-- map("n", "<leader>ss", builtin.builtin, { desc = "[S]earch [S]elect Telescope" })
 		-- Might have to change this binding
-		map("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
+		-- map("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
 
 		map("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
 		map("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
@@ -144,5 +160,7 @@ return {
 
 		pcall(require("telescope").load_extension, "fzf")
 		pcall(require("telescope").load_extension, "ui-select")
+
+		pcall(require("telescope").load_extension("hierarchy"))
 	end,
 }

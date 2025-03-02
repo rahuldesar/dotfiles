@@ -106,6 +106,7 @@ export PATH="$DENO_INSTALL/bin:$PATH"
 export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH=$PATH:/Users/rahuldesar/Library/Python/3.9/bin
 export PATH=/Users/Shared/DBngin/mysql/8.0.33/bin:$PATH
 
 export LDFLAGS="-L/opt/homebrew/opt/postgresql@17/lib"
@@ -129,6 +130,16 @@ bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 bindkey '^j' jq-repl
 bindkey '^[w' kill-region
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+
+alias ftree="dua i"
 
 
 PATH=~/.console-ninja/.bin:$PATH
@@ -141,3 +152,5 @@ if [ -f '/Users/rahuldesar/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/rahu
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/rahuldesar/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/rahuldesar/google-cloud-sdk/completion.zsh.inc'; fi
+
+export PATH=$PATH:/Users/rahuldesar/.spicetify
