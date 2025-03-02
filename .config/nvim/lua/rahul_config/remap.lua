@@ -6,7 +6,7 @@ map("n", "<leader>b", vim.cmd.NvimTreeFindFileToggle, { desc = "Toggle File Expl
 map("n", "<C-b>", vim.cmd.NvimTreeFindFileToggle, { desc = "Toggle File Explorer" })
 map("n", "<leader>\\", "Nop", { noremap = true, silent = true, desc = "Split Vertical" })
 map("n", "<leader>\\", ":vsp<CR>", { noremap = true, silent = true, desc = "Split Vertical" })
-map("n", "<leader>so", ":source $MYVIMRC<CR>", { silent = true, desc = "Reload nvim config" })
+-- map("n", "<leader>so", ":source $MYVIMRC<CR>", { silent = true, desc = "Reload nvim config" })
 --
 --map("n", "<leader>b", vim.cmd.Ex)
 
@@ -108,6 +108,8 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 map("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Escape Escape exits terminal mode" })
+
+map("n", "gV", "`[v`]", { desc = "Select Last Yank/Paste Area" })
 
 --  See `:help vim.highlight.on_yank()`
 vim.api.nvim_create_autocmd("TextYankPost", {

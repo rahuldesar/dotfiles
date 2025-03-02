@@ -33,8 +33,20 @@ local kind_icons = {
 	TypeParameter = "󰅲",
 }
 
+local lspconfig = require("lspconfig")
 
-
+lsp.configure("pyright", {
+	settings = {
+		python = {
+			pythonPath = "/opt/homebrew/bin/python3.9",
+			-- analysis = {
+			-- 	typeCheckingMode = "off", -- Disables strict type checking
+			-- 	reportArgumentType = "off", -- Disables argument type reporting
+			-- 	reportLiteralParameterTypeMismatch = "none", -- Disables this specific error
+			-- },
+		},
+	},
+})
 local luasnip = require("luasnip")
 luasnip.config.setup({})
 
