@@ -88,6 +88,8 @@ map("n", "<C-j>", "<cmd> TmuxNavigateDown<CR>")
 map("n", "<C-k>", "<cmd> TmuxNavigateUp<CR>")
 map("n", "<C-l>", "<cmd> TmuxNavigateRight<CR>")
 
+map("v", "<space>x", ":lua<CR>")
+
 --
 -- map('n', "<C-j>", NvimTmuxNavigateDown)
 -- map('n', "<C-k>", NvimTmuxNavigateUp)
@@ -200,3 +202,11 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
 --     map("n", "<leader>pr", "<cmd>MarkdownPreviewToggle<CR>", { silent = true })
 --   end,
 -- })
+--
+--
+--
+-- @INFO:  Might be harmful sometimes, but setting filetype 'bash' for every script is annoying
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+	pattern = "*.sh",
+	command = "set filetype=bash",
+})

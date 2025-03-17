@@ -1,0 +1,15 @@
+[[manager.prepend_keymap]]
+on  = "M"
+run = "plugin mount"
+
+[[manager.prepend_keymap]]
+on  = [ "<C-n>" ]
+run = 'seek 8'
+
+[[manager.prepend_keymap]]
+on  = [ "<C-p>" ]
+run = 'seek -8'
+
+
+
+

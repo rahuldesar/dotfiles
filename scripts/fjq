@@ -1,0 +1,6 @@
+#!/bin/bash
+
+echo '' | fzf-tmux -p '80%' --print-query --preview "cat ${1} | jq {q}"
+
+
+

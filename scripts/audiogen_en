@@ -1,0 +1,114 @@
+#!/opt/homebrew/bin/python3.9 -W ignore
+#
+# Generate mp3 of test using KOKORO TTS.
+# Choose Voice using 'voice_file' (it cannot be changed with argument)
+
+from kokoro import KPipeline
+import soundfile as sf
+import torch
+import argparse
+import subprocess
+import os
+
+# voice_file =af_heart.pt
+# voice_file =af_bella.pt
+# voice_file = "af_nicole.pt"
+voice_file = "af_sky.pt"
+# voice_file =bf_emma.pt
+
+# voice_file =am_michael.pt
+
+# voice_file =bm_george.pt
+
+
+def main():
+    # Set up argument parser
+    parser = argparse.ArgumentParser(description="Generate audio from text file")
+    parser.add_argument("text_file", help="Path to the text file")
+    args = parser.parse_args()
+
+    # Initialize pipeline
+    pipeline = KPipeline(lang_code="a")
+
+    # Load voice tensor
+    voice_tensor = torch.load(
+        "/Users/rahuldesar/kokoro_data/voices/" + voice_file, weights_only=True
+    )
+
+    # Read text from file
+    with open(args.text_file, "r", encoding="utf-8") as f:
+        text = f.read()
+
+    # Generate audio
+    generated_files = []  # List to store generated file names
+    generator = pipeline(
+        text,
+        voice=voice_tensor,
+        speed=1,
+        split_pattern=r"\n+",
+    )
+
+    # Process and save audio
+    for i, (gs, ps, audio) in enumerate(generator):
+        print(f"Processing text: {gs}")
+        output_file = f"{args.text_file.rsplit('.', 1)[0]}_{i}.wav"
+        sf.write(output_file, audio, 24000)
+        generated_files.append(output_file)  # Add filename to the list
+        print(f"Generated: {output_file}")
+
+    # Create a directory for the combined MP3 if it doesn't exist
+    output_dir = os.path.join(
+        os.path.dirname(args.text_file),
+        os.path.splitext(os.path.basename(args.text_file))[0],
+    )
+
+    # output_dir = args.text_file.rsplit(".", 1)[0]
+
+    os.makedirs(output_dir, exist_ok=True)
+
+    # Define the combined output filename with the directory
+
+    combined_output = os.path.join(
+        output_dir, f"{os.path.basename(output_dir)}_combined.mp3"
+    )
+
+    print("output Dir: ----------- ", output_dir)
+    print("Combined Dir: ----------- ", combined_output)
+
+    # Remove the combined file if it already exists
+    if os.path.exists(combined_output):
+        os.remove(combined_output)
+        print(f"Removed existing combined file: {combined_output}")
+
+    # Create a text file for ffmpeg
+    with open("file_list.txt", "w") as file_list:
+        for wav_file in generated_files:
+            file_list.write(f"file '{wav_file}'\n")
+
+    # Combine all wav files and convert to MP3 using ffmpeg
+    ffmpeg_command = [
+        "ffmpeg",
+        "-f",
+        "concat",
+        "-safe",
+        "0",
+        "-i",
+        "file_list.txt",
+        "-b:a",
+        "128k",  # Set bitrate to 128 kbps
+        combined_output,
+    ]
+
+    subprocess.run(ffmpeg_command)
+
+    # Cleanup: remove the temporary file list and generated WAV files
+    os.remove("file_list.txt")
+    for wav_file in generated_files:
+        os.remove(wav_file)
+        print(f"Removed: {wav_file}")
+
+    print(f"Combined audio saved as: {combined_output}")
+
+
+if __name__ == "__main__":
+    main()

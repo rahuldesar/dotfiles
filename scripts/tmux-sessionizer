@@ -4,9 +4,49 @@ if [[ $# -eq 1 ]]; then
   selected=$1
 else
   selected=$(
-    find ~/.config ~ ~/Documents ~/Developer/Personal/* ~/Developer/Workspace/* -mindepth 1 -maxdepth 1 -type d -exec stat --format="%X %n" {} \; | sort -nr | cut -d' ' -f2- | fzf
+    (
+      find \
+        ~/.config \
+        ~/Documents \
+        ~/Developer/Workspace/* \
+        ~/Developer/vaults \
+        ~/.config/custom-nvim/* \
+        ~/.config/nvim-snippets/* \
+        ~/Developer/Personal/* \
+        ~/Developer/Personal/projects \
+        ~/Developer/Personal/learning \
+        ~/Developer/Personal/learning/algorithms \
+        ~/Developer/Personal/learning/css \
+        ~/Developer/Personal/learning/css \
+        ~/Developer/Personal/learning/css \
+        ~/Developer/Personal/learning/design-patterns \
+        ~/Developer/Personal/learning/drizzle-orm \
+        ~/Developer/Personal/learning/fso \
+        ~/Developer/Personal/learning/golang \
+        ~/Developer/Personal/learning/homelab \
+        ~/Developer/Personal/learning/htmx \
+        ~/Developer/Personal/learning/mooc \
+        ~/Developer/Personal/learning/nvim \
+        ~/Developer/Personal/learning/rust \
+        ~/Developer/Personal/learning/rust-by-examples \
+        ~/Developer/Personal/learning/rust-packages \
+        ~/Developer/Personal/learning/todo-k8 \
+        ~/Developer/Personal/learning/vagrant \
+        -mindepth 1 -maxdepth 1 -type d ! -name "node_modules" \
+        ;
+      # find \
+      #   -mindepth 1 -maxdepth 2 -type d ! -path '*/.*' ! -name "node_modules" \
+      #   ;
+      find ~ -mindepth 1 -maxdepth 1 -type d ! -path '*/.*'
+    ) |
+      xargs stat --format="%X %n" |
+      sort -nr |
+      cut -d' ' -f2- | uniq | fzf
   )
 fi
+
+#
+# ~/Developer/Personal/2024 ~/Developer/Personal/aws ~/Developer/Personal/career ~/Developer/Personal/docs ~/Developer/Personal/learning ~/Developer/Personal/practice ~/Developer/Personal/projects ~/Developer/Personal/reference ~/Developer/Personal/selected ~/Developer/Personal/servers ~/Developer/Personal/temp ~/Developer/Personal/test-apps ~/Developer/Personal/testing
 
 if [[ -z $selected ]]; then
   exit 0

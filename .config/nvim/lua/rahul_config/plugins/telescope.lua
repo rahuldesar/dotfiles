@@ -77,6 +77,8 @@ return {
 		map("n", "<leader>lsi", builtin.lsp_implementations, { desc = "[S]earch [I]mplementations" })
 
 		map("n", "<leader>sm", builtin.keymaps, { desc = "[S]earch key[m]aps" })
+		map("n", "<leader>ft", builtin.filetypes, { desc = "Set [F]ile[T]ype" })
+		-- builtin.filetypes
 		-- map("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
 		map("n", "<leader>sv", builtin.vim_options, { desc = "[S]earch [V]im Options" })
 

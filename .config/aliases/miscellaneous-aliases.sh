@@ -55,14 +55,16 @@ alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v exten
 
 # Cool Stuff
 for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
-	alias "${method}"="lwp-request -m '${method}'"
+  alias "${method}"="lwp-request -m '${method}'"
 done
 
 alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 
+alias mega="cd /Users/rahuldesar/Developer/apps/MegaBasterdMACOS_SILICON && ./MegaBasterd.run"
+
 # Yadm Commit
 function yc() {
-	cd ~
-	yadm enter lazygit
-	cd -
+  cd ~
+  yadm enter lazygit
+  cd -
 }

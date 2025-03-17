@@ -1,0 +1,21 @@
+# yazi.toml
+[manager]
+show_hidden = false
+
+
+[plugin]
+prepend_previewers = [
+  # { name = "*.md", run = "rich-preview"},
+  { name = "*.md", run = "glow" },
+  { mime = "{audio,video,image}/*", run = "mediainfo"},
+  { mime = "application/subrip", run = "mediainfo" },
+  { name = "*.csv", run = "rich-preview"}, # for csv files
+  { name = "*.rst", run = "rich-preview"}, # for restructured text (.rst) files
+  { name = "*.ipynb", run = "rich-preview"}, # for jupyter notebooks (.ipynb)
+  { name = "*.json", run = "rich-preview"}, # for json (.json) files
+]
+prepend_preloaders = [
+  # Replace magick, image, video with mediainfo
+  { mime = "{audio,video,image}/*", run = "mediainfo" },
+  { mime = "application/subrip", run = "mediainfo" },
+]

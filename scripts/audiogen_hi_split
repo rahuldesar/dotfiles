@@ -1,0 +1,47 @@
+#!/opt/homebrew/bin/python3.9
+
+from kokoro import KPipeline
+import soundfile as sf
+import torch
+import argparse
+
+
+def main():
+    # Set up argument parser
+    parser = argparse.ArgumentParser(description="Generate audio from text file")
+    parser.add_argument("text_file", help="Path to the text file")
+    args = parser.parse_args()
+
+    # Initialize pipeline
+    pipeline = KPipeline(lang_code="h")
+
+    # Load voice tensor
+    voice_tensor = torch.load(
+        "/Users/rahuldesar/kokoro_data/voices/hf_alpha.pt", weights_only=True
+    )
+
+    # Read text from file
+    with open(args.text_file, "r", encoding="utf-8") as f:
+        text = f.read()
+
+    # Generate audio
+    generator = pipeline(
+        text,
+        voice=voice_tensor,
+        speed=1,
+        split_pattern=r"\n+",
+    )
+
+    # Process and save audio
+    for i, (gs, ps, audio) in enumerate(generator):
+        print(f"Processing text: {gs}")
+        output_file = f"{args.text_file.rsplit('.', 1)[0]}{i}.wav"
+
+        # sf.write(f"{i}.wav", audio, 24000)  # save each audio file
+        sf.write(output_file, audio, 24000)
+        print(f"Generated: {output_file}")
+
+
+if __name__ == "__main__":
+    main()
+
