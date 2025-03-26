@@ -41,7 +41,7 @@ yabai -m config normal_window_opacity       0.90
 # yabai -m rule --add app="^IINA$" manage=off
 # yabai -m rule --add app="^Finder$" manage=off
 
-yabai -m rule --add app!="^(Safari|Google Chrome|kitty|Kitty|Terminal|Obsidian|ForkLift|Discord|Slack|Kindle|Notes)$" manage=off 
+yabai -m rule --add app!="^(Safari|Google Chrome|kitty|Kitty|Ghostty|Terminal|Obsidian|ForkLift|Discord|Slack|Kindle|Notes)$" manage=off 
 # INFO:  ==== This is broken after Sonoma update ===========
 # yabai -m rule --add app="^kitty$" space=1
 # yabai -m rule --add app="^Discord$" space=4

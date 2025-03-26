@@ -7,7 +7,7 @@
 #: characters.
 
 # font_family      monospace
-bold_font        auto
+# bold_font        auto
 # italic_font      auto
 # bold_italic_font auto
 
@@ -19,13 +19,16 @@ bold_font        auto
 #: heavy. Setting them manually is useful for font families that have
 #: many weight variants like Book, Medium, Thick, etc. For example::
 
-font_family	FiraCode Nerd Font
+  # font_family	FiraCode Nerd Font Mono
+# font_family	Firamono Nerd Font
+  # font_family	JetBrainsMono Nerd Font Mono
+# font_family	UbuntuMono Nerd Font
 #:     font_family      Operator Mono Book
 #:     bold_font        Operator Mono Medium
 #:     italic_font      Operator Mono Book Italic
 #:     bold_italic_font Operator Mono Medium Italic
 
-font_size 12.0
+font_size 14.0
 
 #: Font size (in pts)
 
@@ -167,7 +170,7 @@ font_size 12.0
 #: font glyph is rendered and the baseline at which the glyph is
 #: placed in the cell. For example::
 
-modify_font cell_height 105%
+modify_font cell_height 120%
 #:     modify_font cell_width 80%
 #:     modify_font cell_height -2px
 #:     modify_font baseline 3
@@ -1127,7 +1130,7 @@ mouse_hide_wait 2.0
 
 #: The foreground and background colors.
 
-# background_opacity 1.0
+# background_opacity 0.75
 
 #: The opacity of the background. A number between zero and one, where
 #: one is opaque and zero is fully transparent. This will only work if
@@ -1648,7 +1651,7 @@ mouse_hide_wait 2.0
 #: background_opacity. If you want to use both, you are probably
 #: better off just hiding the titlebar with hide_window_decorations.
 
-# macos_option_as_alt no
+#macos_option_as_alt no
 
 #: Use the Option key as an Alt key on macOS. With this set to no,
 #: kitty will use the macOS native Option+Key to enter Unicode
@@ -2502,6 +2505,20 @@ mouse_hide_wait 2.0
 
 
 # BEGIN_KITTY_THEME
-# Doom Vibrant
+# Catppuccin-Mocha
 include current-theme.conf
+
+map ctrl+shift+h no_op
+map ctrl+shift+n no_op
+
+#
 # END_KITTY_THEME
+#
+
+
+# BEGIN_KITTY_FONTS
+font_family      family="RobotoMono Nerd Font"
+bold_font        auto
+italic_font      auto
+bold_italic_font auto
+# END_KITTY_FONTS

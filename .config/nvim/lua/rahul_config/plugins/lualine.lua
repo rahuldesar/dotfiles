@@ -42,7 +42,7 @@ local colors = {
 		local config = {
 			options = {
 				-- Disable sections and component separators
-				component_separators = { left = "", right = "│" },
+				component_separators = { left = "", right = "" },
 				section_separators = "",
 
 				theme = {
@@ -95,7 +95,19 @@ local colors = {
 		ins_left({
 			-- mode component
 			function()
-				return ""
+				if vim.fn.mode() == "n" then
+					return "󰚌"
+				elseif vim.fn.mode() == "V" or vim.fn.mode() == "v" or vim.fn.mode() == "CTRL-V" then
+					return "󰈈"
+				elseif vim.fn.mode() == "i" then
+					return ""
+				elseif vim.fn.mode() == "R" or vim.fn.mode() == "Rx" then
+					return ""
+				elseif vim.fn.mode() == "c" then
+					return ""
+				else
+					return ""
+				end
 			end,
 			color = function()
 				-- auto change color according to neovims mode
@@ -181,22 +193,45 @@ local colors = {
 		})
 
 		ins_left({
-			function()
-				local current_node = require("nvim-treesitter.ts_utils").get_node_at_cursor()
-				while current_node do
-					if current_node:type() == "function_declaration" or current_node:type() == "method_declaration" then
-						return " " .. vim.treesitter.get_node_text(current_node:child(1), 0)
-					end
-					current_node = current_node:parent()
-				end
-				return ""
-			end,
-			cond = function()
-				local ok, _ = pcall(require, "nvim-treesitter")
-				return ok and require("nvim-treesitter.parsers").has_parser()
-			end,
+			"aerial",
+			-- The separator to be used to separate symbols in status line.
+			sep = " > ",
+
+			-- The number of symbols to render top-down. In order to render only 'N' last
+			-- symbols, negative numbers may be supplied. For instance, 'depth = -1' can
+			-- be used in order to render only current symbol.
+			depth = nil,
+
+			-- When 'dense' mode is on, icons are not rendered near their symbols. Only
+			-- a single icon that represents the kind of current symbol is rendered at
+			-- the beginning of status line.
+			dense = false,
+
+			-- The separator to be used to separate symbols in dense mode.
+			dense_sep = ".",
+
+			-- Color the symbol icons.
+			colored = true,
 			color = { fg = colors.green, gui = "bold" },
 		})
+
+		-- ins_left({
+		-- 	function()
+		-- 		local current_node = require("nvim-treesitter.ts_utils").get_node_at_cursor()
+		-- 		while current_node do
+		-- 			if current_node:type() == "function_declaration" or current_node:type() == "method_declaration" then
+		-- 				return " " .. vim.treesitter.get_node_text(current_node:child(1), 0)
+		-- 			end
+		-- 			current_node = current_node:parent()
+		-- 		end
+		-- 		return ""
+		-- 	end,
+		-- 	cond = function()
+		-- 		local ok, _ = pcall(require, "nvim-treesitter")
+		-- 		return ok and require("nvim-treesitter.parsers").has_parser()
+		-- 	end,
+		-- 	color = { fg = colors.green, gui = "bold" },
+		-- })
 
 		-- Add components to right sections
 
@@ -212,6 +247,7 @@ local colors = {
 		-- 	cond = conditions.hide_in_width,
 		-- 	color = { fg = colors.green, gui = "bold" },
 		-- })
+		--
 
 		ins_right({
 			-- Lsp server name .
@@ -222,35 +258,62 @@ local colors = {
 				if next(clients) == nil then
 					return msg
 				end
-				for _, client in ipairs(clients) do
+
+				local all_clients = ""
+				local num_clients = #clients
+				for i, client in ipairs(clients) do
 					local filetypes = client.config.filetypes
 					if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-						return client.name
+						all_clients = all_clients .. "[" .. client.name .. "]"
+						if i < num_clients then
+							all_clients = all_clients .. ","
+						end
 					end
 				end
-				return msg
+				return all_clients
 			end,
 			icon = " LSP:",
-			color = { fg = "#ffffff", gui = "bold" },
+			color = { fg = "#ffffff" },
 		})
+
+		-- ins_right({
+		-- 	-- Lsp server name .
+		-- 	function()
+		-- 		local msg = "0 Lsp Connected"
+		-- 		local buf_ft = vim.api.nvim_get_option_value("filetype", { buf = 0 })
+		-- 		local clients = vim.lsp.get_clients()
+		--
+		-- 		local client_count = 0
+		-- 		for i, client in ipairs(clients) do
+		-- 			client_count = client_count + 1
+		-- 		end
+		-- 		if client_count == 0 then
+		-- 			return msg
+		-- 		else
+		-- 			return client_count
+		-- 		end
+		-- 	end,
+		-- 	icon = ": ",
+		-- 	color = { fg = "#ffffff", gui = "bold" },
+		-- })
 
 		ins_right({
 			"fileformat",
 			fmt = string.upper,
 			icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
-			color = { fg = colors.green, gui = "bold" },
+			color = { fg = colors.green },
 		})
 
 		ins_right({ "location" })
 
-		ins_right({ "progress", color = { fg = colors.fg, gui = "bold" } })
+		ins_right({ "progress", color = { fg = colors.fg, gui = "bold" }, padding = { left = 0, right = 1 } })
 
 		ins_right({
 			function()
 				return "▊"
 			end,
 			color = { fg = colors.magenta },
-			-- padding = { left = 1 },
+			padding = { left = 0 },
 		})
 
 		-- Now don't forget to initialize lualine

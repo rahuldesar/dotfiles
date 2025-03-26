@@ -41,6 +41,7 @@ return {
 	},
 
 	config = function()
+		vim.keymap.set("n", "<leader>sz", ":Navbuddy<CR>", { noremap = true, silent = true, desc = "Show Breadcrumps" })
 		vim.keymap.set("n", "<leader>ss", ":Navbuddy<CR>", { noremap = true, silent = true, desc = "Show Breadcrumps" })
 	end,
 

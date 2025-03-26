@@ -28,7 +28,7 @@ for video in "$video_dir"/*.{mp4,mkv,avi,mov,flv,webm}; do
       scale="scale=1080:-1"
     fi
 
-    ffmpeg -i "$video" -c:v hevc_videotoolbox -vtag hvc1 -vf "$scale" -b:v 3M -c:a copy "$out_video_dir/${filename}_1080p.mp4"
+    ffmpeg -i "$video" -c:v hevc_videotoolbox -vtag hvc1 -vf "$scale" -b:v 4M -c:a copy "$out_video_dir/${filename}_1080p.mp4"
 
     # ffmpeg -i "$video" -c:v libx265 -vtag hvc1 -vf "$scale" -crf 20 -c:a copy "$out_video_dir/${filename}_1080p.mp4"
     #

@@ -14,6 +14,8 @@ else
         ~/.config/nvim-snippets/* \
         ~/Developer/Personal/* \
         ~/Developer/Personal/projects \
+        ~/Developer/Personal/projects/advent-of-code \
+        ~/Developer/Personal/projects/project-chrome-extensions \
         ~/Developer/Personal/learning \
         ~/Developer/Personal/learning/algorithms \
         ~/Developer/Personal/learning/css \

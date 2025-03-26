@@ -22,9 +22,11 @@ map("n", "<leader>x", ":bd!<CR>", { noremap = true, silent = true })
 map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Alt + UP" })
 map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Alt + DOWN" })
 
-map("n", "J", "mzJ`z", { desc = "[J]oin without moving cursor" })
+map("n", "<leader>j", "mzJ`z", { desc = "[J]oin without moving cursor, legacyKey=`J` " })
+
 map("n", "<C-d>", "<C-d>zz", { desc = "[D]own half page, cursor at middle" })
 map("n", "<C-u>", "<C-u>zz", { desc = "[U]p half page, cursor at middle" })
+
 map("n", "n", "nzzzv", { desc = "Search next term in middle" })
 map("n", "N", "Nzzzv", { desc = "Search previous term in middle" })
 
@@ -59,8 +61,9 @@ map("n", "<leader>qt", toggle_quickfix, { desc = "Toggle Quickfix Window" })
 
 map("n", "]q", "<cmd>cnext<CR>zz", { desc = "Quickfix, Up" })
 map("n", "[q", "<cmd>cprev<CR>zz", { desc = "Quickfix, Down" })
-map("n", "<leader>k", "<cmd>lnext<CR>zz")
-map("n", "<leader>j", "<cmd>lprev<CR>zz")
+-- @INFO: temp - testing treewalker
+-- map("n", "<leader>k", "<cmd>lnext<CR>zz")
+-- map("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 -- map("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
 --   { desc = ' S]ubstitute word on cursor' })
@@ -69,7 +72,7 @@ map("n", "<leader>j", "<cmd>lprev<CR>zz")
 map("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
 map("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
 map("n", "<leader>e", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
-map("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
+-- map("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
 map(
 	"n",
@@ -136,7 +139,7 @@ vim.api.nvim_create_autocmd("FileType", {
 	callback = function(ev)
 		-- TODO: change from bun to something better
 		map("n", "<leader>pr", "<cmd>!bun %<CR>", { silent = true })
-		map("n", "<leader>js", "<cmd>!bun %<CR>", { silent = true })
+		-- map("n", "<leader>js", "<cmd>!bun %<CR>", { silent = true })
 	end,
 })
 

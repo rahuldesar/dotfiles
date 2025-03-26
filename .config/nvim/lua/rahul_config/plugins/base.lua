@@ -20,6 +20,7 @@ return {
 			ensure_installed = {
 				"html",
 				"javascript",
+				"rust",
 				"json",
 				"lua",
 				"markdown",
@@ -79,7 +80,6 @@ return {
 				end,
 			},
 
-			-- Autocompletion
 			{
 				"hrsh7th/nvim-cmp",
 				event = "InsertEnter",

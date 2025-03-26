@@ -103,10 +103,10 @@ return {
 		end)
 
 		map("n", "<leader>sn", function()
-			builtin.find_files({
+			builtin.live_grep({
 				cwd = vim.fn.stdpath("config"),
 			})
-		end, { desc = "[S]earch [N]eovim files" })
+		end, { desc = "[S]earch words in [N]eovim config" })
 
 		require("telescope").setup({
 			defaults = {
@@ -116,6 +116,7 @@ return {
 					"node_modules/.*",
 					"%.env",
 					"yarn.lock",
+					"pnpm%-lock.yaml",
 					"package%-lock.json",
 					"lazy%-lock.json",
 					".git/.*",

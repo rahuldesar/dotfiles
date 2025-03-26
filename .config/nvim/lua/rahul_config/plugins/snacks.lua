@@ -127,13 +127,13 @@ return {
 			end,
 			desc = "Notification History",
 		},
-		{
-			"<leader><space>",
-			function()
-				Snacks.picker.smart()
-			end,
-			desc = "Smart Find Files",
-		},
+		-- {
+		-- 	"<leader><space>",
+		-- 	function()
+		-- 		Snacks.picker.smart()
+		-- 	end,
+		-- 	desc = "Smart Find Files",
+		-- },
 
 		{
 			"<leader>ns",

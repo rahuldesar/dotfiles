@@ -107,6 +107,7 @@
 
 # open terminal, blazingly fast compared to iTerm/Hyper
 cmd - return : open -a /Applications/kitty.app ~
+# cmd - return : open -a /Applications/Ghostty.app ~
 # cmd - return : /Applications/kitty.app ~
 # cmd - return : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~
 #

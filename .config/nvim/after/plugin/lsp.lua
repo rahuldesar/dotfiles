@@ -1,3 +1,6 @@
+-- @TODO:  Rewrite lsp config remove `lsp-zero` and switch `nvim-cmp` with `blink.cmp`
+-- @INFO: Read 'you might not need lsp-zero'
+
 local lsp = require("lsp-zero").preset({
 	name = "minimal",
 	set_lsp_keymaps = false,
