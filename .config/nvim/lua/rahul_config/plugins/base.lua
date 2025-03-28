@@ -7,7 +7,7 @@ return {
 
 	{ "tpope/vim-rhubarb" },
 
-	-- TEST:  testing mini
+	--  TEST: testing mini
 	-- { "tpope/vim-surround" },
 
 	{ "folke/neodev.nvim", opts = {} },
