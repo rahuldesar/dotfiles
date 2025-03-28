@@ -2,9 +2,7 @@ return {
 	--  ========= LSP and  all the good stuff =============
 	{
 		"mbbill/undotree",
-		config = function()
-			vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
-		end,
+		config = function() vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle) end,
 	},
 
 	{ "tpope/vim-rhubarb" },
@@ -37,9 +35,7 @@ return {
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter-textobjects",
 		},
-		config = function()
-			pcall(require("nvim-treesitter.install").update({ with_sync = true }))
-		end,
+		config = function() pcall(require("nvim-treesitter.install").update({ with_sync = true })) end,
 	},
 
 	{
@@ -116,9 +112,7 @@ return {
 			"html",
 			"astro",
 		},
-		config = function()
-			require("nvim-ts-autotag").setup()
-		end,
+		config = function() require("nvim-ts-autotag").setup() end,
 	},
 
 	-- { "numToStr/Comment.nvim", opts = {}, lazy = false },

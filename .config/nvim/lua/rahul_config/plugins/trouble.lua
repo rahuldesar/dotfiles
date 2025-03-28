@@ -58,16 +58,20 @@ return {
 			use_diagnostic_signs = false, -- enabling this will use the signs defined in your lsp client
 		})
 
-		vim.keymap.set("n", "<leader>tt", function()
-			require("trouble").toggle()
-		end, { desc = "[T]oggle [T]rouble" })
+		vim.keymap.set("n", "<leader>tt", function() require("trouble").toggle() end, { desc = "[T]oggle [T]rouble" })
 
-		vim.keymap.set("n", "[t", function()
-			require("trouble").previous({ skip_groups = true, jump = true })
-		end, { desc = "Next Trouble Diagnostic" })
+		vim.keymap.set(
+			"n",
+			"[t",
+			function() require("trouble").previous({ skip_groups = true, jump = true }) end,
+			{ desc = "Next Trouble Diagnostic" }
+		)
 
-		vim.keymap.set("n", "]t", function()
-			require("trouble").next({ skip_groups = true, jump = true })
-		end, { desc = "Prev Trouble Diagnostic" })
+		vim.keymap.set(
+			"n",
+			"]t",
+			function() require("trouble").next({ skip_groups = true, jump = true }) end,
+			{ desc = "Prev Trouble Diagnostic" }
+		)
 	end,
 }

@@ -82,6 +82,9 @@ require("nvim-treesitter.configs").setup({
 	},
 })
 
-vim.keymap.set("n", "<leader>it", function()
-	vim.cmd("InspectTree")
-end, { desc = "Treesitter Playground: InspectTree - AST" })
+vim.keymap.set(
+	"n",
+	"<leader>it",
+	function() vim.cmd("InspectTree") end,
+	{ desc = "Treesitter Playground: InspectTree - AST" }
+)

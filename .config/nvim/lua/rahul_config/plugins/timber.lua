@@ -73,9 +73,7 @@ return {
 				},
 			},
 			template_placeholders = {
-				filename = function()
-					return vim.fn.expand("%:t")
-				end,
+				filename = function() return vim.fn.expand("%:t") end,
 				-- Custom placeholder. For example, this can be used in log templates as %truncated_line
 				-- truncated_line = function(ctx)
 				--   local line = ctx.log_target:start()

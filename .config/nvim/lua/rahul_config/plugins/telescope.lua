@@ -22,9 +22,7 @@ return {
 		{
 			"nvim-telescope/telescope-fzf-native.nvim",
 			build = "make",
-			cond = function()
-				return vim.fn.executable("make") == 1
-			end,
+			cond = function() return vim.fn.executable("make") == 1 end,
 		},
 		{ "nvim-telescope/telescope-ui-select.nvim" },
 		{ "nvim-tree/nvim-web-devicons" },
@@ -34,9 +32,7 @@ return {
 			"nvim-telescope/telescope-frecency.nvim",
 			-- install the latest stable version
 			version = "*",
-			config = function()
-				require("telescope").load_extension("frecency")
-			end,
+			config = function() require("telescope").load_extension("frecency") end,
 		},
 	},
 
@@ -45,12 +41,17 @@ return {
 		local map = vim.keymap.set
 		local themes = require("telescope.themes")
 		map("n", "<leader>?", builtin.oldfiles, { desc = "[?] Find recently opened files" })
-		map("n", "<leader>/", function()
-			builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
-				winblend = 10,
-				previewer = false,
-			}))
-		end, { desc = "[/] Fuzzily search in current buffer" })
+		map(
+			"n",
+			"<leader>/",
+			function()
+				builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
+					winblend = 10,
+					previewer = false,
+				}))
+			end,
+			{ desc = "[/] Fuzzily search in current buffer" }
+		)
 
 		map("n", "<leader>ff", builtin.find_files, { desc = "[S]earch [F]iles" })
 		map("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
@@ -98,15 +99,18 @@ return {
 			builtin.grep_string({ search = word })
 		end, { desc = "Search Word Under cursor Case seWsitive" })
 
-		map("n", "<leader>ps", function()
-			builtin.grep_string({ search = vim.fn.input("Grep > ") })
-		end)
+		map("n", "<leader>ps", function() builtin.grep_string({ search = vim.fn.input("Grep > ") }) end)
 
-		map("n", "<leader>sn", function()
-			builtin.live_grep({
-				cwd = vim.fn.stdpath("config"),
-			})
-		end, { desc = "[S]earch words in [N]eovim config" })
+		map(
+			"n",
+			"<leader>sn",
+			function()
+				builtin.live_grep({
+					cwd = vim.fn.stdpath("config"),
+				})
+			end,
+			{ desc = "[S]earch words in [N]eovim config" }
+		)
 
 		require("telescope").setup({
 			defaults = {

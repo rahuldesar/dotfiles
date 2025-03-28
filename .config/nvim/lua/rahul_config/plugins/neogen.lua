@@ -1,8 +1,6 @@
 local opts = { noremap = true, silent = true }
 
-function neogen_init(type)
-	return ":lua require('neogen').generate({type = \"" .. type .. '"})<CR>'
-end
+function neogen_init(type) return ":lua require('neogen').generate({type = \"" .. type .. '"})<CR>' end
 
 return {
 	"danymat/neogen",

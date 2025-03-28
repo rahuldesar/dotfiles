@@ -107,9 +107,7 @@ map("v", "<space>x", ":lua<CR>")
 -- INFO: filetype specific keybindings
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "rust" },
-	callback = function(ev)
-		map("n", "<leader>pr", ":!cargo run<CR>", { desc = "Play Rust - cargo run" })
-	end,
+	callback = function(ev) map("n", "<leader>pr", ":!cargo run<CR>", { desc = "Play Rust - cargo run" }) end,
 })
 
 map("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Escape Escape exits terminal mode" })
@@ -119,9 +117,7 @@ map("n", "gV", "`[v`]", { desc = "Select Last Yank/Paste Area" })
 --  See `:help vim.highlight.on_yank()`
 vim.api.nvim_create_autocmd("TextYankPost", {
 	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
-	callback = function()
-		vim.highlight.on_yank()
-	end,
+	callback = function() vim.highlight.on_yank() end,
 })
 
 -- local group = vim.api.nvim_create_augroup("js_autostart", { clear = true })

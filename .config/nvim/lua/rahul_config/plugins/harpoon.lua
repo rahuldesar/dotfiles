@@ -11,9 +11,12 @@ return {
 		set("n", "<C-e>", ui.toggle_quick_menu, { desc = "Harpoon: Toggle Quick Menu" })
 
 		for i = 1, 5 do
-			set("n", string.format("<leader>%s", i), function()
-				ui.nav_file(i)
-			end, { desc = "Harpoon: Go to File: " .. i })
+			set(
+				"n",
+				string.format("<leader>%s", i),
+				function() ui.nav_file(i) end,
+				{ desc = "Harpoon: Go to File: " .. i }
+			)
 		end
 	end,
 }

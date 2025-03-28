@@ -60,9 +60,7 @@ require("luasnip.loaders.from_snipmate").lazy_load({ paths = { "/Users/rahuldesa
 local cmp = require("cmp")
 cmp.setup({
 	snippet = {
-		expand = function(args)
-			luasnip.lsp_expand(args.body)
-		end,
+		expand = function(args) luasnip.lsp_expand(args.body) end,
 	},
 	completion = { completeopt = "menu,menuone,noinsert" },
 	---@diagnostic disable-next-line: missing-fields
@@ -122,16 +120,23 @@ cmp.setup.filetype({ "sql" }, {
 lsp.on_attach(function(client, bufnr)
 	local opts = { buffer = bufnr, remap = false }
 
+	-- vim.diagnostic.config({
+	-- 	virtual_text = { severity = vim.diagnostic.severity.ERROR },
+	-- })
 	vim.diagnostic.config({
-		virtual_text = { severity = vim.diagnostic.severity.ERROR },
+		-- Use the default configuration
+		virtual_text = { current_line = true, severity = vim.diagnostic.severity.WARN },
+		virtual_lines = { severity = vim.diagnostic.severity.ERROR },
+		-- Alternatively, customize specific options
+		--
+		-- virtual_lines = {
+		--  -- Only show virtual line diagnostics for the current cursor line
+		--  current_line = true,
+		-- },
 	})
 
-	vim.keymap.set("", "[d", function()
-		vim.diagnostic.goto_prev()
-	end, opts)
-	vim.keymap.set("n", "]d", function()
-		vim.diagnostic.goto_next()
-	end, opts)
+	vim.keymap.set("", "[d", function() vim.diagnostic.goto_prev() end, opts)
+	vim.keymap.set("n", "]d", function() vim.diagnostic.goto_next() end, opts)
 
 	vim.keymap.set("n", "<leader>vd", require("telescope.builtin").diagnostics, opts)
 
@@ -141,22 +146,21 @@ lsp.on_attach(function(client, bufnr)
 
 	-- vim.keymap.set("n", "gd", require("telescope.builtin").lsp_definitions, { desc = "[G]o to [D]efinition" })
 	vim.keymap.set("n", "<leader>gd", require("telescope.builtin").lsp_definitions, { desc = "[G]o to [D]efinition" })
-	vim.keymap.set("n", "<leader>gD", function()
-		-- TODO: use telescope for this too
-		vim.cmd("vsplit | lua vim.lsp.buf.definition()")
-	end, { desc = "[G]o to [D]efinition in vertical split", noremap = true })
+	-- TODO: use telescope for this too
+	vim.keymap.set(
+		"n",
+		"<leader>gD",
+		function() vim.cmd("vsplit | lua vim.lsp.buf.definition()") end,
+		{ desc = "[G]o to [D]efinition in vertical split", noremap = true }
+	)
 
 	vim.keymap.set("n", "<leader>gr", require("telescope.builtin").lsp_references, { desc = "[G]o to [R]eferences" })
 
 	-- vim.keymap.set("n", "<leader>gr", function()
 	-- 	vim.lsp.buf.references()
 	-- end, { desc = "[G]o to [R]eferences" })
-	vim.keymap.set("n", "<leader>vrr", function()
-		vim.lsp.buf.references()
-	end, opts)
-	vim.keymap.set("i", "<C-hh>", function()
-		vim.lsp.buf.signature_help()
-	end, opts)
+	vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
+	vim.keymap.set("i", "<C-hh>", function() vim.lsp.buf.signature_help() end, opts)
 
 	vim.keymap.set("n", "gI", require("telescope.builtin").lsp_implementations, { desc = "[G]o to [I]mplementations" })
 	vim.keymap.set(
@@ -170,9 +174,7 @@ lsp.on_attach(function(client, bufnr)
 	-- 	vim.lsp.buf.workspace_symbol()
 	-- end, opts)
 
-	vim.keymap.set("n", "<leader>ca", function()
-		vim.lsp.buf.code_action()
-	end, { desc = "[C]ode [A]ction" })
+	vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end, { desc = "[C]ode [A]ction" })
 
 	-- buf_nnoremap { "<space>ca", vim.lsp.buf.code_action }
 	--  telescope_mapper("gr", "lsp_references", nil, true)
@@ -180,9 +182,7 @@ lsp.on_attach(function(client, bufnr)
 	-- telescope_mapper("<space>wd", "lsp_document_symbols", { ignore_filename = true }, true)
 	-- telescope_mapper("<space>ww", "lsp_dynamic_workspace_symbols", { ignore_filename = true }, true)
 
-	vim.keymap.set("n", "<leader>ra", function()
-		vim.lsp.buf.rename()
-	end, opts)
+	vim.keymap.set("n", "<leader>ra", function() vim.lsp.buf.rename() end, opts)
 
 	vim.keymap.set("n", "<leader>gh", "<cmd>lua vim.lsp.buf.hover()<CR>", { noremap = true, silent = true })
 	-- vim.keymap.set("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", { noremap = true, silent = true })

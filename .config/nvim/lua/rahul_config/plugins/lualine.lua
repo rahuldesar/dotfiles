@@ -25,12 +25,8 @@ local colors = {
 }
 
 		local conditions = {
-			buffer_not_empty = function()
-				return vim.fn.empty(vim.fn.expand("%:t")) ~= 1
-			end,
-			hide_in_width = function()
-				return vim.fn.winwidth(0) > 80
-			end,
+			buffer_not_empty = function() return vim.fn.empty(vim.fn.expand("%:t")) ~= 1 end,
+			hide_in_width = function() return vim.fn.winwidth(0) > 80 end,
 			check_git_workspace = function()
 				local filepath = vim.fn.expand("%:p:h")
 				local gitdir = vim.fn.finddir(".git", filepath .. ";")
@@ -75,19 +71,13 @@ local colors = {
 		}
 
 		-- Inserts a component in lualine_c at left section
-		local function ins_left(component)
-			table.insert(config.sections.lualine_c, component)
-		end
+		local function ins_left(component) table.insert(config.sections.lualine_c, component) end
 
 		-- Inserts a component in lualine_x at right section
-		local function ins_right(component)
-			table.insert(config.sections.lualine_x, component)
-		end
+		local function ins_right(component) table.insert(config.sections.lualine_x, component) end
 
 		ins_left({
-			function()
-				return "▊"
-			end,
+			function() return "▊" end,
 			color = { fg = colors.magenta }, -- Sets highlighting of component
 			padding = { left = 0, right = 1 }, -- We don't need space before this
 		})
@@ -187,9 +177,7 @@ local colors = {
 		-- Insert mid section. You can make any number of sections in neovim :)
 		-- for lualine it's any number greater then 2
 		ins_left({
-			function()
-				return "%="
-			end,
+			function() return "%=" end,
 		})
 
 		ins_left({
@@ -309,9 +297,7 @@ local colors = {
 		ins_right({ "progress", color = { fg = colors.fg, gui = "bold" }, padding = { left = 0, right = 1 } })
 
 		ins_right({
-			function()
-				return "▊"
-			end,
+			function() return "▊" end,
 			color = { fg = colors.magenta },
 			padding = { left = 0 },
 		})

@@ -30,101 +30,73 @@ return {
 
 		{
 			"<leader>sb",
-			function()
-				Snacks.picker.lsp_symbols({ layout = { preset = "vscode", preview = "main" } })
-			end,
+			function() Snacks.picker.lsp_symbols({ layout = { preset = "vscode", preview = "main" } }) end,
 			desc = "LSP Symbols",
 		},
 		{
 			"<leader>sB",
-			function()
-				Snacks.picker.lsp_workspace_symbols()
-			end,
+			function() Snacks.picker.lsp_workspace_symbols() end,
 			desc = "LSP Workspace Symbols",
 		},
 		{
 			"<leader>gg",
-			function()
-				Snacks.lazygit()
-			end,
+			function() Snacks.lazygit() end,
 			desc = "Lazygit",
 		},
 		{
 			"<leader>gb",
-			function()
-				Snacks.picker.git_branches()
-			end,
+			function() Snacks.picker.git_branches() end,
 			desc = "Git Branches",
 		},
 		{
 			"<leader>gl",
-			function()
-				Snacks.picker.git_log()
-			end,
+			function() Snacks.picker.git_log() end,
 			desc = "Git Log",
 		},
 		{
 			"<leader>gL",
-			function()
-				Snacks.picker.git_log_line()
-			end,
+			function() Snacks.picker.git_log_line() end,
 			desc = "Git Log Line",
 		},
 		{
 			"<leader>gs",
-			function()
-				Snacks.picker.git_status()
-			end,
+			function() Snacks.picker.git_status() end,
 			desc = "Git Status",
 		},
 		{
 			"<leader>gS",
-			function()
-				Snacks.picker.git_stash()
-			end,
+			function() Snacks.picker.git_stash() end,
 			desc = "Git Stash",
 		},
 		{
 			"<leader>gd",
-			function()
-				Snacks.picker.git_diff()
-			end,
+			function() Snacks.picker.git_diff() end,
 			desc = "Git Diff (Hunks)",
 		},
 		{
 			"<leader>gf",
-			function()
-				Snacks.picker.git_log_file()
-			end,
+			function() Snacks.picker.git_log_file() end,
 			desc = "Git Log File",
 		},
 
 		{
 			"<leader>,",
-			function()
-				Snacks.picker.buffers()
-			end,
+			function() Snacks.picker.buffers() end,
 			desc = "Buffers",
 		},
 		{
 			"<leader>/",
-			function()
-				Snacks.picker.grep()
-			end,
+			function() Snacks.picker.grep() end,
 			desc = "Grep",
 		},
 		{
 			"<leader>:",
-			function()
-				Snacks.picker.command_history()
-			end,
+			function() Snacks.picker.command_history() end,
 			desc = "Command History",
 		},
 		{
 			"<leader>nn",
-			function()
-				Snacks.picker.notifications()
-			end,
+			function() Snacks.picker.notifications() end,
 			desc = "Notification History",
 		},
 		-- {
@@ -137,9 +109,7 @@ return {
 
 		{
 			"<leader>ns",
-			function()
-				Snacks.notifier.hide()
-			end,
+			function() Snacks.notifier.hide() end,
 			desc = "Dismiss All Notifications",
 		},
 
@@ -147,129 +117,93 @@ return {
 		-- { '<leader>s"', function() Snacks.picker.registers() end, desc = "Registers" },
 		{
 			"<leader>s/",
-			function()
-				Snacks.picker.search_history()
-			end,
+			function() Snacks.picker.search_history() end,
 			desc = "Search History",
 		},
 		{
 			"<leader>sa",
-			function()
-				Snacks.picker.autocmds()
-			end,
+			function() Snacks.picker.autocmds() end,
 			desc = "Autocmds",
 		},
 		{
 			"<leader>nb",
-			function()
-				Snacks.picker.lines()
-			end,
+			function() Snacks.picker.lines() end,
 			desc = "Buffer Lines",
 		},
 
 		{
 			"<leader>nc",
-			function()
-				Snacks.picker.command_history()
-			end,
+			function() Snacks.picker.command_history() end,
 			desc = "Command History",
 		},
 		{
 			"<leader>nC",
-			function()
-				Snacks.picker.commands()
-			end,
+			function() Snacks.picker.commands() end,
 			desc = "Commands",
 		},
 		{
 			"<leader>nd",
-			function()
-				Snacks.picker.diagnostics()
-			end,
+			function() Snacks.picker.diagnostics() end,
 			desc = "Diagnostics",
 		},
 		{
 			"<leader>nD",
-			function()
-				Snacks.picker.diagnostics_buffer()
-			end,
+			function() Snacks.picker.diagnostics_buffer() end,
 			desc = "Buffer Diagnostics",
 		},
 		{
 			"<leader>sh",
-			function()
-				Snacks.picker.help()
-			end,
+			function() Snacks.picker.help() end,
 			desc = "Help Pages",
 		},
 		{
 			"<leader>sH",
-			function()
-				Snacks.picker.highlights()
-			end,
+			function() Snacks.picker.highlights() end,
 			desc = "Highlights",
 		},
 		{
 			"<leader>nj",
-			function()
-				Snacks.picker.jumps()
-			end,
+			function() Snacks.picker.jumps() end,
 			desc = "Jumps",
 		},
 		{
 			"<leader>nm",
-			function()
-				Snacks.picker.marks()
-			end,
+			function() Snacks.picker.marks() end,
 			desc = "Marks",
 		},
 		{
 			"<leader>nM",
-			function()
-				Snacks.picker.man()
-			end,
+			function() Snacks.picker.man() end,
 			desc = "Man Pages",
 		},
 		{
 			"<leader>np",
-			function()
-				Snacks.picker.lazy()
-			end,
+			function() Snacks.picker.lazy() end,
 			desc = "Search for Plugin Spec",
 		},
 		{
 			"<leader>nq",
-			function()
-				Snacks.picker.qflist()
-			end,
+			function() Snacks.picker.qflist() end,
 			desc = "Quickfix List",
 		},
 		{
 			"<leader>nR",
-			function()
-				Snacks.picker.resume()
-			end,
+			function() Snacks.picker.resume() end,
 			desc = "Resume",
 		},
 		{
 			"<leader>nu",
-			function()
-				Snacks.picker.undo()
-			end,
+			function() Snacks.picker.undo() end,
 			desc = "Undo History",
 		},
 		{
 			"<leader>sc",
-			function()
-				Snacks.picker.colorschemes()
-			end,
+			function() Snacks.picker.colorschemes() end,
 			desc = "Colorschemes",
 		},
 		{
 			"<leader>gB",
-			function()
-				Snacks.gitbrowse()
-			end,
+			function() Snacks.gitbrowse() end,
 			desc = "Git Browse",
 			mode = { "n", "v" },
 		},
