@@ -10,7 +10,7 @@ return {
 	--  TEST: testing mini
 	-- { "tpope/vim-surround" },
 
-	{ "folke/neodev.nvim", opts = {} },
+	-- { "folke/neodev.nvim", opts = {} },
 
 	{
 		"nvim-treesitter/nvim-treesitter",
