@@ -141,6 +141,10 @@ function y() {
 
 alias ftree="dua i"
 
+if [ -z "$TMUX" ] && [ "$TERM" = "xterm-kitty" ]; then
+  tmux attach || exec tmux new-session && exit;
+fi
+
 
 PATH=~/.console-ninja/.bin:$PATH
 complete -C '/usr/local/bin/aws_completer' aws
@@ -154,3 +158,5 @@ if [ -f '/Users/rahuldesar/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/rahu
 if [ -f '/Users/rahuldesar/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/rahuldesar/google-cloud-sdk/completion.zsh.inc'; fi
 
 export PATH=$PATH:/Users/rahuldesar/.spicetify
+
+

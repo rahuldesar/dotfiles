@@ -1,0 +1,11 @@
+goinit() {
+  GH_PROFILE=$(gh api user --jq '.html_url | sub("https://"; "")')
+  MODULE_NAME="$GH_PROFILE/$(basename $(pwd))"
+  echo "alias: go mod init $MODULE_NAME"
+  go mod init "$MODULE_NAME" &&
+    touch README.md &&
+    echo "# $MODULE_NAME" >>README.md &&
+    git init &&
+    git add . &&
+    git commit -m "Initial commit: go mod init $GH_PROFILE/$(basename $(pwd))"
+}

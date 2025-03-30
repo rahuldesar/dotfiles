@@ -14,7 +14,7 @@ return {
 				},
 				{
 					"<leader>so",
-					"<cmd>Telescope hierarchy outgoing_calls<cr>",
+					"<cmd>Telescope hierarchy outgoingcalls<cr>",
 					desc = "LSP: [S]earch [O]utgoing Calls",
 				},
 			},
@@ -26,6 +26,7 @@ return {
 		},
 		{ "nvim-telescope/telescope-ui-select.nvim" },
 		{ "nvim-tree/nvim-web-devicons" },
+		{ "benfowler/telescope-luasnip.nvim" },
 		{ "nvim-telescope/telescope-smart-history.nvim" },
 		{ "kkharji/sqlite.lua" },
 		{
@@ -40,6 +41,8 @@ return {
 		local builtin = require("telescope.builtin")
 		local map = vim.keymap.set
 		local themes = require("telescope.themes")
+		local lst = require("telescope").extensions.luasnip
+		local luasnip = require("luasnip")
 		map("n", "<leader>?", builtin.oldfiles, { desc = "[?] Find recently opened files" })
 		map(
 			"n",
@@ -57,7 +60,9 @@ return {
 		map("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
 		map("n", "<leader>sc", builtin.colorscheme, { desc = "[S]witch [C]olorscheme" })
 		map("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
-		map("n", "<leader>sl", "<cmd>Telescope frecency<CR>", { desc = "[S]earch Recente" })
+
+		-- map("n", "<leader>sl", "<cmd>Telescope frecency<CR>", { desc = "[S]earch Recente" })
+		map("n", "<leader>s-", "<cmd>Telescope luasnip<CR>", { desc = "[S]earch Snippets" })
 		-- map("n", "<leader>ss", builtin.builtin, { desc = "[S]earch [S]elect Telescope" })
 		-- Might have to change this binding
 		-- map("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
@@ -162,11 +167,22 @@ return {
 				["ui-select"] = {
 					require("telescope.themes").get_dropdown(),
 				},
+				luasnip = require("telescope.themes").get_dropdown({
+					border = true,
+					preview = {
+						check_mime_type = true,
+					},
+					layout_config = {
+						width = 120,
+						prompt_position = "bottom",
+					},
+				}),
 			},
 		})
 
 		pcall(require("telescope").load_extension, "fzf")
 		pcall(require("telescope").load_extension, "ui-select")
+		pcall(require("telescope").load_extension, "luasnip")
 
 		pcall(require("telescope").load_extension("hierarchy"))
 	end,

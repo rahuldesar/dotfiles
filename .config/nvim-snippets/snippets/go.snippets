@@ -7,6 +7,9 @@ snippet vr "variable initialization"
 snippet var "variable declaration"
 	var ${1} ${2} = ${3}
 
+snippet let "variable declaration"
+	var ${1} ${2} = ${3}
+
 snippet vars "variables declaration"
 	var (
 		${1} ${2} = ${3}
@@ -187,7 +190,7 @@ snippet sl "select"
 snippet sr "string"
 	string
 
-snippet st "struct"
+snippet st, str "struct"
 	type ${1:name} struct {
 		${2:/* data */}
 	}

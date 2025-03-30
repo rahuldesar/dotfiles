@@ -4,7 +4,7 @@ alias ....="cd ../../.."
 alias .....="cd ../../../.."
 
 alias cls="clear"
-alias mcd='function _mcd() { mkdir -p "$1" && cd "$1"; }; _mcd'
+function mcd() { mkdir -p "$1" && cd "$1"; }
 
 alias yt='ytfzf -t'
 

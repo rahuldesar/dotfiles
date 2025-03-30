@@ -58,6 +58,9 @@ lspconfig_defaults.capabilities =
 	vim.tbl_deep_extend("force", lspconfig_defaults.capabilities, require("blink.cmp").get_lsp_capabilities())
 
 require("luasnip.loaders.from_vscode").lazy_load()
+require("luasnip.loaders.from_vscode").lazy_load({
+	paths = { "/Users/rahuldesar/.config/nvim-snippets/vscode-snippets/" },
+})
 --load snippets from path/of/your/nvim/config/my-cool-snippets
 require("luasnip.loaders.from_snipmate").lazy_load({ paths = { "/Users/rahuldesar/.config/nvim-snippets/snippets/" } })
 
