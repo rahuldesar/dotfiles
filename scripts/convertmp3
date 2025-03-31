@@ -1,6 +1,12 @@
 #!/bin/bash
 #
 # Convert video into mp3
+#
+# INFO: USAGE
+# `convertmp3 <video_dir>`
+#
+# WARN:
+# No support for single video file
 
 if [ -z "$1" ]; then
   echo "Usage: ./convertmp3 <path-to-video-folder>"
@@ -8,7 +14,7 @@ if [ -z "$1" ]; then
 fi
 
 video_dir="$1"
-out_video_dir=$FFMPEG_MP3_OUTDIR
+out_audio_dir=$FFMPEG_MP3_OUTDIR
 
 if [ ! -d "$video_dir" ]; then
   echo "Error: Directory $video_dir does not exist."
@@ -19,18 +25,7 @@ fi
 for video in "$video_dir"/*.{mp4,mkv,avi,mov,flv,webm,wav}; do
   if [ -f "$video" ]; then
     filename=$(basename "$video" | sed 's/\(.*\)\..*/\1/')
-    ffmpeg -y -i "$video" -b:a 192k "$out_video_dir/${filename}.mp3"
-
-    echo "========================================"
-    echo "========================================"
-    echo "========================================"
-    echo "========================================"
-    echo "========================================"
+    ffmpeg -y -i "$video" -b:a 192k "$out_audio_dir/${filename}.mp3"
     echo "Converted $video to ${filename}.mp3"
-    echo "========================================"
-    echo "========================================"
-    echo "========================================"
-    echo "========================================"
-    echo "========================================"
   fi
 done
