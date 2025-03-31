@@ -1,0 +1,106 @@
+#!/bin/bash
+#
+# Convert HiRes video into 1080p (both landscape and portrait) using ffmpeg
+#
+#
+# INFO: OUTPUT
+# encoding: H265 (hevc - hvc1)
+# bitrate = 2M (if source bitrate < 2.5M), 4.25M (if source bitrate > 10M), default: 3.25M
+# output name format: video_source_name + "_original" | "_1080p" (_original = original resolution)
+#
+#
+# INFO:
+# REQUIREMENTS: `ffmpeg`, `ffprobe`
+# REQUIRED_ENVS: `FFMPEG_OUTDIR`, `FFMPEG_TEMP_OUTDIR`
+# (Hazel watcher used on outdir, so tempdir is used store coverting video)
+# SUPPORTED VIDEO FORMAT: `mp4`,`mkv`,`avi`,`mov`,`ts`,`flv`,`webm`
+#
+# WARN:
+# ENCODER USED: `hevc_videotoolbox` (hardware accerated encoder for mac)
+# use `libx265` if error
+#
+
+out_video_dir=$FFMPEG_OUTDIR
+out_video_temp_dir=$FFMPEG_TEMP_OUTDIR
+
+function convertVideo() {
+  if [[ "$1" =~ \.(mp4|mkv|avi|mov|ts|flv|webm)$ ]]; then
+    filename=$(basename "$1" | sed 's/\(.*\)\..*/\1/')
+
+    video_width=$(ffprobe -v error -select_streams v:0 -show_entries stream=width -of default=noprint_wrappers=1:nokey=1 "$1")
+    video_height=$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of default=noprint_wrappers=1:nokey=1 "$1")
+    video_bitrate=$(ffprobe -v error -select_streams v:0 -show_entries stream=bit_rate -of default=noprint_wrappers=1:nokey=1 "$1")
+
+    if [ "$video_bitrate" -lt 2500000 ]; then
+      bitrate_option="-b:v 2M"
+    elif [ "$video_bitrate" -lt 3000000 ]; then
+      bitrate_option="-b:v 2.5M"
+    elif [ "$video_bitrate" -lt 3500000 ]; then
+      bitrate_option="-b:v 3M"
+    elif [ "$video_bitrate" -gt 10000000 ]; then
+      bitrate_option="-b:v 4.25M"
+    else
+      bitrate_option="-b:v 3.5M"
+    fi
+
+    echo "BITRATE : $video_bitrate"
+
+    if [ "$video_width" -gt "$video_height" ]; then
+      if [ "$video_height" -lt 1080 ]; then
+        scale="scale=${video_width}:${video_height}"
+        suffix="_original"
+      else
+        scale="scale=-1:1080"
+        suffix="_1080p"
+      fi
+    else
+      if [ "$video_width" -lt 1080 ]; then
+        scale="scale=${video_width}:${video_height}"
+        suffix="_original"
+      else
+        scale="scale=1080:-1"
+        suffix="_1080p"
+      fi
+    fi
+
+    output_file="$out_video_temp_dir/${filename}${suffix}.mp4"
+
+    ffmpeg -i "$1" \
+      -c:v hevc_videotoolbox -vtag hvc1 \
+      -vf "$scale" \
+      $bitrate_option \
+      -c:a copy \
+      "$output_file"
+
+    echo "$scale"
+    mv "$output_file" "$out_video_dir/"
+    echo "Converted $1 to ${filename}${suffix}.mp4"
+  fi
+}
+
+if [ -z "$1" ]; then
+  echo "Usage: ./convertvid.sh <path-to-video-folder>|<video_file>"
+  exit 1
+fi
+
+if [ -d "$1" ]; then
+  video_dir="$1"
+  for video in "$video_dir"/*.{mp4,mkv,avi,mov,ts,flv,webm}; do
+    [ -e "$video" ] || continue
+    convertVideo "$video"
+  done
+fi
+
+if [ -f "$1" ]; then
+  if [[ "$1" =~ \.(mp4|mkv|avi|mov|ts|flv|webm)$ ]]; then
+    convertVideo "$1"
+    exit 1
+  fi
+  echo "$1 should be video or folder"
+  exit 1
+fi
+
+if [[ ! -d "$1" ]]; then
+  echo "Error: $1 should be video or folder"
+  exit 1
+fi
