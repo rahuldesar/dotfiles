@@ -1,12 +1,13 @@
 #!/bin/bash
 #
-# Convert HiRes video into 1080p (both landscape and portrait) using ffmpeg
+# Converts video to H.265 encoding.
+# Scales down videos larger than 1080p to 1080p, keeps smaller resolutions unchanged.
 #
 #
-# INFO: OUTPUT
-# encoding: H265 (hevc - hvc1)
-# bitrate = 2M (if source bitrate < 2.5M), 4.25M (if source bitrate > 10M), default: 3.25M
-# output name format: video_source_name + "_original" | "_1080p" (_original = original resolution)
+# INFO: USAGE
+# `convertvid <video_file>|<video_dir>`
+# No support for multiple argument. use `;` operator for multiple sequential converts
+#
 #
 #
 # INFO:
@@ -14,6 +15,13 @@
 # REQUIRED_ENVS: `FFMPEG_OUTDIR`, `FFMPEG_TEMP_OUTDIR`
 # (Hazel watcher used on outdir, so tempdir is used store coverting video)
 # SUPPORTED VIDEO FORMAT: `mp4`,`mkv`,`avi`,`mov`,`ts`,`flv`,`webm`
+#
+# INFO: OUTPUT
+# encoding: H265 (hevc - hvc1)
+# bitrate = 2M (if source bitrate < 2.5M), 4.25M (if source bitrate > 10M), default: 3.25M
+# output name format: video_source_name + "_original" | "_1080p" (_original = original resolution)
+#
+#
 #
 # WARN:
 # ENCODER USED: `hevc_videotoolbox` (hardware accerated encoder for mac)
