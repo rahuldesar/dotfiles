@@ -1,5 +1,3 @@
--- TODO: use when updating nvim
-
 return {
 	{
 		"Bekaboo/dropbar.nvim",

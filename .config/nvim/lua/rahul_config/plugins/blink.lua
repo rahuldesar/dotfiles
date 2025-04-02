@@ -80,7 +80,8 @@ return {
 			--  INFO: Luasnip loads snippets from ~/.config/nvim-snippets/ (setting in `lsp.lua`)
 			snippets = { preset = "luasnip" },
 			sources = {
-				default = { "conventional_commits", "lazydev", "lsp", "path", "snippets", "buffer", "dictionary" },
+				-- , "dictionary"
+				default = { "conventional_commits", "lazydev", "lsp", "path", "snippets", "buffer" },
 				per_filetype = {
 					sql = { "snippets", "dadbod", "buffer", "lsp" },
 				},

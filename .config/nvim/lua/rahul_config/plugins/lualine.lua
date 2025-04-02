@@ -142,13 +142,13 @@ local colors = {
 		ins_left({
 			"branch",
 			icon = "",
-			color = { fg = colors.violet, gui = "bold" },
+			color = { fg = colors.blue },
 		})
 
 		ins_left({
 			"filename",
 			cond = conditions.buffer_not_empty,
-			color = { fg = colors.orange, gui = "bold" },
+			color = { fg = colors.yellow, gui = "bold" },
 		})
 
 		ins_left({

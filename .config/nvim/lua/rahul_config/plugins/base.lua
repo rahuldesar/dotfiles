@@ -64,7 +64,7 @@ return {
 							"stylua",
 							"vim-language-server",
 							"editorconfig-checker",
-							{ "golangci-lint", version = "v1.47.0" },
+							-- "golangci-lint",
 							{ "bash-language-server", auto_update = true },
 							"json-to-struct",
 							"shellcheck",
@@ -173,7 +173,34 @@ return {
 
 	-- ========== Themes and Visuals ===========
 
-	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+	{
+		"catppuccin/nvim",
+		name = "catppuccin",
+		priority = 1000,
+
+		config = function()
+			vim.cmd("colorscheme catppuccin")
+			require("catppuccin").setup({
+				integrations = {
+					aerial = true,
+					blink_cmp = true,
+					cmp = true,
+					dropbar = {
+						enabled = true,
+						color_mode = true, -- enable color for kind's texts, not just kind's icons
+					},
+					gitsigns = true,
+					nvimtree = true,
+					treesitter = true,
+					notify = false,
+					mini = {
+						enabled = true,
+						indentscope_color = "",
+					},
+				},
+			})
+		end,
+	},
 	{ "scottmckendry/cyberdream.nvim" },
 	{ "folke/tokyonight.nvim", name = "kanagawa" },
 	{ "rebelot/kanagawa.nvim" },
