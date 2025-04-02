@@ -2,6 +2,9 @@ local map = vim.keymap.set
 
 vim.g.mapleader = " "
 
+-- FREE KEYTEST
+-- map("n", "<leader>doc", '<cmd>:lua print("hello") <CR>', { desc = "yo" })
+
 map("n", "<leader>b", vim.cmd.NvimTreeFindFileToggle, { desc = "Toggle File Explorer" })
 map("n", "<C-b>", vim.cmd.NvimTreeFindFileToggle, { desc = "Toggle File Explorer" })
 map("n", "<leader>\\", "Nop", { noremap = true, silent = true, desc = "Split Vertical" })
@@ -204,8 +207,3 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
 --
 --
 --
--- @INFO:  Might be harmful sometimes, but setting filetype 'bash' for every script is annoying
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-	pattern = "*.sh",
-	command = "set filetype=bash",
-})
