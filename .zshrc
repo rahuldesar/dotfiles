@@ -141,9 +141,9 @@ function y() {
 
 alias ftree="dua i"
 
-if [ -z "$TMUX" ] && [ "$TERM" = "xterm-kitty" ]; then
-  tmux attach || exec tmux new-session && exit;
-fi
+# if [ -z "$TMUX" ] && [ "$TERM" = "xterm-kitty" ]; then
+#   tmux attach || exec tmux new-session && exit;
+# fi
 
 
 PATH=~/.console-ninja/.bin:$PATH

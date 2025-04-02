@@ -126,6 +126,19 @@ snippet fun "function"
 	}
 	${0}
 
+
+snippet fug "simple generic function"
+	func ${1:funcName}[${2:type} comparable] (${3:variable_name} ${2:type}) ${4:return_type} {
+		${5:/* body */}
+	}
+	${0}
+
+snippet funcg "simple generic function"
+	func ${1:funcName}[${2:type} comparable] (${3:variable_name} ${2:type}) ${4:return_type} {
+		${5:body}
+	}
+	${0}
+
 snippet fum "method"
 	func (${1:receiver} ${2:type}) ${3:funcName}(${4}) ${5:error} {
 		${6}
@@ -246,7 +259,7 @@ snippet testt "table test function"
 				${0:${VISUAL}}
 			})
 		}
-	}
+	}  
 
 snippet bench "benchmark function"
 	func Benchmark${1:name}(b *testing.B) {
@@ -286,4 +299,10 @@ snippet ja "Marshalable json alias"
 snippet errwr "Error handling with fmt.Errorf"
 	if ${1}err != nil {
 		return fmt.Errorf("${2} %w", err)
+	}
+
+
+snippet tyg "Simple generic type (MODIFY LATER)"
+	type ${1:StructName}[${2:T} ${3:type(any|comparable)}] struct {
+    ${4:val} ${2:T}
 	}
