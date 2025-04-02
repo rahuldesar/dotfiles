@@ -16,7 +16,7 @@ return {
 				markdown = { "prettier", "prettierd", stop_after_first = true },
 				css = { "prettier", "prettierd", stop_after_first = true },
 				rust = { "rustfmt", lsp_format = "fallback" },
-				go = { "gofmt", lsp_format = "fallback" },
+				go = { "gofumpt", "gofmt", lsp_format = "fallback" },
 				json = { "prettier", "prettierd", stop_after_first = true },
 				html = { "prettier", "prettierd", stop_after_first = true },
 				yaml = { "yamllint" },
