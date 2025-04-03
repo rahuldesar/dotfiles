@@ -27,6 +27,7 @@ else
         ~/Developer/Personal/learning/golang \
         ~/Developer/Personal/learning/golang/web-app \
         ~/Developer/Personal/learning/golang/tutorial \
+        ~/Developer/Personal/reference/golang \
         ~/Developer/Personal/learning/homelab \
         ~/Developer/Personal/learning/htmx \
         ~/Developer/Personal/learning/mooc \
@@ -65,7 +66,8 @@ if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
 fi
 
 if ! tmux has-session -t=$selected_name 2>/dev/null; then
-  tmux new-session -ds $selected_name -c $selected
+  # tmux new-session -ds $selected_name -c $selected
+  tmuxinator sessionizer $selected_name $selected
 fi
 
 tmux switch-client -t $selected_name

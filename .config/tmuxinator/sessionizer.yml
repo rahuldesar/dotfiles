@@ -1,0 +1,11 @@
+# INFO:
+# USAGE: `tmuxinator sessionizer session-name absolute-directory-path`
+name: <%= @args[0] %>
+root: <%= @args[1] %>
+
+windows:
+  - editor:
+      - vim
+  - server: pwd
+  - runner: git status
+  - misc:
