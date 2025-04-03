@@ -2515,12 +2515,14 @@ map ctrl+shift+n no_op
 map shift+; no_op
 
 #
+# font_family      family="JetBrainsMono Nerd Font Mono"
+# font_family      family='JetBrainsMono Nerd Font Mono' postscript_name=JetBrainsMonoNFM-Regular
 # END_KITTY_THEME
 #
 
 
 # BEGIN_KITTY_FONTS
-font_family      family=Iosevka style=Medium
+font_family      family="JetBrainsMono Nerd Font Mono"
 bold_font        auto
 italic_font      auto
 bold_italic_font auto

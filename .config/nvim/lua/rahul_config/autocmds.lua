@@ -60,6 +60,13 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "go" },
+	callback = function()
+		vim.keymap.set("n", "<leader>pr", ":!go run .<CR>", { desc = "Play Go - go run . ", buffer = true })
+	end,
+})
+
 -- local group = vim.api.nvim_create_augroup("js_autostart", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "javascript" },
@@ -86,6 +93,18 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 	command = "set filetype=bash",
 })
 
+-- Diagnostic - Virtual Lines on current line only, while disabling virtual_text
+vim.api.nvim_create_autocmd({ "CursorMoved", "DiagnosticChanged" }, {
+	callback = function()
+		local lnum = vim.api.nvim_win_get_cursor(0)[1] - 1
+		if vim.tbl_isempty(vim.diagnostic.get(0, { lnum = lnum })) then
+			vim.diagnostic.config({ virtual_text = true })
+		else
+			vim.diagnostic.config({ virtual_text = false })
+		end
+	end,
+})
+--
 --
 -- INFO:
 --  ======= Love this but it messes up with plugins like navbuddy

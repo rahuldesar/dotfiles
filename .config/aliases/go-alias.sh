@@ -4,9 +4,10 @@ goinit() {
   echo "alias: go mod init $MODULE_NAME"
   go mod init "$MODULE_NAME" &&
     touch README.md &&
-    touch main.go &&
+    mkdir -p ./cmd/main && touch ./cmd/main/main.go &&
     echo "# $MODULE_NAME" >>README.md &&
     git init &&
     git add . &&
+    mkdir -p ./internal/module1 && touch ./internal/module1/module1.go &&
     git commit -m "Initial commit: go mod init $GH_PROFILE/$(basename $(pwd))"
 }
