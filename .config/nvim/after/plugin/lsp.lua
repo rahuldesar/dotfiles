@@ -127,12 +127,18 @@ require("luasnip.loaders.from_snipmate").lazy_load({ paths = { "/Users/rahuldesa
 lsp.on_attach(function(client, bufnr)
 	local opts = { buffer = bufnr, remap = false }
 	vim.diagnostic.config({
-		virtual_text = { current_line = true, severity = vim.diagnostic.severity.WARN },
-		virtual_lines = { severity = vim.diagnostic.severity.ERROR },
+		virtual_text = true, -- autocmd modifies this
+		virtual_lines = { current_line = true },
+		underline = true,
+		update_in_insert = false,
 	})
+	-- vim.diagnostic.config({
+	-- 	virtual_text = { current_line = true, severity = vim.diagnostic.severity.WARN },
+	-- 	virtual_lines = { severity = vim.diagnostic.severity.ERROR },
+	-- })
 
-	vim.keymap.set("", "[d", function() vim.diagnostic.goto_prev() end, opts)
-	vim.keymap.set("n", "]d", function() vim.diagnostic.goto_next() end, opts)
+	vim.keymap.set("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end, opts)
+	vim.keymap.set("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, opts)
 
 	vim.keymap.set("n", "<leader>vd", require("telescope.builtin").diagnostics, opts)
 	--

@@ -123,7 +123,7 @@ return {
 
 				file_ignore_patterns = {
 					"node_modules/.*",
-					"%.env",
+					-- "%.env",
 					"yarn.lock",
 					"pnpm%-lock.yaml",
 					"package%-lock.json",

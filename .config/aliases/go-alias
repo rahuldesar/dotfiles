@@ -4,6 +4,7 @@ goinit() {
   echo "alias: go mod init $MODULE_NAME"
   go mod init "$MODULE_NAME" &&
     touch README.md &&
+    touch main.go &&
     echo "# $MODULE_NAME" >>README.md &&
     git init &&
     git add . &&
