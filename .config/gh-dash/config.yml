@@ -1,0 +1,126 @@
+prSections:
+- title: My Pull Requests
+  filters: is:open author:@me
+  type: null
+- title: Neovim 0.11
+  limit: 10
+  filters: "\
+  repo:neovim/neovim \
+  milestone:0.12 \
+  "
+  type: null
+- title: Pocketbase
+  limit: 10
+  filters: "\
+  repo:pocketbase/pocketbase \
+  "
+  type: null
+# - title: Neovim Open
+#   filters: "\
+#   repo:neovim/neovim \
+#   is:open sort:created-desc\
+#   "
+#   type: null
+# - title: Needs My Review
+#   filters: is:open review-requested:@me
+#   type: null
+# - title: Involved
+#   filters: is:open involves:@me -author:@me
+#   type: null
+issuesSections:
+- title: Pocketbase
+  filters: is:open involves:@me -author:@me
+- title: My Issues
+  filters: is:open author:@me
+- title: Assigned
+  filters: is:open assignee:@me
+- title: Involved
+  filters: is:open involves:@me -author:@me
+repo:
+  branchesRefetchIntervalSeconds: 30
+  prsRefetchIntervalSeconds: 60
+defaults:
+  preview:
+    open: true
+    width: 75
+  prsLimit: 20
+  issuesLimit: 20
+  view: prs
+  layout:
+    prs:
+      updatedAt:
+        width: 5
+      createdAt:
+        width: 5
+      repo:
+        width: 15
+      author:
+        width: 16
+      authorIcon:
+        hidden: false
+      assignees:
+        width: 20
+        hidden: true
+      base:
+        width: 15
+        hidden: true
+      lines:
+        width: 15
+    issues:
+      updatedAt:
+        width: 5
+      createdAt:
+        width: 5
+      repo:
+        width: 15
+      creator:
+        width: 10
+      creatorIcon:
+        hidden: false
+      assignees:
+        width: 20
+        hidden: true
+  refetchIntervalMinutes: 30
+repoPaths:
+  rahuldesar/ZenYoutube-extension: ~/Developer/Personal/projects/project-chrome-extensions/ZenYoutube
+keybindings:
+  universal: []
+  prs:
+    - key: g
+      command: >
+        cd {{.RepoPath}} && lazygit
+    - key: O
+      command: >
+        tmux new-window -c {{.RepoPath}} '
+        git checkout {{.HeadRefName}} && nvim -c ":lua print(\"Switched to branch **{{.HeadRefName}}** -- PR #{{.PrNumber}} \")"
+        ' 
+
+# gh pr checkout {{.PrNumber}} && nvim -c ":lua print(\"Switched to Branch {{.HeadRefName}} -- PR #{{.PrNumber}} \")"
+  issues: []
+  branches: []
+theme:
+  ui:
+    sectionsShowCount: true
+    table:
+      showSeparator: true
+      compact: true
+  colors:
+    text:
+      primary: "#cdd6f4"
+      secondary: "#a6e3a1"
+      inverted: "#11111b"
+      faint: "#bac2de"
+      warning: "#f9e2af"
+      success: "#a6e3a1"
+      error: "#f38ba8"
+    background:
+      selected: "#313244"
+    border:
+      primary: "#a6e3a1"
+      secondary: "#45475a"
+      faint: "#313244"
+pager:
+  diff: diffnav
+confirmQuit: true
+showAuthorIcons: true
+smartFilteringAtLaunch: true

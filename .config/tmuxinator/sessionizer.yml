@@ -1,11 +1,16 @@
 # INFO:
 # USAGE: `tmuxinator sessionizer session-name absolute-directory-path`
+# intented to use with "~/scripts/tmux-sessionizer"
 name: <%= @args[0] %>
 root: <%= @args[1] %>
 
 windows:
   - editor:
       - vim
-  - server: pwd
-  - runner: git status
+  - server:
+      layout: main-vertical
+      panes:
+        -
+        -
+  - git: gh-dash-config-generator <%= @args[1] %> && gh dash -c "$HOME/.config/gh-dash/temp-custom-config.yml"
   - misc:

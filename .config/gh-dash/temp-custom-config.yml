@@ -1,0 +1,112 @@
+prSections:
+- title: Open tmrts/go-patterns
+  limit: 10
+  filters: "\
+  repo:tmrts/go-patterns \
+  is:open sort:updated-desc \
+  "
+  type: null
+- title: Closed tmrts/go-patterns
+  limit: 10
+  filters: "\
+  repo:tmrts/go-patterns \
+  is:closed sort:updated-desc \
+  "
+  type: null
+- title: Merged tmrts/go-patterns
+  limit: 10
+  filters: "\
+  repo:tmrts/go-patterns \
+  is:merged sort:updated-desc \
+  "
+  type: null
+issuesSections:
+- title: Issues tmrts/go-patterns
+  filters: "\
+  repo:tmrts/go-patterns \
+  "
+repo:
+  branchesRefetchIntervalSeconds: 30
+  prsRefetchIntervalSeconds: 60
+defaults:
+  preview:
+    open: true
+    width: 75
+  prsLimit: 20
+  issuesLimit: 20
+  view: prs
+  layout:
+    prs:
+      updatedAt:
+        width: 5
+      createdAt:
+        width: 5
+      repo:
+        width: 15
+      author:
+        width: 16
+      authorIcon:
+        hidden: false
+      assignees:
+        width: 20
+        hidden: true
+      base:
+        width: 15
+        hidden: true
+      lines:
+        width: 15
+    issues:
+      updatedAt:
+        width: 5
+      createdAt:
+        width: 5
+      repo:
+        width: 15
+      creator:
+        width: 10
+      creatorIcon:
+        hidden: false
+      assignees:
+        width: 20
+        hidden: true
+  refetchIntervalMinutes: 30
+keybindings:
+  universal: []
+  prs:
+    - key: g
+      command: >
+        cd {{.RepoPath}} && lazygit
+    - key: O
+      command: >
+        tmux new-window -c {{.RepoPath}} '
+        git checkout {{.HeadRefName}} && nvim -c ":lua print(\"Switched to branch **{{.HeadRefName}}** -- PR #{{.PrNumber}} \")"
+        ' 
+  issues: []
+  branches: []
+theme:
+  ui:
+    sectionsShowCount: true
+    table:
+      showSeparator: true
+      compact: true
+  colors:
+    text:
+      primary: "#cdd6f4"
+      secondary: "#a6e3a1"
+      inverted: "#11111b"
+      faint: "#bac2de"
+      warning: "#f9e2af"
+      success: "#a6e3a1"
+      error: "#f38ba8"
+    background:
+      selected: "#313244"
+    border:
+      primary: "#a6e3a1"
+      secondary: "#45475a"
+      faint: "#313244"
+pager:
+  diff: diffnav
+confirmQuit: true
+showAuthorIcons: true
+smartFilteringAtLaunch: true
+

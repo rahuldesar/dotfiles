@@ -1,0 +1,24 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+  echo "Usage $0 <repo-path>"
+  exit 1
+fi
+
+REMOTE_URL=$(git -C "$1" remote get-url origin 2>/dev/null)
+
+if [ -z "$REMOTE_URL" ]; then
+  echo "Error: Not a Git repo or no remote 'origin' set." >&2
+  exit 1
+fi
+
+# Extract the part after .com/ (supports GitHub, GitLab, etc.)
+REPO=$(echo "$REMOTE_URL" | sed 's|https://github.com/||; s|.git$||')
+
+# REPO="$1"
+CONFIG_FILE="$HOME/.config/gh-dash/temp-custom-config.yml"
+TEMPLATE_FILE="$HOME/.config/gh-dash/gh-dash-template.yml"
+
+sed "s|{{REPO}}|$REPO|g" "$TEMPLATE_FILE" >"$CONFIG_FILE"
+
+# gh dash -c "-$CONFIG_FILE"

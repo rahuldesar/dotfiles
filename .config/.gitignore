@@ -1,0 +1,19 @@
+gcloud/
+gatsby/
+spicetify/
+yazi/plugins/
+yazi/flavors/
+tmux/plugins/
+configstore/
+custom-nvim/
+chezmoi/
+wireshark/
+htop/
+karabiner/
+neofetch/
+nicotine/
+qBittorrent/
+thefuck/
+# gh/config.yml
+# gh/hosts.yml
+
