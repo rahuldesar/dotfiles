@@ -1,3 +1,25 @@
+local function scrollbar()
+	local current_line = vim.fn.line(".")
+	local total_lines = vim.fn.line("$")
+
+	-- 8 levels of progression using Unicode blocks
+	local chars = {
+		"██",
+		"▇▇",
+		"▆▆",
+		"▅▅",
+		"▄▄",
+		"▃▃",
+		"▂▂",
+		"▁▁",
+		"  ",
+	}
+	local line_ratio = current_line / total_lines
+	local index = math.ceil(line_ratio * #chars)
+
+	return chars[index]
+end
+
 return {
 
 	"nvim-lualine/lualine.nvim",
@@ -76,6 +98,14 @@ local colors = {
 		-- Inserts a component in lualine_x at right section
 		local function ins_right(component) table.insert(config.sections.lualine_x, component) end
 
+		local function horizontal_line()
+			return ins_right({
+				function() return "│" end,
+				color = { fg = "#6c7086" },
+				padding = { left = 1, right = 1 },
+			})
+		end
+
 		ins_left({
 			function() return "▊" end,
 			color = { fg = colors.magenta }, -- Sets highlighting of component
@@ -119,8 +149,6 @@ local colors = {
 					ce = colors.red,
 					r = colors.cyan,
 					rm = colors.cyan,
-					["r?"] = colors.cyan,
-					["!"] = colors.red,
 					t = colors.red,
 				}
 				return { fg = mode_color[vim.fn.mode()] }
@@ -131,12 +159,13 @@ local colors = {
 		ins_left({
 			"diagnostics",
 			sources = { "nvim_diagnostic" },
-			symbols = { error = " ", warn = " ", info = " " },
+			symbols = { error = "  ", warn = "  ", info = "  " },
 			diagnostics_color = {
 				error = { fg = colors.red },
 				warn = { fg = colors.yellow },
 				info = { fg = colors.cyan },
 			},
+			padding = { left = 1, right = 0 },
 		})
 
 		ins_left({
@@ -262,6 +291,7 @@ local colors = {
 			end,
 			icon = " LSP:",
 			color = { fg = "#ffffff" },
+			padding = { left = 0, right = 0 },
 		})
 
 		-- ins_right({
@@ -284,22 +314,37 @@ local colors = {
 		-- 	icon = ": ",
 		-- 	color = { fg = "#ffffff", gui = "bold" },
 		-- })
+		--
+
+		horizontal_line()
 
 		ins_right({
 			"fileformat",
 			fmt = string.upper,
 			icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
 			color = { fg = colors.green },
+			padding = { left = 0, right = 0 },
 		})
 
-		ins_right({ "location" })
+		horizontal_line()
 
-		ins_right({ "progress", color = { fg = colors.fg, gui = "bold" }, padding = { left = 0, right = 1 } })
+		-- ins_right({ "location" })
+
+		-- redundant, but testing, this looks cool
+		ins_right({
+			scrollbar,
+			color = { fg = colors.fg, bg = "#45475a", gui = "bold" },
+			padding = { left = 0, right = 0 },
+		})
+
+		horizontal_line()
+
+		ins_right({ "progress", color = { fg = colors.fg, gui = "bold" }, padding = { left = 0, right = 0 } })
 
 		ins_right({
 			function() return "▊" end,
 			color = { fg = colors.magenta },
-			padding = { left = 0 },
+			padding = { left = 1 },
 		})
 
 		-- Now don't forget to initialize lualine

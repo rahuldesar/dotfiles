@@ -2,7 +2,11 @@ return {
 	--  ========= LSP and  all the good stuff =============
 	{
 		"mbbill/undotree",
-		config = function() vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle) end,
+		config = function()
+			-- undotree_WindowLayout
+			vim.g.undotree_WindowLayout = 3
+			vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
+		end,
 	},
 
 	{ "tpope/vim-rhubarb" },
@@ -12,31 +16,6 @@ return {
 
 	-- { "folke/neodev.nvim", opts = {} },
 
-	{
-		"nvim-treesitter/nvim-treesitter",
-		opts = {
-			ensure_installed = {
-				"html",
-				"javascript",
-				"rust",
-				"json",
-				"lua",
-				"markdown",
-				"markdown_inline",
-				"python",
-				"query",
-				"regex",
-				"tsx",
-				"typescript",
-				"vim",
-				"yaml",
-			},
-		},
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter-textobjects",
-		},
-		config = function() pcall(require("nvim-treesitter.install").update({ with_sync = true })) end,
-	},
 
 	{
 		"VonHeikemen/lsp-zero.nvim",
@@ -64,7 +43,7 @@ return {
 							"stylua",
 							"vim-language-server",
 							"editorconfig-checker",
-							-- "golangci-lint",
+							"golangci-lint",
 							{ "bash-language-server", auto_update = true },
 							"json-to-struct",
 							"shellcheck",
@@ -92,15 +71,15 @@ return {
 		},
 	},
 
-	{
-		"evanleck/vim-svelte",
-		branch = "main",
-
-		dependencies = {
-			"othree/html5.vim",
-			"pangloss/vim-javascript",
-		},
-	},
+	-- {
+	-- 	"evanleck/vim-svelte",
+	-- 	branch = "main",
+	--
+	-- 	dependencies = {
+	-- 		"othree/html5.vim",
+	-- 		"pangloss/vim-javascript",
+	-- 	},
+	-- },
 
 	{
 		"windwp/nvim-ts-autotag",
@@ -115,13 +94,20 @@ return {
 		config = function() require("nvim-ts-autotag").setup() end,
 	},
 
-	-- { "numToStr/Comment.nvim", opts = {}, lazy = false },
+	{ "numToStr/Comment.nvim", opts = {}, lazy = false },
 
 	-- ======== Quality of Life ==========
 
 	{ "christoomey/vim-tmux-navigator", lazy = false },
-	{ "sindrets/diffview.nvim" },
-	-- { "numToStr/Comment.nvim" },
+	{
+		"sindrets/diffview.nvim",
+		config = function()
+			vim.keymap.set("n", "<leader>Gf", "<cmd>DiffviewFileHistory %<CR>", { desc = "Diff File History" })
+			vim.keymap.set("n", "<leader>Gl", "<cmd>DiffviewFileHistory<CR>", { desc = "Diff History All" })
+			vim.keymap.set("n", "<leader>Go", "<cmd>DiffviewOpen<CR>", { desc = "Diff View  Open" })
+			vim.keymap.set("n", "<leader>Gx", "<cmd>DiffviewClose<CR>", { desc = "Diff View Close" })
+		end,
+	},
 
 	-- hlchunk seems better
 	-- {
@@ -163,12 +149,10 @@ return {
 	},
 
 	-- TODO: Testing - maybe I'll remove this.
-	-- {
-	--   "windwp/nvim-autopairs",
-	--   config = function()
-	--     require("nvim-autopairs").setup({})
-	--   end,
-	-- },
+	{
+		"windwp/nvim-autopairs",
+		config = function() require("nvim-autopairs").setup({}) end,
+	},
 	--
 
 	-- ========== Themes and Visuals ===========
@@ -199,21 +183,27 @@ return {
 					},
 				},
 			})
+			vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#f9e2af", bold = true })
+			-- vim.api.nvim_set_hl(0, "Visual", { bg = "#45475a" })
 		end,
 	},
-	{ "scottmckendry/cyberdream.nvim" },
-	{ "folke/tokyonight.nvim", name = "kanagawa" },
-	{ "rebelot/kanagawa.nvim" },
-	{ "EdenEast/nightfox.nvim" },
-	{ "rose-pine/neovim" },
-	{ "navarasu/onedark.nvim" },
-	{ "sainnhe/gruvbox-material" },
-	{ "shaunsingh/nord.nvim" },
-	{ "olimorris/onedarkpro.nvim" },
-	{ "sainnhe/sonokai" },
-	{ "Mofiqul/dracula.nvim" },
-	{ "nyoom-engineering/oxocarbon.nvim" },
-	{ "neanias/everforest-nvim" },
+
+	-- INFO: Disabled themes
+	--[[
+    { "scottmckendry/cyberdream.nvim" },
+    { "folke/tokyonight.nvim", name = "kanagawa" },
+    { "rebelot/kanagawa.nvim" },
+    { "EdenEast/nightfox.nvim" },
+    { "rose-pine/neovim" },
+    { "navarasu/onedark.nvim" },
+    { "sainnhe/gruvbox-material" },
+    { "shaunsingh/nord.nvim" },
+    { "olimorris/onedarkpro.nvim" },
+    { "sainnhe/sonokai" },
+    { "Mofiqul/dracula.nvim" },
+    { "nyoom-engineering/oxocarbon.nvim" },
+    { "neanias/everforest-nvim" },
+  ]]
 
 	-- {
 	-- 	"nvim-lualine/lualine.nvim",
@@ -230,7 +220,18 @@ return {
 	{
 		"tpope/vim-fugitive",
 		config = function()
-			-- vim.keymap.set("n", "<leader>gs", vim.cmd.Git, { desc = "[G]it [S]how" });
+			vim.keymap.set("n", "<leader>Gd", vim.cmd.Gvdiffsplit, { desc = "[G]it [D]iff :Gvdiffsplit" })
+			vim.keymap.set("n", "<leader>Gs", function()
+				vim.cmd("vertical Git")
+				vim.cmd("vert resize 50")
+			end, { desc = "Open Fugitive in vertical split with width 80" })
+
+			vim.keymap.set(
+				"n",
+				"<leader>GB",
+				function() vim.cmd("left vertical Git blame") end,
+				{ desc = "Open Fugitive in vertical split with width 80" }
+			)
 
 			-- vim.keymap.set("n", "<leader>gs", function()
 			-- 	vim.cmd("vertical leftabove Git")
@@ -243,9 +244,8 @@ return {
 		event = "VimEnter",
 		dependencies = { { "nvim-tree/nvim-web-devicons" } },
 	},
-	--
-	--
-	{ "wuelnerdotexe/vim-astro" },
+
+	-- { "wuelnerdotexe/vim-astro" },
 
 	-- ========== Debugger ===========
 

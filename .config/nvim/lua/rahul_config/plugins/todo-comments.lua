@@ -6,19 +6,26 @@ return {
 			sign_priority = 8, -- sign priority
 			-- keywords recognized as todo comments
 			keywords = {
-				FIX = {
-					icon = " ", -- icon used for the sign, and in search results
-					color = "error", -- can be a hex color, or a named color (see below)
-					alt = { "FIXME", "BUG", "FIXIT", "ISSUE" }, -- a set of other keywords that all map to this FIX keywords
-					-- signs = false, -- configure signs for some keywords individually
-				},
-				TODO = { icon = " ", color = "todo" },
-				HACK = { icon = " ", color = "warning" },
+				FIX = { icon = " ", color = "error", alt = { "FIXME", "BUG", "FIXIT", "ISSUE" } },
+				DONE = { icon = " ", color = "check" },
+				TODO = { icon = " ", color = "todo" },
+				HACK = { icon = "󰭙 ", color = "warning" },
 				WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
 				PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
-				NOTE = { icon = " ", color = "info", alt = { "INFO" } },
-				ME = { icon = " ", color = "me", alt = { "RAHUL" } },
-				TEST = { icon = "⏲ ", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
+				NOTE = { icon = "󱝾 ", color = "info_duplicate", alt = { "INFO" } },
+				ME = { icon = "󰱲 ", color = "me", alt = { "RAHUL" } },
+				TEST = { icon = "󰙨", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
+
+				-- FIX:
+				-- DONE:
+				-- TODO:
+				-- HACK:
+				-- WARN:
+				-- PERF:
+				-- NOTE:
+				-- ME:
+				-- TEST:
+				-- https://www.nerdfonts.com/cheat-sheet for more icons
 			},
 			gui_style = {
 				fg = "NONE", -- The gui style to use for the fg highlight group.
@@ -44,23 +51,28 @@ return {
 			-- list of named colors where we try to extract the guifg from the
 			-- list of highlight groups or use the hex color if hl not found as a fallback
 			colors = {
-				error = { "DiagnosticError", "ErrorMsg", "#DC2626" },
-				warning = { "DiagnosticWarn", "WarningMsg", "#FBBF24" },
-				todo = { "#89b4fa" },
-				me = { "#b4befe" },
-				info = { "DiagnosticInfo", "#2563EB" },
-				hint = { "DiagnosticHint", "#10B981" },
-				default = { "Identifier", "#7C3AED" },
-				test = { "Identifier", "#FF00FF" },
+				error = { "DiagnosticError", "ErrorMsg", "#F38BA8" },
+				warning = { "DiagnosticWarn", "WarningMsg", "#F9E2AF" },
+				todo = { "#CBA6F7" },
+				me = { "#F5C2E7" },
+				check = { "#A6E3A1" },
+				info = { "DiagnosticInfo", "#b4befe" },
+				info_duplicate = { "#89B4FA" },
+				hint = { "DiagnosticHint", "#94E2D5" },
+				default = { "Identifier", "#CBA6F7" },
+				test = { "Identifier", "#F5C2E7" },
 				--[[
         REFERENCE COLORS
-
-        Blue	#89b4fa
-        Maroon	#eba0ac
-        Mauve	#cba6f8
-        Peach	#fab387
-        Blue	#89b4fa
-        Lavender	#b4befe
+        fg       = '#CDD6F4', -- Catppuccin text
+        yellow   = '#F9E2AF', -- Catppuccin yellow
+        cyan     = '#94E2D5', -- Catppuccin teal
+        darkblue = '#89B4FA', -- Catppuccin blue
+        green    = '#A6E3A1', -- Catppuccin green
+        orange   = '#FAB387', -- Catppuccin peach
+        violet   = '#CBA6F7', -- Catppuccin mauve
+        magenta  = '#F5C2E7', -- Catppuccin pink
+        blue     = '#89B4FA', -- Catppuccin blue
+        red      = '#F38BA8', -- Catppuccin red
         ]]
 			},
 			search = {
@@ -78,5 +90,20 @@ return {
 				-- pattern = [[\b(KEYWORDS)\b]], -- match without the extra colon. You'll likely get false positives
 			},
 		},
+		vim.keymap.set(
+			"n",
+			"<leader>to",
+			-- Trouble todo filter = {tag = {TODO,FIX,FIXME}}
+			"<cmd>Trouble todo<cr>",
+			{ desc = "todo: Trouble [TO]DO" }
+		),
+
+		vim.keymap.set(
+			"n",
+			"<leader>tn",
+			-- Trouble todo filter = {tag = {TODO,FIX,FIXME}}
+			"<cmd>Trouble todo filter = {tag = {TODO,FIX,FIXME}}<cr>",
+			{ desc = "todo: Trouble [TO]DO" }
+		),
 	},
 }

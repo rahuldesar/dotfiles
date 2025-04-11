@@ -1,2 +1,49 @@
-snippet co
-	Co-authored-by: ${1} <${2}>
+# gitcommit snippets with "cc:" prefix to indicate Conventional Commits
+
+snippet cc:feat "✨ Add a new feature"
+	feat(${1:scope}): ${2:short description}
+	
+	${3:longer description}
+
+snippet cc:fix "🐛 Fix a bug"
+	fix(${1:scope}): ${2:short description}
+	
+	${3:longer description}
+
+snippet cc:chore "🔧 Routine task or maintenance"
+	chore(${1:scope}): ${2:short description}
+	
+	${3:longer description}
+
+snippet cc:docs "📝 Update documentation"
+	docs(${1:scope}): ${2:update docs}
+
+snippet cc:style "💄 Code style or formatting (no logic change)"
+	style(${1:scope}): ${2:code style change}
+
+snippet cc:refactor "♻️ Code refactoring (no fix or feature)"
+	refactor(${1:scope}): ${2:refactor description}
+
+snippet cc:test "✅ Add or update tests"
+	test(${1:scope}): ${2:add or update tests}
+
+snippet cc:perf "⚡ Improve performance"
+	perf(${1:scope}): ${2:performance improvement}
+
+snippet cc:ci "🛠️ CI configuration or script changes"
+	ci(${1:tool}): ${2:update CI configuration}
+
+snippet cc:build "🏗️ Changes to build system or dependencies"
+	build(${1:scope}): ${2:update build system}
+
+snippet cc:revert "⏪ Revert a previous commit"
+	revert: ${1:short description}
+	
+	This reverts commit ${2:<commit hash>}.
+
+snippet cc:wip "🚧 Work in progress"
+	wip(${1:scope}): ${2:work in progress}
+
+snippet co "🤝 Add co-author attribution"
+	Co-authored-by: ${1:Name} <${2:email@example.com}>
+

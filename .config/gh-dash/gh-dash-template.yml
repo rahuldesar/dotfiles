@@ -1,19 +1,19 @@
 prSections:
-- title: Open {{REPO}}
+- title: OPEN - {{REPO}}
   limit: 10
   filters: "\
   repo:{{REPO}} \
   is:open sort:updated-desc \
   "
   type: null
-- title: Closed {{REPO}}
+- title: CLOSED - {{REPO}}
   limit: 10
   filters: "\
   repo:{{REPO}} \
   is:closed sort:updated-desc \
   "
   type: null
-- title: Merged {{REPO}}
+- title: MERGED - {{REPO}}
   limit: 10
   filters: "\
   repo:{{REPO}} \
@@ -31,7 +31,7 @@ repo:
 defaults:
   preview:
     open: true
-    width: 75
+    width: 80
   prsLimit: 20
   issuesLimit: 20
   view: prs
@@ -70,6 +70,8 @@ defaults:
         width: 20
         hidden: true
   refetchIntervalMinutes: 30
+repoPaths:
+  {{REPO}}: {{REPO_PATH}}
 keybindings:
   universal: []
   prs:

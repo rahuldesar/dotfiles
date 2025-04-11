@@ -19,6 +19,5 @@ REPO=$(echo "$REMOTE_URL" | sed 's|https://github.com/||; s|.git$||')
 CONFIG_FILE="$HOME/.config/gh-dash/temp-custom-config.yml"
 TEMPLATE_FILE="$HOME/.config/gh-dash/gh-dash-template.yml"
 
-sed "s|{{REPO}}|$REPO|g" "$TEMPLATE_FILE" >"$CONFIG_FILE"
-
+sed -e "s|{{REPO}}|$REPO|g" -e "s|{{REPO_PATH}}|$1|g" "$TEMPLATE_FILE" >"$CONFIG_FILE"
 # gh dash -c "-$CONFIG_FILE"

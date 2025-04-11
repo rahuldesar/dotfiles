@@ -2,6 +2,9 @@ return {
 	"echasnovski/mini.nvim",
 	config = function()
 		require("mini.surround").setup()
+		-- require("mini.cursorword").setup()
+		require("mini.ai").setup({ n_lines = 500 })
+		-- require("mini.icons").setup()
 		--[[
   INFO: Todo-comments alternative
 		local hipatterns = require("mini.hipatterns")
@@ -18,12 +21,5 @@ return {
 			},
 		})
     ]]
-		-- NOTE: Better Around/Inside textobjects
-		-- Examples:
-		--  - `af` - around function call
-		--  - `inq` - inside next quote
-		require("mini.ai").setup({ n_lines = 500 })
-
-		-- require("mini.bracketed").setup()
 	end,
 }

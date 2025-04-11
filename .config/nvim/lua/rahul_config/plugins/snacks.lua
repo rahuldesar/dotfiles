@@ -58,11 +58,11 @@ return {
 			function() Snacks.picker.git_log_line() end,
 			desc = "Git Log Line",
 		},
-		{
-			"<leader>gs",
-			function() Snacks.picker.git_status() end,
-			desc = "Git Status",
-		},
+		-- {
+		-- 	"<leader>gs",
+		-- 	function() Snacks.picker.git_status() end,
+		-- 	desc = "Git Status",
+		-- },
 		{
 			"<leader>gS",
 			function() Snacks.picker.git_stash() end,

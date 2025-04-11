@@ -1,4 +1,4 @@
--- @TODO:  Rewrite lsp config remove `lsp-zero` and switch `nvim-cmp` with `blink.cmp`
+-- @TcDO:  Rewrite lsp config remove `lsp-zero` and switch `nvim-cmp` with `blink.cmp`
 -- @INFO: Read 'you might not need lsp-zero'
 
 local lsp = require("lsp-zero").preset({
@@ -9,31 +9,31 @@ local lsp = require("lsp-zero").preset({
 })
 
 local kind_icons = {
-	Text = "",
-	Method = "󰆧",
+	Text = " ",
+	Method = "󰆧 ",
 	Function = "󰊕",
-	Constructor = "",
-	Field = "󰇽",
-	Variable = "󰂡",
-	Class = "󰠱",
-	Interface = "",
-	Module = "",
-	Property = "󰜢",
-	Unit = "",
-	Value = "󰎠",
-	Enum = "",
-	Keyword = "󰌋",
-	Snippet = "",
-	Color = "󰏘",
-	File = "󰈙",
-	Reference = "",
-	Folder = "󰉋",
-	EnumMember = "",
-	Constant = "󰏿",
-	Struct = "",
-	Event = "",
-	Operator = "󰆕",
-	TypeParameter = "󰅲",
+	Constructor = " ",
+	Field = "󰇽 ",
+	Variable = "󰂡 ",
+	Class = "󰠱 ",
+	Interface = " ",
+	Module = " ",
+	Property = "󰜢 ",
+	Unit = " ",
+	Value = "󰎠 ",
+	Enum = " ",
+	Keyword = "󰌋 ",
+	Snippet = " ",
+	Color = "󰏘 ",
+	File = "󰈙 ",
+	Reference = " ",
+	Folder = "󰉋 ",
+	EnumMember = " ",
+	Constant = "󰏿 ",
+	Struct = " ",
+	Event = " ",
+	Operator = "󰆕 ",
+	TypeParameter = "󰅲 ",
 }
 
 local lspconfig = require("lspconfig")
@@ -50,6 +50,7 @@ lsp.configure("pyright", {
 		},
 	},
 })
+
 local luasnip = require("luasnip")
 luasnip.config.setup({})
 
@@ -143,6 +144,10 @@ lsp.on_attach(function(client, bufnr)
 	vim.keymap.set("n", "<leader>vd", require("telescope.builtin").diagnostics, opts)
 	--
 	-- vim.keymap.set("n", "gd", require("telescope.builtin").lsp_definitions, { desc = "[G]o to [D]efinition" })
+
+	-- nnoremap <Leader>f :lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({}))<cr>
+	-- nnoremap <Leader>f :lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ winblend = 10 }))<cr>
+
 	vim.keymap.set("n", "<leader>gd", require("telescope.builtin").lsp_definitions, { desc = "[G]o to [D]efinition" })
 	-- TODO: use telescope for this too
 	vim.keymap.set(
@@ -179,11 +184,13 @@ lsp.on_attach(function(client, bufnr)
 
 	vim.keymap.set("n", "<leader>ra", function() vim.lsp.buf.rename() end, opts)
 
-	vim.keymap.set("n", "<leader>gh", "<cmd>lua vim.lsp.buf.hover()<CR>", { noremap = true, silent = true })
+	vim.keymap.set("n", "<leader>gh", vim.lsp.buf.hover, { noremap = true, silent = true })
+	vim.keymap.set({ "n" }, "<leader>gH", vim.lsp.buf.signature_help, { noremap = true, silent = true })
 	-- vim.keymap.set("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", { noremap = true, silent = true })
 
 	vim.keymap.set("n", "<C-\\>", ":vsp<CR>", { noremap = true, silent = true, desc = "Split Vertical" })
 
+	--
 	-- TODO: make this work only on ts files
 	require("twoslash-queries").attach(client, bufnr)
 	vim.keymap.set("n", "<leader>ct", "<cmd>TwoslashQueriesEnable<CR>", {})
@@ -202,7 +209,7 @@ lsp.set_sign_icons({
 	-- warn = '',
 	-- hint = '',
 	-- info = ''
-	error = "✘",
+	error = "✘ ",
 	warn = "▲",
 	hint = "⚑",
 	info = "»",

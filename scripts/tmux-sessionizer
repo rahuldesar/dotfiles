@@ -7,37 +7,43 @@ else
     (
       find \
         ~/.config \
-        ~/Documents \
-        ~/Developer/Workspace/* \
-        ~/Developer/vaults \
         ~/.config/custom-nvim/* \
         ~/.config/nvim-snippets/* \
         ~/Developer/Personal/* \
-        ~/Developer/Personal/projects \
-        ~/Developer/Personal/projects/advent-of-code \
-        ~/Developer/Personal/projects/project-chrome-extensions \
+        ~/Developer/Personal/helpers \
         ~/Developer/Personal/learning \
         ~/Developer/Personal/learning/algorithms \
         ~/Developer/Personal/learning/css \
-        ~/Developer/Personal/learning/tui \
         ~/Developer/Personal/learning/css \
         ~/Developer/Personal/learning/design-patterns \
         ~/Developer/Personal/learning/drizzle-orm \
         ~/Developer/Personal/learning/fso \
         ~/Developer/Personal/learning/golang \
-        ~/Developer/Personal/learning/golang/web-app \
+        ~/Developer/Personal/learning/golang/gopher \
         ~/Developer/Personal/learning/golang/tutorial \
-        ~/Developer/Personal/reference/golang \
+        ~/Developer/Personal/learning/golang/web-app \
+        ~/Developer/Personal/learning/golang/web-frameworks \
         ~/Developer/Personal/learning/homelab \
         ~/Developer/Personal/learning/htmx \
+        ~/Developer/Personal/learning/lua/love2d \
         ~/Developer/Personal/learning/mooc \
+        ~/Developer/Personal/learning/mega-repo \
+        ~/Developer/Personal/learning/mega-repo/lang \
         ~/Developer/Personal/learning/nvim \
         ~/Developer/Personal/learning/rust \
         ~/Developer/Personal/learning/rust-by-examples \
         ~/Developer/Personal/learning/rust-packages \
         ~/Developer/Personal/learning/todo-k8 \
+        ~/Developer/Personal/learning/tui \
         ~/Developer/Personal/learning/vagrant \
-        -mindepth 1 -maxdepth 1 -type d ! -name "node_modules" \
+        ~/Developer/Personal/projects \
+        ~/Developer/Personal/projects/advent-of-code \
+        ~/Developer/Personal/projects/project-chrome-extensions \
+        ~/Developer/Personal/reference/golang \
+        ~/Developer/Workspace/* \
+        ~/Developer/vaults \
+        ~/Documents \
+        -mindepth 1 -maxdepth 1 -type d ! -name "node_modules" ! -name ".bare" \
         ;
       # find \
       #   -mindepth 1 -maxdepth 2 -type d ! -path '*/.*' ! -name "node_modules" \

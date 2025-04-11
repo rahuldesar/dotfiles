@@ -16,6 +16,23 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 		end
 	end,
 })
+-- show cursor line only in active window
+vim.api.nvim_create_autocmd({ "InsertLeave", "WinEnter" }, {
+	callback = function()
+		if vim.w.auto_cursorline then
+			vim.wo.cursorline = true
+			vim.w.auto_cursorline = nil
+		end
+	end,
+})
+vim.api.nvim_create_autocmd({ "InsertEnter", "WinLeave" }, {
+	callback = function()
+		if vim.wo.cursorline then
+			vim.w.auto_cursorline = true
+			vim.wo.cursorline = false
+		end
+	end,
+})
 
 vim.api.nvim_create_autocmd({ "VimResized" }, {
 	group = vim.api.nvim_create_augroup("EqualizeSplits", {}),
@@ -44,6 +61,8 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "markdown" },
 	callback = function()
 		vim.keymap.set("n", "<leader>pr", "<cmd>MarkdownPreviewToggle<CR>", { silent = true, buffer = true })
+		vim.keymap.set("n", "<leader>mve", "<cmd>Markview<CR>", { silent = true, buffer = true })
+		vim.keymap.set("n", "<leader>mvd", "<cmd>Markview Disable<CR>", { silent = true, buffer = true })
 	end,
 })
 
@@ -67,12 +86,20 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "lua" },
+	callback = function()
+		vim.keymap.set("n", "<leader>pr", "<cmd>!lua %<CR>", { desc = "Play lua - node run", buffer = true })
+	end,
+	-- group = group,
+})
+
 -- local group = vim.api.nvim_create_augroup("js_autostart", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "javascript" },
 	callback = function()
-		vim.keymay.set("n", "<leader>pr", "<cmd>!node %<CR>", { desc = "Play Javascript - node run", buffer = true })
-		vim.keymay.set("n", "<leader>js", "<cmd>!node %<CR>", { desc = "Play Javascript - node run", buffer = true })
+		vim.keymap.set("n", "<leader>pr", "<cmd>!node %<CR>", { desc = "Play Javascript - node run", buffer = true })
+		vim.keymap.set("n", "<leader>js", "<cmd>!node %<CR>", { desc = "Play Javascript - node run", buffer = true })
 	end,
 	-- group = group,
 })
@@ -93,6 +120,14 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 	command = "set filetype=bash",
 })
 
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+	pattern = "*.env*",
+	callback = function(args)
+		vim.cmd("LspStop")
+		-- vim.diagnostic.enable(false)
+	end,
+})
+
 -- Diagnostic - Virtual Lines on current line only, while disabling virtual_text
 vim.api.nvim_create_autocmd({ "CursorMoved", "DiagnosticChanged" }, {
 	callback = function()
@@ -110,24 +145,22 @@ vim.api.nvim_create_autocmd({ "CursorMoved", "DiagnosticChanged" }, {
 --  ======= Love this but it messes up with plugins like navbuddy
 --  When leaving a window, set all highlight groups to a "dimmed" hl_group
 --
--- vim.cmd("highlight default DimInactiveWindows guifg=#666666")
---
--- vim.api.nvim_create_autocmd({ "WinLeave" }, {
--- 	callback = function()
--- 		local highlights = {}
--- 		for hl, _ in pairs(vim.api.nvim_get_hl(0, {})) do
--- 			table.insert(highlights, hl .. ":DimInactiveWindows")
--- 		end
--- 		vim.wo.winhighlight = table.concat(highlights, ",")
--- 	end,
--- })
---
--- -- When entering a window, restore all highlight groups to original
--- vim.api.nvim_create_autocmd({ "WinEnter" }, {
--- 	callback = function()
--- 		vim.wo.winhighlight = ""
--- 	end,
--- })
+--[[ vim.cmd("highlight default DimInactiveWindows guifg=#666666")
+
+vim.api.nvim_create_autocmd({ "WinLeave" }, {
+	callback = function()
+		local highlights = {}
+		for hl, _ in pairs(vim.api.nvim_get_hl(0, {})) do
+			table.insert(highlights, hl .. ":DimInactiveWindows")
+		end
+		vim.wo.winhighlight = table.concat(highlights, ",")
+	end,
+})
+
+-- When entering a window, restore all highlight groups to original
+vim.api.nvim_create_autocmd({ "WinEnter" }, {
+	callback = function() vim.wo.winhighlight = "" end,
+}) ]]
 
 -- vim.api.nvim_create_autocmd("CmdlineEnter", {
 -- 	group = vim.api.nvim_create_augroup("gmr_cmdheight_1_on_cmdlineenter", { clear = true }),

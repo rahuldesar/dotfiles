@@ -1,6 +1,7 @@
 return {
 	{
 		"stevearc/aerial.nvim",
+		lazy = true,
 		opts = {
 			layout = {
 				-- These control the width of the aerial window.

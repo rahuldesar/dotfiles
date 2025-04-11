@@ -1,46 +1,46 @@
 local kind_icons = {
 	-- Basic Types
-	Text = "󰊄",
-	Variable = "󰫧", -- Default: "󰆦"
-	Constant = "󰏿",
-	Value = "󰦨",
+	Text = "󰊄 ",
+	Variable = "󰫧 ", -- Default: "󰆦"
+	Constant = "󰏿 ",
+	Value = "󰦨 ",
 
 	-- Functions & Methods
-	Function = "󰊕",
-	Method = "󰡱",
-	Constructor = "󰒓",
+	Function = "󰊕 ",
+	Method = "󰡱 ",
+	Constructor = "󰒓 ",
 
 	-- Object-Oriented Programming
-	Class = "", -- Default: "󱡠"
-	Interface = "", -- Default: "󱡠"
-	Struct = "󱡠",
-	TypeParameter = "󰬛",
+	Class = " ", -- Default: "󱡠"
+	Interface = " ", -- Default: "󱡠"
+	Struct = "󱡠 ",
+	TypeParameter = "󰬛 ",
 
 	-- Fields & Properties
-	Field = "󰜢",
-	Property = "󰖷",
-	Enum = "",
-	EnumMember = "󰦨",
+	Field = "󰜢 ",
+	Property = "󰖷 ",
+	Enum = " ",
+	EnumMember = "󰦨 ",
 
 	-- Keywords & Operators
-	Keyword = "󰌋", -- Default: "󰻾"
-	Operator = "󰆕", -- Default: "󰪚"
+	Keyword = "󰌋 ", -- Default: "󰻾"
+	Operator = "󰆕 ", -- Default: "󰪚"
 
 	-- Modules & References
-	Module = "", -- Default: "󰅩"
-	Reference = "", -- Default: "󰬲"
+	Module = " ", -- Default: "󰅩"
+	Reference = " ", -- Default: "󰬲"
 
 	-- Snippets & Code Utilities
-	Snippet = "",
-	Unit = "", -- Default: "󰪚"
+	Snippet = " ",
+	Unit = " ", -- Default: "󰪚"
 
 	-- Files & Folders
-	File = "󰈔",
-	Folder = "󰉋",
+	File = "󰈔 ",
+	Folder = "󰉋 ",
 
 	-- Miscellaneous
-	Color = "󰏘",
-	Event = "󱐋",
+	Color = "󰏘 ",
+	Event = "󱐋 ",
 }
 
 return {
@@ -49,7 +49,6 @@ return {
 		dependencies = {
 			{ "rafamadriz/friendly-snippets" },
 			{ "folke/lazydev.nvim", ft = "lua", opts = {} },
-			{ "disrupted/blink-cmp-conventional-commits" },
 			{ "Kaiser-Yang/blink-cmp-dictionary", dependencies = { "nvim-lua/plenary.nvim" } },
 		},
 		version = "1.*",
@@ -81,7 +80,7 @@ return {
 			snippets = { preset = "luasnip" },
 			sources = {
 				-- , "dictionary"
-				default = { "conventional_commits", "lazydev", "lsp", "path", "snippets", "buffer" },
+				default = { "lsp", "lazydev", "snippets", "buffer", "path" },
 				per_filetype = {
 					sql = { "snippets", "dadbod", "buffer", "lsp" },
 				},
@@ -95,13 +94,6 @@ return {
 
 					-- Database
 					dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
-
-					conventional_commits = {
-						name = "Conventional Commits",
-						module = "blink-cmp-conventional-commits",
-						enabled = function() return vim.bo.filetype == "gitcommit" end,
-						opts = {}, -- none so far
-					},
 
 					dictionary = {
 						module = "blink-cmp-dictionary",

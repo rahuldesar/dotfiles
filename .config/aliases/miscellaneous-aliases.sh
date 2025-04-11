@@ -6,6 +6,12 @@ alias .....="cd ../../../.."
 alias cls="clear"
 function mcd() { mkdir -p "$1" && cd "$1"; }
 
+ghd() {
+  CURRENT_DIR=$(pwd)
+  echo "gh-dash-config-generator \"$CURRENT_DIR\" && gh dash -c \"$HOME/.config/gh-dash/temp-custom-config.yml\""
+  gh-dash-config-generator "$CURRENT_DIR" && gh dash -c "$HOME/.config/gh-dash/temp-custom-config.yml"
+}
+
 alias yt='ytfzf -t'
 
 alias :so="source ~/.bashrc"
@@ -61,6 +67,8 @@ done
 alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 
 alias mega="cd /Users/rahuldesar/Developer/apps/MegaBasterdMACOS_SILICON && ./MegaBasterd.run"
+
+alias love="/Applications/love.app/Contents/MacOS/love"
 
 # Yadm Commit
 function yc() {

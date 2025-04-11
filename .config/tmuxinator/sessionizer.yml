@@ -11,6 +11,6 @@ windows:
       layout: main-vertical
       panes:
         -
-        -
+        - git fetch --all && gla
   - git: gh-dash-config-generator <%= @args[1] %> && gh dash -c "$HOME/.config/gh-dash/temp-custom-config.yml"
-  - misc:
+  # - misc: y

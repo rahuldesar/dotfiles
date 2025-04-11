@@ -56,7 +56,14 @@ return {
 			{ desc = "[/] Fuzzily search in current buffer" }
 		)
 
-		map("n", "<leader>ff", builtin.find_files, { desc = "[S]earch [F]iles" })
+		map(
+			"n",
+			"<leader>ff",
+			"<cmd>Telescope find_files hidden=true no_ignore=true<cr>",
+			{ desc = "[S]earch [F]iles" }
+		)
+
+		-- "<cmd>Telescope find_files hidden=true no_ignore=true<cr>",
 		map("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
 		map("n", "<leader>sc", builtin.colorscheme, { desc = "[S]witch [C]olorscheme" })
 		map("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
@@ -91,7 +98,7 @@ return {
 		map("n", "<leader>sG", builtin.git_files, { desc = "[S]earch [G]it Files" })
 		map("n", "<leader>Gc", builtin.git_commits, { desc = "Search [G]it [C]ommits" })
 		map("n", "<leader>Gb", builtin.git_branches, { desc = "Search [G]it [B]ranches" })
-		map("n", "<leader>Gs", builtin.git_status, { desc = "Search [G]it [S]tatus" })
+		-- map("n", "<leader>Gs", builtin.git_status, { desc = "Search [G]it [S]tatus" })
 		map("n", "<leader>Gg", builtin.git_stash, { desc = "Search [G]it Stash" })
 
 		map("n", "<leader>pws", function()
