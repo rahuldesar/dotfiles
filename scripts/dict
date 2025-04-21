@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+word="$1"
+
+if [ -z "$word" ]; then
+  echo "Usage: get_meaning.sh <word>"
+  exit 1
+fi
+
+response=$(curl -s "https://api.dictionaryapi.dev/api/v2/entries/en/$word")
+
+if ! echo "$response" | jq -e '.[0].meanings' >/dev/null 2>&1; then
+  echo "No definition found for '$word'"
+  exit 1
+fi
+
+# Add to wordlist if unique
+if ! grep -Fxq "$1" "/Users/rahuldesar/Developer/Personal/docs/wordlist.md"; then
+  echo "$1" >>"/Users/rahuldesar/Developer/Personal/docs/wordlist.md"
+fi
+#
+# echo "$response" | jq -r '.[0].meanings[].definitions[].definition' | nl -w2 -s'. '
+
+echo "** $1 **"
+echo "========="
+echo "$response" | jq '.[0].meanings[]'
