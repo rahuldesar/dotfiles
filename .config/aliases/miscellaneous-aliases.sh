@@ -69,6 +69,7 @@ alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 alias mega="cd /Users/rahuldesar/Developer/apps/MegaBasterdMACOS_SILICON && ./MegaBasterd.run"
 
 alias love="/Applications/love.app/Contents/MacOS/love"
+alias xps-oil="nvim oil-ssh://xps//home/rahul/Downloads"
 
 # Yadm Commit
 function yc() {

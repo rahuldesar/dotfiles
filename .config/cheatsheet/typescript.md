@@ -1,289 +1,331 @@
-#---
+---
 title: TypeScript
-category: JavaScript libraries
-layout: 2017/sheet
-
+date: 2024-05-28 22:12:25
+background: bg-[#4476c0]
+tags:
+  - ts
+  - web
+categories:
+  - Programming
+intro: |
+  A TypeScript cheat sheet with the most important concepts, functions, methods, and more. A complete quick reference for beginners.
+plugins:
+  - copyCode
+  - runCode
 ---
 
-### About
+## Getting Started
 
-TypeScript is just like ES2015 with type-checking. All ES2015 (classes, etc) should work.
+### Installing the Compiler
 
-### Basic types
+```sh
+npm install typescript --save-dev
+npm tsc
+```
+
+## Basic DataTypes
+
+### basic types
 
 ```ts
-any
-void
-
-boolean
-number
-string
-
-null
-undefined
-
-bigint
-symbol
-
-string[]          /* or Array<string> */
-[string, number]  /* tuple */
-
-string | null | undefined   /* union */
-
-never  /* unreachable */
-unknown
+let isDone: boolean = false;
+let age: number = 30;
+let userName: string = "John";
+let list: number[] = [1, 2, 3];
+let tuple: [string, number] = ["hello", 10];
+let notSure: any = 4;
+notSure = "maybe a string instead";
 ```
+
+### enums
 
 ```ts
 enum Color {
   Red,
   Green,
-  Blue = 4,
+  Blue,
 }
-
 let c: Color = Color.Green;
 ```
 
-### Declarations
+### interface
 
 ```ts
-let isDone: boolean;
-let isDone: boolean = false;
-```
-
-```ts
-function add (a: number, b: number): number {
-  return a + b
+interface Person {
+  firstName: string;
+  lastName: string;
+  age?: number; // Optional property
 }
 
-// Return type is optional
-function add (a: number, b: number) { ... }
-```
-
-## Type assertions
-
-#### Variables
-
-```ts
-let len: number = (input as string).length;
-let len: number = (<string>input).length; /* not allowed in JSX */
-```
-
-#### Functions
-
-```ts
-function object(this: { a: number; b: number }, a: number, b: number) {
-  this.a = a;
-  this.b = b;
-  return this;
-}
-
-// this is used only for type declaration
-let a = object(1, 2);
-// a has type {a: number, b: number}
-```
-
-## Interfaces
-
-### Inline
-
-```ts
-function printLabel(options: { label: string }) {
-  console.log(options.label);
-}
-
-// Note the semicolon
-function getUser(): { name: string; age?: number } {}
-```
-
-### Explicit
-
-```ts
-interface LabelOptions {
-  label: string
-}
-
-function printLabel(options: LabelOptions) { ... }
-```
-
-### Optional properties
-
-```ts
-interface User {
-  name: string;
-  age?: number;
+function greet(person: Person) {
+  return "Hello, " + person.firstName + " " + person.lastName;
 }
 ```
 
-### Read only
+### Functions
 
 ```ts
-interface User {
-  readonly name: string;
+function add(x: number, y: number): number {
+  return x + y;
+}
+
+let myAdd = function (x: number, y: number): number {
+  return x + y;
+};
+
+let myArrowAdd = (x: number, y: number): number => x + y;
+
+function buildName(firstName: string, lastName = "Smith") {
+  return firstName + " " + lastName;
+}
+
+function buildFullName(firstName: string, ...restOfName: string[]) {
+  return firstName + " " + restOfName.join(" ");
 }
 ```
 
-### Dynamic keys
+### Classes
 
 ```ts
-{
-  [key: string]: Object[]
-}
-```
-
-## Type aliases
-
-### Type aliases
-
-```ts
-type Name = string | string[];
-```
-
-### Intersection
-
-```ts
-interface Colorful { ... }
-
-interface Circle { ... }
-
-type ColorfulCircle = Colorful & Circle;
-```
-
-## Function types
-
-```ts
-interface User { ... }
-
-function getUser(callback: (user: User) => any) { callback({...}) }
-
-getUser(function (user: User) { ... })
-```
-
-## Classes
-
-```ts
-class Point {
-  x: number;
-  y: number;
-  static instances = 0;
-  constructor(x: number, y: number) {
-    this.x = x;
-    this.y = y;
-  }
-}
-```
-
-#### Inheritance
-
-```ts
-class Point {...}
-
-class Point3D extends Point {...}
-
-interface Colored {...}
-
-class Pixel extends Point implements Colored {...}
-```
-
-#### Short fields initialisation
-
-```ts
-class Point {
-  static instances = 0;
-  constructor(public x: number, public y: number) {}
-}
-```
-
-#### Fields which do not require initialisation
-
-```ts
-class Point {
-  public someUselessValue!: number;
-  ...
-}
-```
-
-## Generics
-
-```ts
-class Greeter<T> {
-  greeting: T;
-  constructor(message: T) {
+class Greeter {
+  greeting: string;
+  constructor(message: string) {
     this.greeting = message;
   }
+  greet() {
+    return "Hello, " + this.greeting;
+  }
 }
 
-let greeter = new Greeter<string>("Hello, world");
+let greeter = new Greeter("world");
+```
+
+### Inheritance
+
+```ts
+class Animal {
+  move(distance: number = 0) {
+    console.log(`Animal moved ${distance} meters.`);
+  }
+}
+
+class Dog extends Animal {
+  bark() {
+    console.log("Woof! Woof!");
+  }
+}
+
+const dog = new Dog();
+dog.bark();
+dog.move(10);
+dog.bark();
+```
+
+### Generics
+
+```ts
+function identity<T>(arg: T): T {
+  return arg;
+}
+
+let output1 = identity<string>("myString");
+let output2 = identity<number>(42);
+```
+
+### Type Assertions
+
+```ts
+let someValue: any = "this is a string";
+let strLength: number = (<string>someValue).length;
+// or
+let strLength2: number = (someValue as string).length;
 ```
 
 ## Modules
 
+### Export
+
 ```ts
-export interface User { ... }
+export interface StringValidator {
+  isAcceptable(s: string): boolean;
+}
+
+export class ZipCodeValidator implements StringValidator {
+  isAcceptable(s: string) {
+    return s.length === 5;
+  }
+}
 ```
 
-## Type extraction
+### Import
 
 ```ts
-interface Building {
-  room: {
-    door: string;
-    walls: string[];
+import { ZipCodeValidator } from "./ZipCodeValidator";
+
+let myValidator = new ZipCodeValidator();
+```
+
+### Namespaces
+
+```ts
+namespace Validation {
+  export interface StringValidator {
+    isAcceptable(s: string): boolean;
+  }
+
+  export class LettersOnlyValidator implements StringValidator {
+    isAcceptable(s: string) {
+      return /^[A-Za-z]+$/.test(s);
+    }
+  }
+}
+
+let validator = new Validation.LettersOnlyValidator();
+```
+
+## Union and Intersection Types
+
+### Union Types
+
+```ts
+function padLeft(value: string, padding: string | number) {
+  if (typeof padding === "number") {
+    return Array(padding + 1).join(" ") + value;
+  }
+  if (typeof padding === "string") {
+    return padding + value;
+  }
+  throw new Error(`Expected string or number, got '${padding}'.`);
+}
+```
+
+### Intersection Types
+
+```ts
+interface ErrorHandling {
+  success: boolean;
+  error?: { message: string };
+}
+
+interface ArtworksData {
+  artworks: { title: string }[];
+}
+
+type ArtworksResponse = ArtworksData & ErrorHandling;
+
+const response: ArtworksResponse = {
+  success: true,
+  artworks: [{ title: "Mona Lisa" }],
+};
+```
+
+## Utility Types
+
+### Partial
+
+```ts
+interface User {
+  id: number;
+  name: string;
+  age: number;
+}
+
+let partialUser: Partial<User> = {
+  name: "Alice",
+};
+```
+
+### Readonly
+
+```ts
+let readonlyUser: Readonly<User> = {
+  id: 1,
+  name: "Bob",
+  age: 25,
+};
+
+// readonlyUser.age = 26; // Error: cannot reassign a readonly property
+```
+
+### Pick
+
+```ts
+type UserName = Pick<User, "name">;
+
+let userName: UserName = {
+  name: "Charlie",
+};
+```
+
+### Omit
+
+```ts
+type UserWithoutAge = Omit<User, "age">;
+
+let userWithoutAge: UserWithoutAge = {
+  id: 2,
+  name: "Dave",
+};
+```
+
+## Decorators
+
+### Class Decorator
+
+```ts
+function sealed(constructor: Function) {
+  Object.seal(constructor);
+  Object.seal(constructor.prototype);
+}
+
+@sealed
+class Greeter {
+  greeting: string;
+  constructor(message: string) {
+    this.greeting = message;
+  }
+  greet() {
+    return "Hello, " + this.greeting;
+  }
+}
+```
+
+### Method Decorator
+
+```ts
+function enumerable(value: boolean) {
+  return function (
+    target: any,
+    propertyKey: string,
+    descriptor: PropertyDescriptor,
+  ) {
+    descriptor.enumerable = value;
   };
 }
 
-type Walls = Building["room"]["walls"]; // string[]
+class Greeter {
+  greeting: string;
+  constructor(message: string) {
+    this.greeting = message;
+  }
+
+  @enumerable(false)
+  greet() {
+    return "Hello, " + this.greeting;
+  }
+}
 ```
 
-## Keyof Type Operator
+### Async/Await
 
 ```ts
-type Point = { x: number; y: number };
-
-type P = keyof Point; // x | y
+async function fetchData(url: string) {
+  let response = await fetch(url);
+  let data = await response.json();
+  return data;
+}
 ```
 
-## Conditinal Types
+## Also read
 
-```ts
-// SomeType extends OtherType ? TrueType : FalseType;
-
-type ToArray<T> = T extends any ? T[] : never;
-
-type StrArrOrNumArr = ToArray<string | number>; // string[] | number[]
-```
-
-### Inferring
-
-```ts
-type GetReturnType<T> = T extends (...args: unknown[]) => infer R ? R : never;
-
-type Num = GetReturnType<() => number>; // number
-```
-
-```ts
-type First<T extends Array<any>> = T extends [infer F, ...infer Rest]
-  ? F
-  : never;
-
-type Str = First<["hello", 1, false]>; // 'hello'
-```
-
-## Literal Type
-
-```ts
-const point = { x: 4, y: 2 }; // { x: number, y: number }
-
-const literalPoint = { x: 4, y: 2 } as const; // { readonly x: 4, readonly y: 2 };
-```
-
-## Template Literal Types
-
-````ts
-type SpaceChar = ' ' | '\n' | '\t';
-
-type TrimLeft<S extends string> = S extends `${SpaceChar}${infer Rest}` ? TrimLeft<Rest> : S;
-
-type Str = TrimLeft<'    hello'>; // 'hello'
-`eat `# Typescript
-````
+- [TypeScript](https://www.typescriptlang.org/docs/)

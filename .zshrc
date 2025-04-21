@@ -159,4 +159,4 @@ if [ -f '/Users/rahuldesar/google-cloud-sdk/completion.zsh.inc' ]; then . '/User
 
 export PATH=$PATH:/Users/rahuldesar/.spicetify
 
-
+export MANPAGER="nvim +Man!"

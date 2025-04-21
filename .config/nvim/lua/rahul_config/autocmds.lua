@@ -44,77 +44,110 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
 	desc = "Resize splits with terminal window",
 })
 
+vim.api.nvim_create_autocmd("User", {
+	pattern = "OilActionsPost",
+	callback = function(event)
+		if event.data.actions.type == "move" then
+			Snacks.rename.on_rename_file(event.data.actions.src_url, event.data.actions.dest_url)
+		end
+	end,
+})
+
 -- PERF: ============= ft Specifics  ============================
+-- TODO: ftplugin might be better place for these
 --- HACK: `<leader>pr` to run stuff (muscle memory from rust)
----
--- INFO: this might be better than current implementation for runner
--- vim.keymay.set("n", "<leader>pr", function()
--- 	local ft = vim.bo.filetype
--- 	if ft == "javascript" then
--- 		vim.cmd("!node %")
--- 	else
--- 		vim.cmd(':lua Print"not js file"')
--- 	end
--- end, { desc = "RUNNER", buffer = true })
 
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "markdown" },
-	callback = function()
-		vim.keymap.set("n", "<leader>pr", "<cmd>MarkdownPreviewToggle<CR>", { silent = true, buffer = true })
-		vim.keymap.set("n", "<leader>mve", "<cmd>Markview<CR>", { silent = true, buffer = true })
-		vim.keymap.set("n", "<leader>mvd", "<cmd>Markview Disable<CR>", { silent = true, buffer = true })
-	end,
-})
+-- vim.api.nvim_create_autocmd("FileType", {
+-- 	pattern = { "markdown" },
+-- 	callback = function()
+-- 		vim.keymap.set("n", "<leader>pr", "<cmd>MarkdownPreviewToggle<CR>", { silent = true, buffer = true })
+-- 		vim.keymap.set("n", "<leader>mve", "<cmd>Markview<CR>", { silent = true, buffer = true })
+-- 		vim.keymap.set("n", "<leader>mvd", "<cmd>Markview Disable<CR>", { silent = true, buffer = true })
+-- 	end,
+-- })
 
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "go" },
-	callback = function() vim.keymap.set("n", "<leader>doc", "<cmd>:GoDoc<CR>", { silent = true, buffer = true }) end,
-})
+-- vim.api.nvim_create_autocmd("FileType", {
+-- 	pattern = { "csv" },
+-- 	callback = function()
+-- 		vim.cmd(":CsvViewEnable display_mode=border comment=# header_lnum=1<CR>")
+-- 		vim.keymap.set(
+-- 			"n",
+-- 			"<leader>csv",
+-- 			":CsvViewToggle display_mode=border comment=# header_lnum=1<CR>",
+-- 			{ silent = true, buffer = true }
+-- 		)
+-- 	end,
+-- })
 
--- INFO: filetype specific keybindings
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "rust" },
-	callback = function()
-		vim.keymap.set("n", "<leader>pr", ":!cargo run<CR>", { desc = "Play Rust - cargo run", buffer = true })
-	end,
-})
+-- vim.api.nvim_create_autocmd("FileType", {
+-- 	pattern = { "go" },
+-- 	callback = function() vim.keymap.set("n", "<leader>doc", "<cmd>:GoDoc<CR>", { silent = true, buffer = true }) end,
+-- })
 
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "go" },
-	callback = function()
-		vim.keymap.set("n", "<leader>pr", ":!go run .<CR>", { desc = "Play Go - go run . ", buffer = true })
-	end,
-})
+-- -- INFO: filetype specific keybindings
+-- vim.api.nvim_create_autocmd("FileType", {
+-- 	pattern = { "rust" },
+-- 	callback = function()
+-- 		vim.keymap.set("n", "<leader>pr", ":!cargo run<CR>", { desc = "Play Rust - cargo run", buffer = true })
+-- 	end,
+-- })
 
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "lua" },
-	callback = function()
-		vim.keymap.set("n", "<leader>pr", "<cmd>!lua %<CR>", { desc = "Play lua - node run", buffer = true })
-	end,
-	-- group = group,
-})
+-- vim.api.nvim_create_autocmd("FileType", {
+-- 	pattern = { "go" },
+-- 	callback = function()
+-- 		vim.keymap.set("n", "<leader>pr", ":!go run %<CR>", { desc = "Play Go - go run current file ", buffer = true })
+-- 	end,
+-- })
+
+-- vim.api.nvim_create_autocmd("FileType", {
+-- 	pattern = { "lua" },
+-- 	callback = function()
+-- 		vim.keymap.set("n", "<leader>pr", "<cmd>!lua %<CR>", { desc = "Play lua - node run", buffer = true })
+-- 	end,
+-- 	-- group = group,
+-- })
 
 -- local group = vim.api.nvim_create_augroup("js_autostart", { clear = true })
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "javascript" },
-	callback = function()
-		vim.keymap.set("n", "<leader>pr", "<cmd>!node %<CR>", { desc = "Play Javascript - node run", buffer = true })
-		vim.keymap.set("n", "<leader>js", "<cmd>!node %<CR>", { desc = "Play Javascript - node run", buffer = true })
-	end,
-	-- group = group,
-})
-
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "typescript" },
-	callback = function()
-		-- TODO: change from bun to something better
-		vim.keymay.set("n", "<leader>pr", "<cmd>!bun %<CR>", { desc = "Play Typescript - bun run", silent = true })
-		-- map("n", "<leader>js", "<cmd>!bun %<CR>", { silent = true })
-	end,
-})
+-- vim.api.nvim_create_autocmd("FileType", {
+-- 	pattern = { "javascript" },
+-- 	callback = function()
+-- 		vim.keymap.set("n", "<leader>pr", "<cmd>!node %<CR>", { desc = "Play Javascript - node run", buffer = true })
+-- 		vim.keymap.set("n", "<leader>js", "<cmd>!node %<CR>", { desc = "Play Javascript - node run", buffer = true })
+-- 	end,
+-- 	-- group = group,
+-- })
+--
+-- vim.api.nvim_create_autocmd("FileType", {
+-- 	pattern = { "typescript" },
+-- 	callback = function()
+-- 		-- TODO: change from bun to something better
+-- 		vim.keymay.set("n", "<leader>pr", "<cmd>!bun %<CR>", { desc = "Play Typescript - bun run", silent = true })
+-- 		-- map("n", "<leader>js", "<cmd>!bun %<CR>", { silent = true })
+-- 	end,
+-- })
 
 -- WARN: ============= Testing  ============================
 -- HACK:  Might be harmful sometimes, but setting filetype 'bash' for every script is annoying
+
+-- HACK: I chatgpted this(with few modifications), but this works
+vim.api.nvim_create_user_command("GetDictionary", function()
+	local word = vim.fn.expand("<cword>")
+	if word == "" then
+		print("No word under cursor")
+		return
+	end
+
+	local output = vim.fn.system({ "/Users/rahuldesar/scripts/dict", word })
+	local contents = vim.split(output, "\n")
+	local bufnr, winid = vim.lsp.util.open_floating_preview(contents, "txt", { border = "rounded" })
+
+	-- Move cursor to the floating window
+	if winid and vim.api.nvim_win_is_valid(winid) then
+		vim.api.nvim_set_current_win(winid)
+	end
+end, {})
+vim.keymap.set({ "n" }, "<leader>mm", ":GetDictionary<CR>", { desc = "Get Meaning" })
+
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 	pattern = "*.sh",
 	command = "set filetype=bash",

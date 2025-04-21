@@ -5,11 +5,12 @@ vim.g.mapleader = " "
 -- FREE KEYTEST
 -- map("n", "<leader>doc", '<cmd>:lua print("hello") <CR>', { desc = "yo" })
 
-map("n", "<leader>b", vim.cmd.NvimTreeFindFileToggle, { desc = "Toggle File Explorer" })
+-- map("n", "<leader>b", vim.cmd.NvimTreeFindFileToggle, { desc = "Toggle File Explorer" })
 map("n", "<C-b>", vim.cmd.NvimTreeFindFileToggle, { desc = "Toggle File Explorer" })
 map("n", "<leader>\\", "Nop", { noremap = true, silent = true, desc = "Split Vertical" })
 map("n", "<leader>\\", ":vsp<CR>", { noremap = true, silent = true, desc = "Split Vertical" })
--- map("n", "<leader>so", ":source $MYVIMRC<CR>", { silent = true, desc = "Reload nvim config" })
+-- map("n", "<leader>zz", ":source $MYVIMRC<CR>", { silent = true, desc = "Reload nvim config" })
+map("n", "<leader>zz", ":source %<CR>", { silent = true, desc = "Reload nvim config" })
 --
 --map("n", "<leader>b", vim.cmd.Ex)
 
@@ -18,7 +19,10 @@ map("n", "<leader><S-Tab>", ":bprevious<CR>", { desc = "Previous Buffer", norema
 map("n", "]b", ":bnext<CR>", { desc = "Next Buffer", noremap = true, silent = true })
 map("n", "[b", ":bprevious<CR>", { desc = "Previous Buffer", noremap = true, silent = true })
 
-map("n", "<leader>x", ":bd!<CR>", { noremap = true, silent = true })
+map("n", "<leader>x", function()
+	vim.cmd("AerialClose")
+	vim.cmd("bd!")
+end, { noremap = true, silent = true })
 
 --vim.api.nvim_set_keymap('', '<C-w>', ':q<CR>', {noremap = true})
 

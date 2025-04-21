@@ -16,7 +16,6 @@ return {
 
 	-- { "folke/neodev.nvim", opts = {} },
 
-
 	{
 		"VonHeikemen/lsp-zero.nvim",
 		branch = "v1.x",

@@ -1,6 +1,5 @@
 local builtin = require("telescope.builtin")
 local map = vim.keymap.set
-local themes = require('telescope.themes')
 
 
 map("n", "<leader>?", builtin.oldfiles, { desc = "[?] Find recently opened files" })
@@ -29,7 +28,7 @@ map("n", "<leader>sv", builtin.vim_options, { desc = "[S]earch [V]im Options" })
 
 map('n', '<leader>Gc', builtin.git_commits, { desc = "Search [G]it [C]ommits" })
 map('n', '<leader>Gb', builtin.git_branches, { desc = "Search [G]it [B]ranches" })
-map('n', '<leader>Gs', builtin.git_status, { desc = "Search [G]it [S]tatus" })
+-- map('n', '<leader>Gs', builtin.git_status, { desc = "Search [G]it [S]tatus" })
 map('n', '<leader>Gg', builtin.git_stash, { desc = "Search [G]it Stash" })
 
 require('telescope').setup {

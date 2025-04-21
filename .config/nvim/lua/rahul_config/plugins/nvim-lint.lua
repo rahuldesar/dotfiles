@@ -23,6 +23,7 @@ return {
 			-- astro = { "eslint", "eslint_d" },
 			-- svelte = { "eslint", "eslint_d" },
 		}
+
 		local luacheck = require("lint").linters.luacheck
 		luacheck.args = {
 			"--globals",

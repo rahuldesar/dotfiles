@@ -174,7 +174,7 @@ lsp.on_attach(function(client, bufnr)
 	-- 	vim.lsp.buf.workspace_symbol()
 	-- end, opts)
 
-	vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end, { desc = "[C]ode [A]ction" })
+	-- vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end, { desc = "[C]ode [A]ction" })
 
 	-- buf_nnoremap { "<space>ca", vim.lsp.buf.code_action }
 	--  telescope_mapper("gr", "lsp_references", nil, true)
@@ -184,6 +184,17 @@ lsp.on_attach(function(client, bufnr)
 
 	vim.keymap.set("n", "<leader>ra", function() vim.lsp.buf.rename() end, opts)
 
+	local hover = vim.lsp.buf.hover
+	---@diagnostic disable-next-line: duplicate-set-field
+	vim.lsp.buf.hover = function()
+		return hover({
+			border = "rounded",
+			wrap_at = 120,
+			-- max_width = 100,
+			-- max_width = math.floor(vim.o.columns * 0.7),
+			-- max_height = math.floor(vim.o.lines * 0.7),
+		})
+	end
 	vim.keymap.set("n", "<leader>gh", vim.lsp.buf.hover, { noremap = true, silent = true })
 	vim.keymap.set({ "n" }, "<leader>gH", vim.lsp.buf.signature_help, { noremap = true, silent = true })
 	-- vim.keymap.set("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", { noremap = true, silent = true })
@@ -192,10 +203,10 @@ lsp.on_attach(function(client, bufnr)
 
 	--
 	-- TODO: make this work only on ts files
-	require("twoslash-queries").attach(client, bufnr)
-	vim.keymap.set("n", "<leader>ct", "<cmd>TwoslashQueriesEnable<CR>", {})
-	vim.keymap.set("n", "<leader>wt", "<cmd>TwoslashQueriesInspect<CR>", {})
-	vim.keymap.set("n", "<leader>dt", "<cmd>TwoslashQueriesRemove<CR>", {})
+	-- require("twoslash-queries").attach(client, bufnr)
+	-- vim.keymap.set("n", "<leader>ct", "<cmd>TwoslashQueriesEnable<CR>", {})
+	-- vim.keymap.set("n", "<leader>wt", "<cmd>TwoslashQueriesInspect<CR>", {})
+	-- vim.keymap.set("n", "<leader>dt", "<cmd>TwoslashQueriesRemove<CR>", {})
 end)
 
 -- require("lspconfig").tsserver.setup({

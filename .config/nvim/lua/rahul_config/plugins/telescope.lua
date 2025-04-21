@@ -27,6 +27,7 @@ return {
 		{ "nvim-telescope/telescope-ui-select.nvim" },
 		{ "nvim-tree/nvim-web-devicons" },
 		{ "benfowler/telescope-luasnip.nvim" },
+		{ "piersolenski/telescope-import.nvim" },
 		{ "nvim-telescope/telescope-smart-history.nvim" },
 		{ "kkharji/sqlite.lua" },
 		{
@@ -35,6 +36,7 @@ return {
 			version = "*",
 			config = function() require("telescope").load_extension("frecency") end,
 		},
+		{ "nvim-telescope/telescope-cheat.nvim" },
 	},
 
 	config = function()
@@ -62,6 +64,10 @@ return {
 			"<cmd>Telescope find_files hidden=true no_ignore=true<cr>",
 			{ desc = "[S]earch [F]iles" }
 		)
+
+		map("n", "<leader>Ch", ":Telescope cheat fd<cr>", { desc = "Search [Ch]eat" })
+
+		map("n", "<leader>im", "<cmd>Telescope import <cr>", { desc = "[S]earch [F]iles" })
 
 		-- "<cmd>Telescope find_files hidden=true no_ignore=true<cr>",
 		map("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
@@ -192,5 +198,7 @@ return {
 		pcall(require("telescope").load_extension, "luasnip")
 
 		pcall(require("telescope").load_extension("hierarchy"))
+		pcall(require("telescope").load_extension("import"))
+		pcall(require("telescope").load_extension("cheat"))
 	end,
 }

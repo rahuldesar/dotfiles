@@ -10,6 +10,7 @@ else
         ~/.config/custom-nvim/* \
         ~/.config/nvim-snippets/* \
         ~/Developer/Personal/* \
+        ~/Developer/Personal/career \
         ~/Developer/Personal/helpers \
         ~/Developer/Personal/learning \
         ~/Developer/Personal/learning/algorithms \
@@ -40,10 +41,11 @@ else
         ~/Developer/Personal/projects/advent-of-code \
         ~/Developer/Personal/projects/project-chrome-extensions \
         ~/Developer/Personal/reference/golang \
+        ~/Developer/Personal/reference/lua \
         ~/Developer/Workspace/* \
         ~/Developer/vaults \
         ~/Documents \
-        -mindepth 1 -maxdepth 1 -type d ! -name "node_modules" ! -name ".bare" \
+        -mindepth 1 -maxdepth 1 \( -type d -o -type l \) ! -name "node_modules" ! -name ".bare" \
         ;
       # find \
       #   -mindepth 1 -maxdepth 2 -type d ! -path '*/.*' ! -name "node_modules" \

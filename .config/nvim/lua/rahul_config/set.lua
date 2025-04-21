@@ -108,3 +108,10 @@ vim.cmd("set nofoldenable") -- Disable folding at startup
 -- set foldlevel=2
 --
 vim.cmd("set helpheight=9999")
+vim.cmd("set showbreak=↳\\")
+
+vim.filetype.add({
+	extension = {
+		["http"] = "http",
+	},
+})

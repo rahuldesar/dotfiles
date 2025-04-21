@@ -6,6 +6,11 @@ return {
 	-- https://github.com/lukas-reineke/lsp-format.nvim#how-do-i-use-format-options
 
 	config = function()
+		--[[ require("conform").formatters.sqlfmt = {
+			inherit = false,
+			command = "sqlfmt",
+			args = { "--verbose" },
+		} ]]
 		require("conform").setup({
 			formatters_by_ft = {
 				lua = { "stylua" },
@@ -23,6 +28,7 @@ return {
 				sh = { "shfmt" },
 				sql = { "sqlfmt" },
 				python = { "black" },
+				http = { "kulala-fmt" },
 			},
 		})
 
