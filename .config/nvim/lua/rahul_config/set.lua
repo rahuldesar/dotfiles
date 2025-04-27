@@ -91,7 +91,7 @@ vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 
-vim.opt.scrolloff = 5
+vim.opt.scrolloff = 8
 
 -- Set fold method and expression
 vim.cmd("set foldmethod=expr")

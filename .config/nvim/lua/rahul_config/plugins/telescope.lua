@@ -58,19 +58,20 @@ return {
 			{ desc = "[/] Fuzzily search in current buffer" }
 		)
 
-		map(
-			"n",
-			"<leader>ff",
-			"<cmd>Telescope find_files hidden=true no_ignore=true<cr>",
-			{ desc = "[S]earch [F]iles" }
-		)
+		map("n", "<leader>ff", function()
+			vim.cmd("normal! mF")
+			vim.cmd("Telescope find_files hidden=true no_ignore=true<cr>")
+		end, { desc = "[S]earch [F]iles" })
 
 		map("n", "<leader>Ch", ":Telescope cheat fd<cr>", { desc = "Search [Ch]eat" })
 
-		map("n", "<leader>im", "<cmd>Telescope import <cr>", { desc = "[S]earch [F]iles" })
+		map("n", "<leader>im", "<cmd>Telescope import <cr>", { desc = "Search [Im]port" })
 
 		-- "<cmd>Telescope find_files hidden=true no_ignore=true<cr>",
-		map("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
+		map("n", "<leader>sg", function()
+			vim.cmd("normal! mG")
+			builtin.live_grep()
+		end, { desc = "[S]earch by [G]rep" })
 		map("n", "<leader>sc", builtin.colorscheme, { desc = "[S]witch [C]olorscheme" })
 		map("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
 
@@ -117,7 +118,12 @@ return {
 			builtin.grep_string({ search = word })
 		end, { desc = "Search Word Under cursor Case seWsitive" })
 
-		map("n", "<leader>ps", function() builtin.grep_string({ search = vim.fn.input("Grep > ") }) end)
+		map(
+			"n",
+			"<leader>ps",
+			function() builtin.grep_string({ search = vim.fn.input("Grep > ") }) end,
+			{ desc = "Search [P]attern - grep_string" }
+		)
 
 		map(
 			"n",

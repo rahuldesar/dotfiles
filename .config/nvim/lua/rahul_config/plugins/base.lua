@@ -5,7 +5,7 @@ return {
 		config = function()
 			-- undotree_WindowLayout
 			vim.g.undotree_WindowLayout = 3
-			vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
+			vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle, { desc = "Toggle Undotree" })
 		end,
 	},
 
@@ -148,10 +148,10 @@ return {
 	},
 
 	-- TODO: Testing - maybe I'll remove this.
-	{
-		"windwp/nvim-autopairs",
-		config = function() require("nvim-autopairs").setup({}) end,
-	},
+	-- {
+	-- 	"windwp/nvim-autopairs",
+	-- 	config = function() require("nvim-autopairs").setup({}) end,
+	-- },
 	--
 
 	-- ========== Themes and Visuals ===========

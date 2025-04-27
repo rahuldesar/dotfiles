@@ -9,18 +9,27 @@ return {
 		dashboard = { enabled = false },
 		explorer = { enabled = false },
 		indent = { enabled = false },
-		input = { enabled = false },
+		input = { enabled = true, title_pos = "left", backdrop = true },
 		notifier = {
 			enabled = true,
 			timeout = 3000,
 			style = "compact",
 		},
 		picker = { enabled = true },
-		quickfile = { enabled = false },
+		image = {
+			enabled = true,
+			img_dirs = { "img", "images", "assets", "static", "public", "media", "attachments", "__public" },
+
+			doc = {
+				max_width = 120,
+				max_height = 45,
+			},
+		},
+		quickfile = { enabled = true },
 		scope = { enabled = false },
 		scroll = { enabled = false },
 		statuscolumn = { enabled = false },
-		words = { enabled = false },
+		words = { enabled = true },
 		styles = {
 			notification = {
 				-- wo = { wrap = true } -- Wrap notifications
@@ -39,7 +48,7 @@ return {
 			function() Snacks.picker.lsp_workspace_symbols() end,
 			desc = "Snacks Picker: LSP Workspace Symbols",
 		},
-		{ "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },
+		-- { "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },
 		{ "<leader>gb", function() Snacks.picker.git_branches() end, desc = "Git Branches" },
 		{ "<leader>gl", function() Snacks.picker.git_log() end, desc = "Git Log" },
 		{ "<leader>gL", function() Snacks.picker.git_log_line() end, desc = "Git Log Line" },
@@ -82,6 +91,7 @@ return {
 			desc = "Git Browse - GBrowse alternative snacks",
 			mode = { "n", "v" },
 		},
+		{ "<leader>sf", function() Snacks.picker.smart() end, desc = "Smart Find Files" },
 		-- { "<leader><space>", function() Snacks.picker.smart() end, desc = "Smart Find Files" },
 		-- { "<leader>Z", function() Snacks.zen() end, desc = "Toggle Zen Mode" },
 	},

@@ -45,9 +45,28 @@ local kind_icons = {
 
 return {
 	{
+		"github/copilot.vim",
+		cmd = "Copilot",
+		event = "BufWinEnter",
+		init = function() vim.g.copilot_no_maps = true end,
+		config = function()
+			-- Block the normal Copilot suggestions
+			vim.api.nvim_create_augroup("github_copilot", { clear = true })
+			vim.api.nvim_create_autocmd({ "FileType", "BufUnload" }, {
+				group = "github_copilot",
+				callback = function(args) vim.fn["copilot#On" .. args.event]() end,
+			})
+			vim.fn["copilot#OnFileType"]()
+		end,
+	},
+	{
 		"saghen/blink.cmp",
 		dependencies = {
+			{ "Kaiser-Yang/blink-cmp-git" },
+			{ "fang2hou/blink-copilot" },
 			{ "rafamadriz/friendly-snippets" },
+			{ "bydlw98/blink-cmp-env" },
+			{ "mgalliou/blink-cmp-tmux" },
 			{ "folke/lazydev.nvim", ft = "lua", opts = {} },
 			{ "Kaiser-Yang/blink-cmp-dictionary", dependencies = { "nvim-lua/plenary.nvim" } },
 		},
@@ -60,36 +79,85 @@ return {
 			},
 			keymap = {
 				preset = "default",
-				["<C-l>"] = { "snippet_forward", "fallback" },
-				["<C-h>"] = { "snippet_backward", "fallback" },
-				["<C-u>"] = { "scroll_documentation_up", "fallback" },
-				["<C-d>"] = { "scroll_documentation_down", "fallback" },
 				["<Tab>"] = {},
 				["<S-Tab>"] = {},
 				["<C-b>"] = {},
 				["<C-f>"] = {},
+				["<C-l>"] = { "snippet_forward", "fallback" },
+				["<C-h>"] = { "snippet_backward", "fallback" },
+				["<C-u>"] = { "scroll_documentation_up", "fallback" },
+				["<C-d>"] = { "scroll_documentation_down", "fallback" },
 			},
 
 			completion = {
 				documentation = { auto_show = true, auto_show_delay_ms = 300 },
 				ghost_text = { enabled = true },
-				menu = { draw = { treesitter = { "lsp" } } },
+				menu = {
+					draw = {
+						treesitter = { "lsp" },
+						columns = {
+
+							{ "label", "label_description", gap = 1 },
+							{ "kind_icon", "kind" },
+						},
+					},
+				},
 				list = { selection = { auto_insert = false } },
 			},
 			--  INFO: Luasnip loads snippets from ~/.config/nvim-snippets/ (setting in `lsp.lua`)
+			cmdline = { enabled = true, completion = { menu = { auto_show = true } } },
 			snippets = { preset = "luasnip" },
 			sources = {
 				-- , "dictionary"
-				default = { "lsp", "lazydev", "snippets", "buffer", "path" },
+				-- default = { "copilot" },
+				default = { "lsp", "buffer", "lazydev", "snippets", "tmux", "env", "path" },
 				per_filetype = {
-					sql = { "snippets", "dadbod", "buffer", "lsp" },
+					sql = { "snippets", "tmux", "copilot", "dadbod", "buffer", "lsp" },
+					gitcommit = { "snippets", "tmux", "git", "buffer", "lsp" },
 				},
-
 				providers = {
 					lazydev = {
 						name = "LazyDev",
 						module = "lazydev.integrations.blink",
 						score_offset = 100,
+					},
+
+					git = {
+						module = "blink-cmp-git",
+						name = "Git",
+						opts = {
+							-- options for the blink-cmp-git
+						},
+					},
+
+					env = {
+						name = "Env",
+						module = "blink-cmp-env",
+						opts = {
+							-- item_kind = require("blink.cmp.types").CompletionItemKind.Variable,
+							-- show_braces = false,
+							show_documentation_window = true,
+						},
+					},
+
+					tmux = {
+						module = "blink-cmp-tmux",
+						name = "tmux",
+						-- default options
+						opts = {
+							all_panes = true,
+							capture_history = false,
+							-- only suggest completions from `tmux` if the `trigger_chars` are
+							-- used
+							triggered_only = false,
+							trigger_chars = { "." },
+						},
+					},
+					copilot = {
+						name = "copilot",
+						module = "blink-copilot",
+						score_offset = 100,
+						async = true,
 					},
 
 					-- Database

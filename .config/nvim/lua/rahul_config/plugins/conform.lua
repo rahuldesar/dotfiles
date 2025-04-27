@@ -24,7 +24,7 @@ return {
 				go = { "gofumpt", "gofmt", lsp_format = "fallback" },
 				json = { "prettier", "prettierd", stop_after_first = true },
 				html = { "prettier", "prettierd", stop_after_first = true },
-				yaml = { "yamllint" },
+				yaml = { "prettier" },
 				sh = { "shfmt" },
 				sql = { "sqlfmt" },
 				python = { "black" },

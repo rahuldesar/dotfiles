@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+WORDLIST_PATH="/Users/rahuldesar/Developer/Personal/notes/wordlist.md"
+
 word="$1"
 
 if [ -z "$word" ]; then
@@ -15,11 +17,12 @@ if ! echo "$response" | jq -e '.[0].meanings' >/dev/null 2>&1; then
 fi
 
 # Add to wordlist if unique
-if ! grep -Fxq "$1" "/Users/rahuldesar/Developer/Personal/docs/wordlist.md"; then
-  echo "$1" >>"/Users/rahuldesar/Developer/Personal/docs/wordlist.md"
+if ! grep -Fxq "$1" "$WORDLIST_PATH"; then
+  echo "$1" >>"$WORDLIST_PATH"
 fi
 #
 # echo "$response" | jq -r '.[0].meanings[].definitions[].definition' | nl -w2 -s'. '
+#
 
 echo "** $1 **"
 echo "========="

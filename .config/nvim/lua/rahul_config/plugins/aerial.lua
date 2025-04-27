@@ -2,7 +2,10 @@ return {
 	{
 		"stevearc/aerial.nvim",
 		lazy = true,
+
 		opts = {
+			backends = { "treesitter", "lsp", "markdown", "asciidoc", "man" },
+
 			layout = {
 				-- These control the width of the aerial window.
 				-- They can be integers or a float between 0 and 1 (e.g. 0.4 for 40%)
@@ -35,42 +38,7 @@ return {
 			-- A list of all symbols to display. Set to false to display all symbols.
 			-- This can be a filetype map (see :help aerial-filetype-map)
 			-- To see all available values, see :help SymbolKind
-			-- Array
-			-- Boolean
-			-- Class
-			-- Constant
-			-- Constructor
-			-- Enum
-			-- EnumMember
-			-- Event
-			-- Field
-			-- File
-			-- Function
-			-- Interface
-			-- Key
-			-- Method
-			-- Module
-			-- Namespace
-			-- Null
-			-- Number
-			-- Object
-			-- Operator
-			-- Package
-			-- Property
-			-- String
-			-- Struct
-			-- TypeParameter
-			-- Variable
-			filter_kind = {
-				"Class",
-				"Constructor",
-				"Enum",
-				"Function",
-				"Interface",
-				"Module",
-				"Method",
-				"Struct",
-			},
+			filter_kind = false,
 		},
 		-- Optional dependencies
 		dependencies = {

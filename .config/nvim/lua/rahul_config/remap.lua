@@ -22,7 +22,7 @@ map("n", "[b", ":bprevious<CR>", { desc = "Previous Buffer", noremap = true, sil
 map("n", "<leader>x", function()
 	vim.cmd("AerialClose")
 	vim.cmd("bd!")
-end, { noremap = true, silent = true })
+end, { desc = "Close Buffer", noremap = true, silent = true })
 
 --vim.api.nvim_set_keymap('', '<C-w>', ':q<CR>', {noremap = true})
 
@@ -110,3 +110,17 @@ map("n", "-", "<C-^>")
 
 -- map("n", "<leader>z", "<C-w>o", { silent = true })
 --
+--
+
+-- vim.keymap.set("n", "ycc", "yygccp", { remap = true, desc = "Copy current line, comment it, paste it" })
+--
+vim.keymap.set(
+	"n",
+	"ycc",
+	'"yy" . v:count1 . "gcc\']p"',
+	{ remap = true, expr = true, desc = "Copy current line, comment it, paste it" }
+)
+vim.keymap.set("x", "/", "<Esc>/\\%V", { desc = "Search in visual mode" })
+
+--
+-- inoremap <c-l> <c-g>u<Esc>[s1z=gi<c-g>u

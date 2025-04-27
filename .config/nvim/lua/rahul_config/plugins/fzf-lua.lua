@@ -8,12 +8,6 @@ return {
 
 	vim.keymap.set(
 		"n",
-		"<leader>b",
-		function() vim.cmd(":lua require('fzf-lua').builtin()") end,
-		{ desc = "fzf builtins" }
-	),
-	vim.keymap.set(
-		"n",
 		"<C-g>",
 		function() vim.cmd(":lua require('fzf-lua').builtin()") end,
 		{ desc = "fzf builtins" }

@@ -83,7 +83,6 @@ vim.api.nvim_create_autocmd("User", {
 -- 	pattern = { "go" },
 -- 	callback = function() vim.keymap.set("n", "<leader>doc", "<cmd>:GoDoc<CR>", { silent = true, buffer = true }) end,
 -- })
-
 -- -- INFO: filetype specific keybindings
 -- vim.api.nvim_create_autocmd("FileType", {
 -- 	pattern = { "rust" },
@@ -91,7 +90,7 @@ vim.api.nvim_create_autocmd("User", {
 -- 		vim.keymap.set("n", "<leader>pr", ":!cargo run<CR>", { desc = "Play Rust - cargo run", buffer = true })
 -- 	end,
 -- })
-
+--
 -- vim.api.nvim_create_autocmd("FileType", {
 -- 	pattern = { "go" },
 -- 	callback = function()
@@ -128,6 +127,10 @@ vim.api.nvim_create_autocmd("User", {
 
 -- WARN: ============= Testing  ============================
 -- HACK:  Might be harmful sometimes, but setting filetype 'bash' for every script is annoying
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+	pattern = { "*.sh", ".zsh*", "*.zsh" },
+	command = "set filetype=bash",
+})
 
 -- HACK: I chatgpted this(with few modifications), but this works
 vim.api.nvim_create_user_command("GetDictionary", function()
@@ -141,17 +144,12 @@ vim.api.nvim_create_user_command("GetDictionary", function()
 	local contents = vim.split(output, "\n")
 	local bufnr, winid = vim.lsp.util.open_floating_preview(contents, "txt", { border = "rounded" })
 
-	-- Move cursor to the floating window
-	if winid and vim.api.nvim_win_is_valid(winid) then
-		vim.api.nvim_set_current_win(winid)
-	end
+	-- -- Move cursor to the floating window
+	-- if winid and vim.api.nvim_win_is_valid(winid) then
+	-- 	vim.api.nvim_set_current_win(winid)
+	-- end
 end, {})
 vim.keymap.set({ "n" }, "<leader>mm", ":GetDictionary<CR>", { desc = "Get Meaning" })
-
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-	pattern = "*.sh",
-	command = "set filetype=bash",
-})
 
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 	pattern = "*.env*",
@@ -201,8 +199,10 @@ vim.api.nvim_create_autocmd({ "WinEnter" }, {
 -- 	command = ":set cmdheight=2",
 -- })
 --
--- vim.api.nvim_create_autocmd("CmdlineLeave", {
--- 	group = vim.api.nvim_create_augroup("gmr_cmdheight_0_on_cmdlineleave", { clear = true }),
--- 	desc = "Hide cmdline when not typing a command",
--- 	command = ":set cmdheight=1",
+-- vim.API.vim_create_AutoCAD("Midline Leave", {
+-- 	group = vim.API.vim_create_au group("mgr_cm height_0_on_midline leave", { clear = true }),
+-- 	desk = "Hide codling when not typing a command",
+-- 	command = ":set cm height=1",
 -- })
+--
+--
