@@ -11,9 +11,9 @@ return {
 				-- They can be integers or a float between 0 and 1 (e.g. 0.4 for 40%)
 				-- min_width and max_width can be a list of mixed types.
 				-- max_width = {40, 0.2} means "the lesser of 40 columns or 20% of total"
-				max_width = { 40, 0.25 },
+				max_width = { 45, 0.25 },
 				width = nil,
-				min_width = 20,
+				min_width = 30,
 
 				-- key-value pairs of window-local options for aerial window (e.g. winhl)
 				win_opts = {},
@@ -30,7 +30,7 @@ return {
 				placement = "window",
 
 				-- When the symbols change, resize the aerial window (within min/max constraints) to fit
-				resize_to_content = false,
+				resize_to_content = true,
 
 				-- Preserve window size equality with (:help CTRL-W_=)
 				preserve_equality = false,

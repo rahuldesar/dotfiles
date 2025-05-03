@@ -3,7 +3,6 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 
-alias cls="clear"
 function mcd() { mkdir -p "$1" && cd "$1"; }
 
 ghd() {
@@ -41,7 +40,9 @@ alias wget='wget -c'
 
 # Editor Bindings
 alias vim='nvim'
-alias c='code .'
+alias cls="clear"
+alias c='clear'
+# alias c='code .'
 
 # Prompt before file changes
 alias cp='cp -i'
@@ -51,9 +52,6 @@ alias rm='rm -i'
 # Get External IP / Internet Speed
 alias myip="curl https://ipinfo.io/json" # or /ip for plain-text ip
 alias speedtest="curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python3 -"
-
-alias ctrue="ssh root@49.13.76.136"
-alias ctruep="ssh root@128.140.58.77"
 
 # Kill all the tabs in Chrome to free up memory
 # [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
@@ -76,4 +74,26 @@ function yc() {
   cd ~
   yadm enter lazygit
   cd -
+}
+
+alias a="alias | fzf"
+alias e="export | fzf"
+
+s() {
+  echo "sourcing ~/.zshrc"
+  source ~/.zshrc
+  echo "source complete"
+}
+
+# yy() {
+#   yt-dlp "$1" -J --flat-playlist --extractor-args "youtubetab:approximate_date" --playlist-start 1 --playlist-end 30 --cookies-from-browser "chrome:Profile_1" |
+#     jq -r ".entries | map(keys)[1][]" >/tmp/yt-output.json
+#
+#   echo -e "__x_forwarded_for_ip\n_type\navailability\nchannel\nchannel_id\nchannel_is_verified\nchannel_url\ndescription\nduration\nid\nie_key\nlive_status\nrelease_timestamp\nthumbnails\ntimestamp\ntitle\nuploader\nuploader_id\nuploader_url\nurl\nview_count" >/tmp/yt-predefined_keys.txt
+#
+#   nvim -d /tmp/yt-predefined_keys.txt /tmp/yt-output.json
+# }
+
+yy() {
+  yt-dlp "$1" -J --flat-playlist --extractor-args "youtubetab:approximate_date" --playlist-start 1 --playlist-end 30 --cookies-from-browser "chrome:Profile_1"
 }

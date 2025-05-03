@@ -1,6 +1,7 @@
 return {
 	{
 		"olimorris/codecompanion.nvim",
+		event = "BufEnter",
 		opts = {},
 		dependencies = {
 			"nvim-lua/plenary.nvim",

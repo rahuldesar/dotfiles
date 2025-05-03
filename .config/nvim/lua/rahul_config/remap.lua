@@ -46,7 +46,9 @@ map("n", "<leader>Y", [["+Y]], { desc = "[Y]ank whole line to Clipboard" })
 
 map("n", "Q", "<nop>")
 map("n", "<C-z>", "<nop>")
-map("n", "<C-f>", "<cmd>!tmux neww tmux-sessionizer<CR>")
+
+-- INFO: just use mapping for tmux
+-- map("n", "<C-f>", "<cmd>!tmux neww tmux-sessionizer<CR>")
 
 map("n", "<leader>ee", "oif err != nil {<CR>}<Esc>Oreturn err<Esc>")
 

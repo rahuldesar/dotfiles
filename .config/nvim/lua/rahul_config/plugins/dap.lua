@@ -1,17 +1,18 @@
--- USE WHEN NEEDED
+-- INFO:USE WHEN NEEDED
 -- Disabled DAP for better startup time
 local set = vim.keymap.set
 
 return {
 	{
 		"mfussenegger/nvim-dap",
+		enabled = false,
 		event = "VeryLazy",
 
 		dependencies = {
 			{ "mxsdev/nvim-dap-vscode-js" },
 			{ "leoluz/nvim-dap-go" },
 			{ "nvim-neotest/nvim-nio" },
-			{ "rcarriga/nvim-dap-ui" },
+			{ "rcarriga/nvim-dap-ui" }, -- TODO: this looks good too, https://github.com/igorlfs/nvim-dap-view
 			{ "theHamsta/nvim-dap-virtual-text" },
 			{ "nvim-telescope/telescope-dap.nvim" },
 		},

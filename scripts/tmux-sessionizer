@@ -27,9 +27,9 @@ else
         ~/Developer/Personal/learning/homelab \
         ~/Developer/Personal/learning/htmx \
         ~/Developer/Personal/learning/lua/love2d \
-        ~/Developer/Personal/learning/mooc \
         ~/Developer/Personal/learning/mega-repo \
         ~/Developer/Personal/learning/mega-repo/lang \
+        ~/Developer/Personal/learning/mooc \
         ~/Developer/Personal/learning/nvim \
         ~/Developer/Personal/learning/rust \
         ~/Developer/Personal/learning/rust-by-examples \
@@ -37,9 +37,12 @@ else
         ~/Developer/Personal/learning/todo-k8 \
         ~/Developer/Personal/learning/tui \
         ~/Developer/Personal/learning/vagrant \
+        ~/Developer/Personal/open-source \
+        ~/Developer/Personal/open-source/neovim \
         ~/Developer/Personal/projects \
         ~/Developer/Personal/projects/advent-of-code \
         ~/Developer/Personal/projects/project-chrome-extensions \
+        ~/Developer/Personal/projects/golang \
         ~/Developer/Personal/reference/golang \
         ~/Developer/Personal/reference/lua \
         ~/Developer/Workspace/* \

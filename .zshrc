@@ -20,7 +20,7 @@ zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
-zinit light reegnz/jq-zsh-plugin
+# zinit light reegnz/jq-zsh-plugin
 
 
 zinit snippet OMZP::command-not-found
@@ -50,6 +50,11 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 
 # Custom aliases 
 for file in ~/.config/aliases/*; do
+    source "$file"
+done
+
+# Completions
+for file in ~/.config/completions/*; do
     source "$file"
 done
 
@@ -83,6 +88,8 @@ eval $(thefuck --alias f)
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
+
+# eval "$(glow completion zsh)"
 
 # pnpm
 export PNPM_HOME="/Users/rahuldesar/Library/pnpm"
@@ -128,7 +135,7 @@ bindkey -v
 bindkey '^y' autosuggest-accept
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
-bindkey '^j' jq-repl
+# bindkey '^j' jq-repl
 bindkey '^[w' kill-region
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
@@ -149,7 +156,9 @@ fi
 PATH=~/.console-ninja/.bin:$PATH
 complete -C '/usr/local/bin/aws_completer' aws
 
-cheat() { curl "https://cheat.sh/$1"}
+cheat() { 
+  curl "https://cheat.sh/$1" 
+}
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/rahuldesar/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/rahuldesar/google-cloud-sdk/path.zsh.inc'; fi
@@ -157,6 +166,13 @@ if [ -f '/Users/rahuldesar/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/rahu
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/rahuldesar/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/rahuldesar/google-cloud-sdk/completion.zsh.inc'; fi
 
+type starship_zle-keymap-select >/dev/null || \
+  {
+    echo "Load starship"
+    eval "$(/usr/local/bin/starship init zsh)"
+  }
+
 export PATH=$PATH:/Users/rahuldesar/.spicetify
+export FZF_DEFAULT_OPTS="--bind ctrl-u:preview-up,ctrl-b:preview-down"
 
 export MANPAGER="nvim +Man!"

@@ -1,4 +1,4 @@
-vim.keymay.set(
+vim.keymap.set(
 	"n",
 	"<leader>pr",
 	"<cmd>!bun %<CR>",

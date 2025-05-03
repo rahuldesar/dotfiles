@@ -22,7 +22,7 @@ return {
 		dependencies = {
 			-- Lsp
 			{ "neovim/nvim-lspconfig" },
-			{ "marilari88/twoslash-queries.nvim" },
+			-- { "marilari88/twoslash-queries.nvim" },
 			{ "williamboman/mason.nvim" },
 			{ "williamboman/mason-lspconfig.nvim" },
 			{
@@ -164,22 +164,24 @@ return {
 		config = function()
 			vim.cmd("colorscheme catppuccin")
 			require("catppuccin").setup({
+				no_italic = true,
+
 				integrations = {
-					aerial = true,
+					-- aerial = true,
 					blink_cmp = true,
-					cmp = true,
-					dropbar = {
-						enabled = true,
-						color_mode = true, -- enable color for kind's texts, not just kind's icons
-					},
-					gitsigns = true,
-					nvimtree = true,
-					treesitter = true,
-					notify = false,
-					mini = {
-						enabled = true,
-						indentscope_color = "",
-					},
+					-- cmp = true,
+					-- dropbar = {
+					-- 	enabled = true,
+					-- 	color_mode = true, -- enable color for kind's texts, not just kind's icons
+					-- },
+					-- gitsigns = true,
+					-- nvimtree = true,
+					-- treesitter = true,
+					-- notify = false,
+					-- mini = {
+					-- 	enabled = true,
+					-- 	indentscope_color = "",
+					-- },
 				},
 			})
 			vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#f9e2af", bold = true })
@@ -222,7 +224,7 @@ return {
 			vim.keymap.set("n", "<leader>Gd", vim.cmd.Gvdiffsplit, { desc = "[G]it [D]iff :Gvdiffsplit" })
 			vim.keymap.set("n", "<leader>Gs", function()
 				vim.cmd("vertical Git")
-				vim.cmd("vert resize 50")
+				vim.cmd("vert resize 70")
 			end, { desc = "Open Fugitive in vertical split with width 80" })
 
 			vim.keymap.set(

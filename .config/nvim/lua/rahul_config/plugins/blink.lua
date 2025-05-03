@@ -66,7 +66,6 @@ return {
 			{ "fang2hou/blink-copilot" },
 			{ "rafamadriz/friendly-snippets" },
 			{ "bydlw98/blink-cmp-env" },
-			{ "mgalliou/blink-cmp-tmux" },
 			{ "folke/lazydev.nvim", ft = "lua", opts = {} },
 			{ "Kaiser-Yang/blink-cmp-dictionary", dependencies = { "nvim-lua/plenary.nvim" } },
 		},
@@ -95,8 +94,8 @@ return {
 				menu = {
 					draw = {
 						treesitter = { "lsp" },
+						-- similar to nvim-cmp styling
 						columns = {
-
 							{ "label", "label_description", gap = 1 },
 							{ "kind_icon", "kind" },
 						},
@@ -110,10 +109,11 @@ return {
 			sources = {
 				-- , "dictionary"
 				-- default = { "copilot" },
-				default = { "lsp", "buffer", "lazydev", "snippets", "tmux", "env", "path" },
+				-- "env",
+				default = { "lsp", "buffer", "lazydev", "snippets", "path" },
 				per_filetype = {
-					sql = { "snippets", "tmux", "copilot", "dadbod", "buffer", "lsp" },
-					gitcommit = { "snippets", "tmux", "git", "buffer", "lsp" },
+					sql = { "snippets", "copilot", "dadbod", "buffer", "lsp" },
+					gitcommit = { "snippets", "git", "buffer", "lsp" },
 				},
 				providers = {
 					lazydev = {
@@ -140,19 +140,6 @@ return {
 						},
 					},
 
-					tmux = {
-						module = "blink-cmp-tmux",
-						name = "tmux",
-						-- default options
-						opts = {
-							all_panes = true,
-							capture_history = false,
-							-- only suggest completions from `tmux` if the `trigger_chars` are
-							-- used
-							triggered_only = false,
-							trigger_chars = { "." },
-						},
-					},
 					copilot = {
 						name = "copilot",
 						module = "blink-copilot",
