@@ -1,0 +1,96 @@
+#!/bin/bash
+# FZF through multiple dirs and play using IINA (mac) / mpv (linux).
+
+DEFAULT_MEDIA_PLAYER=$([[ "$OSTYPE" == "darwin"* ]] && echo "iina" || echo "mpv")
+
+# iina in `symlinked` in `~/.local/bin`
+MEDIA_PLAYER=${player:-$DEFAULT_MEDIA_PLAYER}
+if ! command -v "$MEDIA_PLAYER" &>/dev/null; then
+  echo -e "\033[31mError:\033[0m '$MEDIA_PLAYER' is required but not installed."
+  exit 1
+fi
+
+search_dirs=(
+  "${MEDIA_DIR}"
+  "${HOME}/Downloads/Media Library"
+  ~/local-mounts/media/jdownloads
+  ~/local-mounts/jellyfin
+  ~/local-mounts/torrent/radarr
+  # /Volumes/HDD/media
+
+)
+
+play() {
+  if [[ "$MEDIA_PLAYER" == "iina" ]]; then
+    open -a IINA "$1" >/dev/null 2>&1
+  else
+    mpv "$1" >/dev/null 2>&1
+  fi
+}
+
+while getopts ":ht" flag; do
+  case $flag in
+  h)
+    echo "'jelly -t' for tree view"
+    echo "'jelly' for normal usage"
+    exit 0
+    ;;
+  t)
+    selected_item=$(
+      find "${search_dirs[@]}" -mindepth 0 -maxdepth 0 -type d ! -path '*/.*' | fzf --preview "tree -dC {}  -L 1" --bind ctrl-u:preview-up,ctrl-b:preview-down
+    )
+
+    while [ -n "$selected_item" ]; do
+      if [ -d "$selected_item" ]; then
+        selected_item=$(
+          find "$selected_item" -mindepth 1 -maxdepth 1 \( -type d -o \( -type f \( \
+            -iname "*.mp4" -o -iname "*.mkv" -o -iname "*.avi" \
+            -o -iname "*.mov" -o -iname "*.webm" -o -iname "*.mp3" \) \
+            \) \) \
+            ! -path '*/.*' |
+            sort |
+            fzf --preview "tree -C {} -L 2" --bind ctrl-u:preview-up,ctrl-b:preview-down
+        )
+      else
+        play "$selected_item"
+        break
+      fi
+    done
+
+    if [ -z "$selected_item" ]; then
+      echo "No item selected."
+    fi
+    exit 0
+    ;;
+  \?)
+    # Handle invalid options
+    echo -e "\033[31mError:\033[0m use 'jelly -h' for help"
+    exit 0
+    ;;
+  esac
+done
+
+if [[ $# -eq 1 ]]; then
+  selected=$1
+else
+  selected=$(
+    fd \
+      --extension mp4 --extension mkv --extension avi --extension mov --extension webm \
+      --extension mp3 \
+      . "${search_dirs[@]}" \
+      --exec stat --format='%Y %n' {} \; |
+      sort -rn |
+      cut -d' ' -f2- |
+      fzf --preview 'mediainfo {}'
+  )
+  # selected=$(find "${search_dirs[@]}" -type f \
+  #   \( -iname "*.mp4" -o -iname "*.mkv" -o -iname "*.avi" \
+  #   -o -iname "*.mov" -o -iname "*.webm" -o -iname "*.mp3" \) |
+  #   fzf)
+fi
+
+if [[ -z $selected ]]; then
+  exit 0
+fi
+
+play "$selected"

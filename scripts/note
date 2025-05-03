@@ -1,0 +1,88 @@
+#!/bin/bash
+
+# Saves a quick note to markdown file provided by `$QUICKNOTE_PATH`
+# UI uses gum - input, write, confirm
+# Optional: Prettier, to format the code ( prettier used in this script was installed using mason )
+
+fg="#f5e0dc"
+bg="#1e1e2e"
+border_fg="#cba6f7"
+
+prompt_fg="#f2cdcd"
+cursor_fg="#cba6f7"
+timestamp=$(date +"%Y-%m-%d at %I:%M:%S %p")
+
+gum style \
+  --foreground "$fg" \
+  --background "$bg" \
+  --border-foreground "$border_fg" \
+  --border double \
+  --align center \
+  --width 60 \
+  --padding "0 6" \
+  --margin "1 0" \
+  "✨   Quick Note ✨"
+
+topic=$(gum input \
+  --placeholder "Topic for your note" \
+  --prompt.foreground "$prompt_fg" \
+  --cursor.foreground "$cursor_fg" \
+  --width 50)
+
+topic=${topic:-Quickie}
+
+# WARN: ctrl + j is binded in tmux. so changing line doesn't work
+description=$(gum write \
+  --placeholder "Write your quick note here..." \
+  --prompt.foreground "$prompt_fg" \
+  --cursor.foreground "$cursor_fg" \
+  --cursor.mode="blink" \
+  --width 70 \
+  --height 3)
+
+description=${description:-$topic}
+
+markdown_note=$(
+  cat <<EOF
+---
+
+## $topic  
+
+󰥔  **$timestamp**
+
+$description
+EOF
+)
+
+outputHeading() {
+  gum style --bold --foreground "$border_fg" "$1"
+}
+
+echo "$(outputHeading Topic): $topic"
+echo "$(outputHeading Time): $timestamp"
+echo "$(outputHeading Description):"
+echo "$description"
+
+gum confirm "Save Note?" && echo "$markdown_note" >>"$QUICKNOTE_PATH" && gum style \
+  --border double \
+  --padding "0 4" \
+  --margin "1 0" \
+  --width 60 \
+  --align center \
+  --foreground "#a6e3a1" \
+  --border-foreground "$border_fg" \
+  "  Note saved" || gum style \
+  --border double \
+  --padding "0 4" \
+  --margin "1 0" \
+  --width 60 \
+  --align center \
+  --foreground "#f38ba8" \
+  --border-foreground "$border_fg" \
+  "  Note cancelled"
+
+prettier_path="$HOME/.local/share/nvim/mason/bin/prettier"
+
+if [ -x "$prettier_path" ]; then
+  "$prettier_path" "$QUICKNOTE_PATH" -w --log-level silent
+fi
